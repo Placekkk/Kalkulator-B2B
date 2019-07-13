@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+table {
+    display: block;
+    border-collapse: collapse;
+    border: 1px solid black;
+    widtH: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+th, td {
+    border: 1px solid black;
+    width: 100px;
+    padding: 0 5px 0 5px;
+}
+
+.advanced-holder {
+    margin-top: 100px;
+}
