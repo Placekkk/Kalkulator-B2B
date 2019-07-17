@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 
 class MainCalc extends React.Component {
     render() {
@@ -12,12 +14,12 @@ class MainCalc extends React.Component {
 
                         <div className={'uop-holder'}>
 
-                            <h3>Umowa o prace</h3>
+                            <h3>{this.props.result}</h3>
 
                             <div className={'amount-holder'}>
                                 <p className={'fancy-text'}>Wpisz kwote</p>
                                 <label>
-                                    <input className={'fancy-input'}/>
+                                    <input className={'fancy-input'} onChange={this.props.changeHandler}/>
                                 </label>
 
                                 <select className={'fancy-select'}>
@@ -120,4 +122,22 @@ class MainCalc extends React.Component {
     }
 }
 
-export default MainCalc;
+const mapStateToProps = (state) => {
+    return {
+        result: state.result
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeHandler: (e) => {
+            const action = { type: 'CHANGEDRESULT', result: e.target.value};
+            dispatch(action);
+            console.log(e.target.value)
+        }
+    }
+};
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainCalc);

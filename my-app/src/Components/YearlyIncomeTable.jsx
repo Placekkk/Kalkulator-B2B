@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class TableRowBasic extends React.Component{
     render() {
         return (
@@ -39,7 +40,10 @@ class YearlyIncomeTable extends React.Component {
             <div className={'advanced-holder'}>
                 <table>
 
-                    <thead>
+
+                    <tbody>
+
+                    <tr>
                         <th>Miesiac</th>
                         <th>Skladka Emerytalna</th>
                         <th>Skladka Rentowa</th>
@@ -55,21 +59,20 @@ class YearlyIncomeTable extends React.Component {
                         <th>Kwota Netto</th>
                         <th>Kwota Brutto sum</th>
                         <th>Podstawa do opodatkowania sum</th>
-                    </thead>
+                    </tr>
 
-                    <tbody>
-                        <TableRowBasic month={'Styczen'} result={342}/>
-                        <TableRowBasic month={'Luty'} result={342}/>
-                        <TableRowBasic month={'Marzec'} result={342}/>
-                        <TableRowBasic month={'Kwiecien'} result={342}/>
-                        <TableRowBasic month={'Maj'} result={342}/>
-                        <TableRowBasic month={'Czerwiec'} result={342}/>
-                        <TableRowBasic month={'Lipiec'} result={342}/>
-                        <TableRowBasic month={'Sierpien'} result={342}/>
-                        <TableRowBasic month={'Wrzesien'} result={342}/>
-                        <TableRowBasic month={'Pazdziernik'} result={342}/>
-                        <TableRowBasic month={'Listopad'} result={342}/>
-                        <TableRowBasic month={'Grudzien'} result={342}/>
+                    <TableRowBasic month={'Styczen'} result={342}/>
+                    <TableRowBasic month={'Luty'} result={342}/>
+                    <TableRowBasic month={'Marzec'} result={342}/>
+                    <TableRowBasic month={'Kwiecien'} result={342}/>
+                    <TableRowBasic month={'Maj'} result={342}/>
+                    <TableRowBasic month={'Czerwiec'} result={342}/>
+                    <TableRowBasic month={'Lipiec'} result={342}/>
+                    <TableRowBasic month={'Sierpien'} result={342}/>
+                    <TableRowBasic month={'Wrzesien'} result={342}/>
+                    <TableRowBasic month={'Pazdziernik'} result={342}/>
+                    <TableRowBasic month={'Listopad'} result={342}/>
+                    <TableRowBasic month={'Grudzien'} result={342}/>
                     </tbody>
                 </table>
             </div>
