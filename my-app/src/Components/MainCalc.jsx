@@ -14,7 +14,7 @@ class MainCalc extends React.Component {
 
                         <div className={'uop-holder'}>
 
-                            <h3>{this.props.result}</h3>
+                            <h3>Umowa o prace</h3>
 
                             <div className={'amount-holder'}>
                                 <p className={'fancy-text'}>Wpisz kwote</p>
@@ -122,13 +122,13 @@ class MainCalc extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
     return {
         result: state.result
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
     return {
         changeHandler: (e) => {
             const action = { type: 'CHANGEDRESULT', result: e.target.value};

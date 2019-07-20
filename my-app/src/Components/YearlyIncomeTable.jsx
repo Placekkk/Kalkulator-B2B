@@ -5,7 +5,7 @@ class TableRowBasic extends React.Component{
     render() {
         return (
             <tr>
-                <td>{this.props.month}</td>
+                <td className={'sticky-element'}>{this.props.month}</td>
                 <td>{this.props.result / 2}</td>
                 <td>{this.props.result / 2}</td>
                 <td>{this.props.result / 2}</td>
@@ -37,14 +37,17 @@ class YearlyIncomeTable extends React.Component {
         return (
 
 
-            <div className={'advanced-holder'}>
-                <table>
+            <div className={'yearly-income-table-holder'}>
+
+                <h3>Roczna tabela dochodow</h3>
+
+                <table className={'yearly-table'}>
 
 
                     <tbody>
 
                     <tr>
-                        <th>Miesiac</th>
+                        <th className={'sticky-element'}>Miesiac</th>
                         <th>Skladka Emerytalna</th>
                         <th>Skladka Rentowa</th>
                         <th>Skladka Chorobowa</th>

@@ -5,22 +5,29 @@
     font-family: sans-serif;
 }
 
-table {
+.yearly-table {
     display: block;
     border-collapse: collapse;
-    border: 1px solid black;
-    widtH: 1200px;
+    width: 100%;
+    height: 620px;
     margin: 0 auto;
     overflow-x: auto;
+    overflow-y: visible;
     white-space: nowrap;
+    color: white;
 }
 
-th, td {
+.yearly-table>tbody>tr>th, .yearly-table>tbody>tr>td {
     border: 1px solid black;
     width: 100px;
+    height: 2em;
     padding: 0 5px 0 5px;
+    font-weight: 500;
+    text-align: center;
+    background-color: rgba(20, 20, 20, .2);
+
 }
 
-.advanced-holder {
-    margin-top: 100px;
+.yearly-income-table-holder {
 }
+
