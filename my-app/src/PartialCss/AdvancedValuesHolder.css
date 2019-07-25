@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.table-advanced-holder {
+    display: none;
+}
+
 .advanced-values-holder {
     background: transparent;
     height: 100%;
@@ -31,10 +35,23 @@
     border-left: 1px solid rgba(10, 180, 180, 1);
     border-right: 1px solid rgba(10, 180, 180, 1);
     border-bottom: none;
+    color: white;
+    position: relative;
+    outline: none;
 }
 
+.advanced-button-holder>button:before {
+    content: '';
+    widtH: 301px;
+    height: 50px;
+    background-color: white;
+    position: absolute;
+    top: -50px;
+    left: -1px;
+}
+
+
 .advanced-button-holder>button:first-child {
-    border-top-left-radius: 10px;
     background-color: transparent;
     color: white;
 }
@@ -50,7 +67,6 @@
 }
 
 .advanced-button-holder>button:last-child {
-    border-top-right-radius: 10px;
     height: 70%;
     border-left: none;
 
@@ -71,5 +87,7 @@
     height: 620px;
     margin: 0 auto;
     margin-bottom: 100px;
+
+
 }
 

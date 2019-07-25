@@ -3,7 +3,7 @@ import React from 'react';
 class Gibs extends React.Component {
     render() {
         return (
-            <div>
+            <div className={'gibs'}>
 
                 <h3>Porownanie zasilku chorobowego przy wlasnej dzialalnosci i umowie o prace</h3>
 
@@ -25,51 +25,44 @@ class Gibs extends React.Component {
                     <div className={'compare-holder-uop'}>
 
                         <div className={'basic-holder'}>
-                            <p className={'fancy-text enlarged-text'}>Podstawa</p>
+                            <p className={'result-text'}>Podstawa</p>
                             <br/>
-                            <p className={'fancy-text result-text enlarged-text'}>2250zl</p>
+                            <p className={'result-text'}>2250zl</p>
                         </div>
 
-                        <p className={'fancy-text result-text'}>1951,43 {'\x3C'} -- minus 13,71%</p>
 
-                        <p className={'fancy-text result-text'}>1553,22zl - 1951,43 {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu</p>
+                        <div className={'basic-holder-line'}>
+                        <p className={'result-text '}>1951,43 {'\x3C'} -- minus 13,71%</p>
+                        </div>
 
+                        <div className={'basic-holder-line'}>
+                        <p className={'result-text'}>1553,22zl - 1951,43 {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu</p>
+                        </div>
 
-                        <div className={'basic-holder-bottom-flex'}>
-                            <div className={'basic-holder'}>
-                                <p className={'fancy-text'}>Za kazdy dzien nieobecnosci pracownik dostanie</p>
+                        <div className={'basic-holder'}>
 
-                                <p className={'fancy-text result-text'}>51,77zl</p>
-                            </div>
+                                <p className={'result-text-fit'}>Za kazdy dzien nieobecnosci pracownik dostanie</p>
+                                <p className={'result-text-fit'}>51,77zl</p>
+
                         </div>
 
                     </div>
 
                     <div className={'compare-holder-b2b'}>
                         <div className={' basic-holder'}>
-                            <p className={'fancy-text enlarged-text'}>Podstawa</p>
-                            <p className={'fancy-text enlarged-text result-text'}>650zl</p>
+                            <p className={'result-text'}>Podstawa</p>
+                            <p className={'result-text'}>650zl</p>
                         </div>
 
-                        <p className={'fancy-text result-text'}>528,46zl {'\x3C'}-- minus 13,71%</p>
-                        <p className={'fancy-text result-text'}>465,97zl {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu)</p>
+                        <div className={'basic-holder-col'}>
+                        <p className={'result-text'}>528,46zl {'\x3C'}-- minus 13,71%</p>
+                        <p className={'result-text'}><span className={'money-display'}>465,97zl</span> {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu)</p>
+                        </div>
 
-                        <div className={'basic-holder-bottom-flex'}>
-
-                            <div className={'basic-holder'}>
-                                <p className={'fancy-text'}>Za kazdy dzien nieobecnosci pracownik dostanie</p>
-
-                                <p className={'fancy-text result-text'}>15,53zl</p>
-                            </div>
-
-                            <br/>
-
-                            <div className={'basic-holder'}>
-                                <p className={'fancy-text'}>Razem na dzien</p>
-
-                                <p className={'fancy-text result-text'}>22,65zl</p>
-                            </div>
-
+                        <div className={'basic-holder-col'}>
+                            <p className={'result-text-fit'}>Za kazdy dzien nieobecnosci przedsiebiorca dostanie 15,53</p>
+                            <p className={'result-text-fit'}>Razem na dzien 22,65</p>
+                            <p className={'result-text-fit'}>W czasie choroby nie musi też płacić składek społecznych czyli dziennie: <span className={'money-display'}>7,12</span></p>
                         </div>
 
                     </div>

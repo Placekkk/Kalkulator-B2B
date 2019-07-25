@@ -5,29 +5,47 @@
     font-family: sans-serif;
 }
 
-.yearly-table {
-    display: block;
-    border-collapse: collapse;
+.yearly-income-table-holder {
     width: 100%;
-    height: 620px;
+    height: 100%;
+    display: none;
+}
+
+.yearly-table {
+    border-collapse: collapse;
+    display: table;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
-    overflow-x: auto;
-    overflow-y: visible;
+    overflow-x: scroll;
     white-space: nowrap;
     color: white;
 }
 
+.yearly-table>tbody {
+    height: 100%;
+}
+
+
+.yearly-table>tbody>tr {
+    width: 100%;
+
+}
+
 .yearly-table>tbody>tr>th, .yearly-table>tbody>tr>td {
     border: 1px solid black;
-    width: 100px;
-    height: 2em;
     padding: 0 5px 0 5px;
     font-weight: 500;
     text-align: center;
     background-color: rgba(20, 20, 20, .2);
-
 }
 
-.yearly-income-table-holder {
+
+
+.table-mini-holder {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
 }
 

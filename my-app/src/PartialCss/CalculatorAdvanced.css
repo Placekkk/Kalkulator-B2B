@@ -1,0 +1,91 @@
+
+
+.calculator-advanced {
+    widtH: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+}
+
+.calculator-advanced>div {
+    width: 33%;
+}
+
+.advanced-left-column, .advanced-middle-column, .advanced-right-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.advanced-left-column>div {
+    width: 100%;
+    height: 100%;
+}
+
+.advanced-left-column>div>table {
+    display: table;
+    table-layout: auto;
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+}
+
+.advanced-left-column>div>table>tbody>tr>td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    background-color: rgba(20, 20, 20, .2);
+}
+
+.advanced-left-column>div>table>tbody>tr>th {
+    border: 1px solid black;
+    text-align: center;
+    width: 100%;
+    padding: 2px;
+}
+
+.table-second-holder {
+    margin-top: 10px;
+}
+
+
+.advanced-middle-column>table, .advanced-right-column>table {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+}
+
+.advanced-middle-column>table>tbody, .advanced-right-column>table>tbody {
+    width: 100%;
+}
+
+.advanced-middle-column>table>tbody>tr, .advanced-right-column>table>tbody>tr {
+    display: flex;
+    width: 100%;
+
+}
+
+.advanced-middle-column>table>tbody>tr>td, .advanced-right-column>table>tbody>tr>td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-right: none;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(20, 20, 20, .2);
+}
+
+.title-cell {
+    border: 1px solid black;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
