@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2f717b4a98b198676f3cea2fec4f9f88",
+    "revision": "c00d426d07828c55e427d9b3a53feec9",
     "url": "/Kalkulator-B2B/index.html"
   },
   {
-    "revision": "de1d915b4b6a009a2e1e",
-    "url": "/Kalkulator-B2B/static/css/main.39d2f28c.chunk.css"
+    "revision": "9019d226be9f89ca1ed5",
+    "url": "/Kalkulator-B2B/static/css/main.fdcfff00.chunk.css"
   },
   {
     "revision": "43842c2c96165b0bc3b0",
     "url": "/Kalkulator-B2B/static/js/2.dd08f88c.chunk.js"
   },
   {
-    "revision": "de1d915b4b6a009a2e1e",
-    "url": "/Kalkulator-B2B/static/js/main.f0165fca.chunk.js"
+    "revision": "9019d226be9f89ca1ed5",
+    "url": "/Kalkulator-B2B/static/js/main.cebc58fa.chunk.js"
   },
   {
     "revision": "6d9e3d279d70d4e36457",
