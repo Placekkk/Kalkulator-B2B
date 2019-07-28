@@ -5,27 +5,3 @@
 @import "PartialCss/TableAdvanced.css";
 @import "PartialCss/CalculatorAdvanced.css";
 
-
-.test {
-    width: 500px;
-    margin: 0 auto;
-    margin-bottom: 200px;
-    border: 5px solid blue;
-    padding: 20px;
-}
-
-.test2 {
-    width: 500px;
-    margin: 0 auto;
-    margin-bottom: 200px;
-    border: 5px solid green;
-    padding: 20px;
-}
-
-.test3 {
-    padding: 50px;
-    border: 5px solid orange;
-    margin: 0 auto;
-    width: 700px;
-    height: 500px;
-}
