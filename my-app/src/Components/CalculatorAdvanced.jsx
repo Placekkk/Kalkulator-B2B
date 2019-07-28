@@ -27,8 +27,7 @@ class CalculatorAdvanced extends React.Component {
 
                         <h3>Podstawy</h3>
 
-                        <div>
-
+                        <div className={'advanced-upper-holder'}>
                             <table>
                                 <tbody>
 
