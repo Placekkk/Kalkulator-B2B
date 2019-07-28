@@ -32,8 +32,6 @@ class App extends React.Component {
                 </form>
             </div>
 
-
-
             </div>
 
         </div>
