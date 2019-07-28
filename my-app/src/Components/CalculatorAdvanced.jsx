@@ -12,8 +12,7 @@ class CalculatorAdvanced extends React.Component {
             brutSalary: 5000,
             skladkaEmerytalna: Math.round((this.brutSalary * 0.0976 + 0.00001) * 100) / 100,
 
-
-    }
+        }
     }
 
 
