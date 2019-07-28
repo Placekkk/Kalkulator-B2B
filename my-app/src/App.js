@@ -16,24 +16,6 @@ class App extends React.Component {
           <AdvancedValuesHolder/>
         </Provider>
 
-            <div className={'test3'}>
-
-            <div className={'test'}>
-                <form>
-                    <label>
-                        first result
-                        <input/>
-                    </label>
-                    <label>
-                        second result
-                        <input/>
-                    </label>
-                    <button>calculate</button>
-                </form>
-            </div>
-
-            </div>
-
         </div>
 
     );
