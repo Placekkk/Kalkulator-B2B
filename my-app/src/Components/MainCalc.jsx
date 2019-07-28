@@ -21,7 +21,7 @@ class MainCalc extends React.Component {
                             <div className={'amount-holder'}>
                                 <p className={'fancy-text'}>Wpisz kwote</p>
                                 <label>
-                                    <input className={'fancy-input'} onChange={this.props.handleUopSalary}/>
+                                    <input className={'fancy-input extra-style'} onChange={this.props.handleUopSalary}/>
                                 </label>
 
                                 <select className={'fancy-select'} onChange={this.props.handleSalaryType}>
@@ -49,7 +49,7 @@ class MainCalc extends React.Component {
 
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Ekwiwalent na fakturze "na reke" (bez vat23%)</p>
-                                <input className={'fancy-input b2b-input'}/>
+                                <input className={'fancy-input b2b-input extra-style'}/>
                             </label>
 
                             <label className={'b2b-label'}>
