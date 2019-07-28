@@ -27,22 +27,22 @@ class Gibs extends React.Component {
                         <div className={'basic-holder'}>
                             <p className={'result-text'}>Podstawa</p>
                             <br/>
-                            <p className={'result-text'}>2250zl</p>
+                            <p className={'result-text'}><span className={'money-display'}>2250zl</span></p>
                         </div>
 
 
                         <div className={'basic-holder-line'}>
-                        <p className={'result-text '}>1951,43 {'\x3C'} -- minus 13,71%</p>
+                        <p className={'result-text '}>1951 {'\x3C'} -- minus 13,71%</p>
                         </div>
 
                         <div className={'basic-holder-line'}>
-                        <p className={'result-text'}>1553,22zl - 1951,43 {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu</p>
+                            <p className={'result-text'}>1944 {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu</p>
                         </div>
 
                         <div className={'basic-holder'}>
 
                                 <p className={'result-text-fit'}>Za kazdy dzien nieobecnosci pracownik dostanie</p>
-                                <p className={'result-text-fit'}>51,77zl</p>
+                            <p className={'result-text-fit'}>111zl </p>
 
                         </div>
 
@@ -51,18 +51,18 @@ class Gibs extends React.Component {
                     <div className={'compare-holder-b2b'}>
                         <div className={' basic-holder'}>
                             <p className={'result-text'}>Podstawa</p>
-                            <p className={'result-text'}>650zl</p>
+                            <p className={'result-text'}><span className={'money-display'}>2250</span></p>
                         </div>
 
                         <div className={'basic-holder-col'}>
-                        <p className={'result-text'}>528,46zl {'\x3C'}-- minus 13,71%</p>
-                        <p className={'result-text'}><span className={'money-display'}>465,97zl</span> {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu)</p>
+                        <p className={'result-text'}>111 {'\x3C'}-- minus 13,71%</p>
+                        <p className={'result-text'}>333 {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu)</p>
                         </div>
 
                         <div className={'basic-holder-col'}>
                             <p className={'result-text-fit'}>Za kazdy dzien nieobecnosci przedsiebiorca dostanie 15,53</p>
                             <p className={'result-text-fit'}>Razem na dzien 22,65</p>
-                            <p className={'result-text-fit'}>W czasie choroby nie musi też płacić składek społecznych czyli dziennie: <span className={'money-display'}>7,12</span></p>
+                            <p className={'result-text-fit'}>W czasie choroby nie musi też płacić składek społecznych czyli dziennie: 7.22zl</p>
                         </div>
 
                     </div>
