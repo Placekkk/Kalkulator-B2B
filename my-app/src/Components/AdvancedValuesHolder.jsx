@@ -3,7 +3,7 @@ import YearlyIncomeTable from "../Components/YearlyIncomeTable";
 import TableAdvanced from '../Components/TableAdvanced'
 import Gibs from '../Components/Gibs'
 import CalculatorAdvanced from '../Components/CalculatorAdvanced'
-import MainCalc from "./MainCalc";
+
 
 class AdvancedValuesHolder extends React.Component {
 

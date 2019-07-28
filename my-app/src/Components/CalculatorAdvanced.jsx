@@ -4,13 +4,20 @@ class CalculatorAdvanced extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 3333,
+            value: 5000,
             taxPercentage: 18,
             samePlace: 'tak',
-            zusType: 'Maly ',
+            zusType: 111.25,
             collection: 1.56,
-        }
+            brutSalary: 5000,
+            skladkaEmerytalna: Math.round((this.brutSalary * 0.0976 + 0.00001) * 100) / 100,
+
+
     }
+    }
+
+
+
 
     render() {
         return (
@@ -98,28 +105,28 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Składka emerytalna</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>9,76%</td>
+                                <td>{this.state.skladkaEmerytalna}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka rentowa</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>6.50%</td>
+                                <td>{Math.round((this.state.brutSalary * 0.0650 + 0.00001) * 100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka wypadkowa</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>1.67%</td>
+                                <td>{Math.round((this.state.brutSalary * 0.0167 + 0.00001) * 100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>Fundusz pracy</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>2.45%</td>
+                                <td>{Math.round((this.state.brutSalary * 0.0245 + 0.00001) * 100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>FGŚP</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>0.10%</td>
+                                <td>{Math.round((this.state.brutSalary * 0.0010 + 0.00001) * 100) / 100}zl</td>
                             </tr>
 
                             <tr>
@@ -127,18 +134,18 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Składka emerytalna</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>9.76%</td>
+                                <td>{Math.round((this.state.brutSalary * 0.0976 + 0.00001) * 100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka rentowa</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>1.50%</td>
+                                <td>{Math.round((this.state.brutSalary * 0.0150 + 0.00001) * 100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka chorobowa</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>2.45%</td>
+                                <td>{Math.round((this.state.brutSalary * 0.0245 + 0.00001) * 100) / 100}zl</td>
                             </tr>
 
 
@@ -147,17 +154,17 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Podstawa do skladki zdrowotnej</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{Math.round((this.state.brutSalary * 0.8629 + 0.00001) * 100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka zdrowotna</td>
                                 <td>9%</td>
-                                <td>428zl</td>
+                                <td>{Math.round(((this.state.brutSalary * 0.8629 + 0.00001) * 0.09) * 100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka zdrowotna do odliczenia</td>
-                                <td>9%</td>
-                                <td>428zl</td>
+                                <td>7.75%</td>
+                                <td>{Math.round(((this.state.brutSalary * 0.8629 + 0.00001) * 0.0775) * 100) / 100}zl</td>
                             </tr>
 
                             <tr>
@@ -165,15 +172,15 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Koszty uzyskania przychodu</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{this.state.zusType}zl</td>
                             </tr>
                             <tr>
                                 <td>Podstawa do opodatkowania</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{Math.round((this.state.brutSalary * 0.8629 + 0.00001) * 100) / 100 - this.state.zusType}zl</td>
                             </tr>
                             <tr>
                                 <td>Podatek dochodowy</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{Math.round(((Math.round((this.state.brutSalary * 0.8629 + 0.00001) * 100) / 100 - this.state.zusType) * 0.18 - 46.33) *100) / 100}zl</td>
                             </tr>
                             <tr>
                                 <td>Zaliczka na podatek dochodowy</td>
