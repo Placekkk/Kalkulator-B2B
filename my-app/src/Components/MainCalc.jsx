@@ -5,6 +5,17 @@ import store from "../store";
 
 class MainCalc extends React.Component {
 
+    handleTest = () => {
+        console.log('test');
+        let infoBard = document.querySelector('.info-pop');
+        infoBard.style.display = 'block'
+    };
+
+    handleTestExit = () => {
+        let infoBard = document.querySelector('.info-pop');
+        infoBard.style.display = 'none'
+    };
+
     render() {
         return (
 
@@ -31,14 +42,14 @@ class MainCalc extends React.Component {
                             </div>
 
                             <div className={'birth-place-holder'}>
-                                <p className={'fancy-text'}>Czy miejsce zamieszkania jest w tym samym miejscu co miejsce pracy</p>
+                                <p className={'fancy-text'} onMouseEnter={this.handleTest} onMouseLeave={this.handleTestExit}>Czy miejsce zamieszkania jest w tym samym miejscu co miejsce pracy</p>
                                 <select className={'fancy-select'} onChange={this.props.handleSamePlace}>
                                     <option value={111.25}>Tak</option>
                                     <option value={139.06}>Nie</option>
                                 </select>
                             </div>
 
-                            <p className={'fancy-text'}>Koszty uzyskania przychodu uzyskane z tytulu jednej umowy wynosza 111,25
+                            <p className={'fancy-text info-pop'}>Koszty uzyskania przychodu uzyskane z tytulu jednej umowy wynosza 111,25
                                 albo 139,06 przy zamieszkaniu w miesjscowosci poza zakladem pracy</p>
 
                         </div>

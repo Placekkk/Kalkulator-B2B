@@ -3,6 +3,8 @@ import YearlyIncomeTable from "../Components/YearlyIncomeTable";
 import TableAdvanced from '../Components/TableAdvanced'
 import Gibs from '../Components/Gibs'
 import CalculatorAdvanced from '../Components/CalculatorAdvanced'
+import { Provider } from "react-redux";
+import store from "../store";
 
 
 class AdvancedValuesHolder extends React.Component {
@@ -86,13 +88,14 @@ class AdvancedValuesHolder extends React.Component {
 
                     </nav>
 
+                    <Provider store={store}>
                     <div className={'result-holder'}>
                         <CalculatorAdvanced/>
                         <YearlyIncomeTable/>
                         <Gibs/>
                         <TableAdvanced/>
                     </div>
-
+                    </Provider>
                 </div>
             </div>
         );
