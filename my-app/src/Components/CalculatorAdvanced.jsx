@@ -2,12 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps } from "./MainCalc";
 
-
 class CalculatorAdvanced extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            brutSalary: 5000,
+            brutSalary: 0,
             zusType: 'maly ZUS',
             skladkaEmerytalnaPracodawcy: 0,
             skladkaRentowaPracodawcy: 0,
@@ -34,14 +33,14 @@ class CalculatorAdvanced extends React.Component {
         }
     }
 
-
-
     componentDidMount() {
-
-        this.setState({
-            brutSalary: this.props.finalUopSalary
-        } , () => {
-            console.log('stage2');
+        const setBrutSalary = () => {
+            this.setState({
+                brutSalary: this.props.finalUopSalary
+            });
+            console.log('brusala')
+        };
+        const setSkladki = () => {
             this.setState({
                 skladkaEmerytalnaPracodawcy: Math.round((this.state.brutSalary * 0.0976 + 0.00001) * 100) / 100,
                 skladkaRentowaPracodawcy: Math.round((this.state.brutSalary * 0.0650 + 0.00001) * 100) / 100,
@@ -52,51 +51,74 @@ class CalculatorAdvanced extends React.Component {
                 skladkaRentowaPracownika: Math.round((this.state.brutSalary * 0.0150 + 0.00001) * 100) / 100,
                 skladkaChorobowa: Math.round((this.state.brutSalary * 0.0245 + 0.00001) * 100) / 100,
                 podstawaChorobowego: Math.round((this.state.brutSalary * 0.8629 + 0.00001) * 100) / 100
-            }, () => {
-                console.log('stage3');
-                this.setState({
-                    podstawaSkladkiZdrowotnej: this.state.brutSalary - this.state.skladkaEmerytalnaPracownika - this.state.skladkaRentowaPracownika - this.state.skladkaChorobowa,
-                    podstawaChorobowego2: Math.round((this.state.podstawaChorobowego * 0.8) * 100) /100
-                }, () => {
-                    this.setState({
-                        skladkaZdrowotna: Math.round((this.state.podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100,
-                        skladkaZdrowotnaDoOdliczenia: Math.round((this.state.podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100,
-                        podstawaDoOpodatkowania: this.state.podstawaSkladkiZdrowotnej - this.state.kosztyUzyskaniaPrzychodu,
-                        dzienNieobecnosciPracownik: Math.round((this.state.podstawaChorobowego2 / 30) * 100) / 100
-                    }, () => {
-                        this.setState({
-                            podatekDochodowy: Math.round((this.state.podstawaDoOpodatkowania * this.state.procentPodatkuDochodowego) * 100) / 100 - 46.33
-                        }, () => {
-                            this.setState({
-                                zaliczkaNaPodatekDochodowy: this.state.podatekDochodowy - this.state.skladkaZdrowotnaDoOdliczenia
-                            }, () => {
-                                this.setState({
-                                    zarobekLacznieNettoPracownika: this.state.brutSalary - this.state.skladkaEmerytalnaPracownika - this.state.skladkaRentowaPracownika - this.state.skladkaChorobowa -
-                                        this.state.skladkaZdrowotna - this.state.zaliczkaNaPodatekDochodowy,
-                                    lacznyKosztPracodawcy: this.state.brutSalary + this.state.skladkaRentowaPracodawcy + this.state.skladkaEmerytalnaPracodawcy + this.state.skladkaWypadkowa +
-                                        this.state.funduszPracy + this.state.fgsp,
-                                }, () => {
-                                    this.setState({
-                                        ekwiwalentNaFakturze: Math.round((this.state.lacznyKosztPracodawcy * 1.23) * 100) / 100
-                                    })
-                                })
-                            })
-                        })
-                    })
-                })
+            });
+            console.log('secondary')
+        };
+        const setBasics = () => {
+            this.setState({
+                podstawaSkladkiZdrowotnej: this.state.brutSalary - this.state.skladkaEmerytalnaPracownika - this.state.skladkaRentowaPracownika - this.state.skladkaChorobowa,
+                podstawaChorobowego2: Math.round((this.state.podstawaChorobowego * 0.8) * 100) / 100
+            });
+            console.log('tertiary')
+        };
+        const setReductions = () => {
+            this.setState({
+                skladkaZdrowotna: Math.round((this.state.podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100,
+                skladkaZdrowotnaDoOdliczenia: Math.round((this.state.podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100,
+                podstawaDoOpodatkowania: this.state.podstawaSkladkiZdrowotnej - this.state.kosztyUzyskaniaPrzychodu,
+                dzienNieobecnosciPracownik: Math.round((this.state.podstawaChorobowego2 / 30) * 100) / 100
+            });
+            console.log('reductions')
+        };
+        const setIncomeTax = () => {
+            this.setState({
+                podatekDochodowy: Math.round((this.state.podstawaDoOpodatkowania * this.state.procentPodatkuDochodowego) * 100) / 100 - 46.33
+            });
+            console.log('incometax')
+        };
+        const setPrepaidTax = () => {
+            this.setState({
+                zaliczkaNaPodatekDochodowy: this.state.podatekDochodowy - this.state.skladkaZdrowotnaDoOdliczenia
             })
-        });
+        };
+        const setFullEmployerCost = () => {
+            this.setState({
+                zarobekLacznieNettoPracownika: this.state.brutSalary - this.state.skladkaEmerytalnaPracownika - this.state.skladkaRentowaPracownika - this.state.skladkaChorobowa -
+                    this.state.skladkaZdrowotna - this.state.zaliczkaNaPodatekDochodowy,
+                lacznyKosztPracodawcy: this.state.brutSalary + this.state.skladkaRentowaPracodawcy + this.state.skladkaEmerytalnaPracodawcy + this.state.skladkaWypadkowa +
+                    this.state.funduszPracy + this.state.fgsp,
+            })
+        };
+        const setEkwiwalent = () => {
+            this.setState({
+                ekwiwalentNaFakturze: Math.round((this.state.lacznyKosztPracodawcy * 1.23) * 100) / 100
+            })
+        };
+        setBrutSalary();
+        setSkladki();
+        setBasics();
+        setReductions();
+        setIncomeTax();
+        setPrepaidTax();
+        setFullEmployerCost();
+        setEkwiwalent();
     }
 
+    handleFuse = () => {
+        this.forceUpdate()
+    };
 
     render() {
+        console.log('renderrrrrrrr');
+        console.log(this.props.finalUopSalary + 'props salaryu');
+        console.log(this.state.brutSalary + 'stata salary');
         return (
 
-                <div className={'calculator-advanced'}>
+                <div className={'calculator-advanced'} style={this.props.elStyle}>
 
                     <div className={'advanced-left-column'}>
 
-                        <h3>Podstawy {this.props.finalUopSalary}</h3>
+                        <h3 onClick={this.handleFuse}>Podstawy {this.props.finalUopSalary}</h3>
 
                         <div className={'advanced-upper-holder'}>
                             <table>

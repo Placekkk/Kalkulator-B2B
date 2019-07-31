@@ -8,70 +8,132 @@ import store from "../store";
 
 
 class AdvancedValuesHolder extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            calculatorAdvancedStyle: {
+                height: '100%',
+                backgroundColor: 'transparent'
+            },
+            yearlyTableStyle: {
+                height: '70%',
+                backgroundColor: 'grey'
+            },
+            gibsStyle: {
+                height: '70%',
+                backgroundColor: 'grey'
+            },
+            tableAdvancedStyle: {
+                height: '70%',
+                backgroundColor: 'grey'
+            },
+            holderCalculatorAdvancedStyle: {
+                display: 'flex',
+            },
+            holderYearlyTableStyle: {
+                display: 'none',
+            },
+            holderGibsStyle: {
+                display: 'none',
+            },
+            holderTableAdvancedStyle: {
+                display: 'none',
+            }
+
+        }
+    }
+
+    componentStyleReset = () => {
+        this.setState({
+            holderCalculatorAdvancedStyle: {
+                display: 'none',
+            },
+            holderYearlyTableStyle: {
+                display: 'none',
+            },
+            holderGibsStyle: {
+                display: 'none',
+            },
+            holderTableAdvancedStyle: {
+                display: 'none',
+            }
+        })
+    };
+
+    buttonStyleReset = () => {
+        this.setState({
+            calculatorAdvancedStyle: {
+                height: '70%',
+                backgroundColor: 'grey'
+            },
+            yearlyTableStyle: {
+                height: '70%',
+                backgroundColor: 'grey'
+            },
+            gibsStyle: {
+                height: '70%',
+                backgroundColor: 'grey'
+            },
+            tableAdvancedStyle: {
+                height: '70%',
+                backgroundColor: 'grey'
+            }
+        })
+    };
 
     handleOne = () => {
-        let allButtons = document.querySelectorAll('.advanced-button-holder>button');
-        for (let i = 0; i < allButtons.length; i++) {
-            allButtons[i].style.height = '70%';
-            allButtons[i].style.backgroundColor = 'grey'
-        }
-        allButtons[0].style.height = '100%';
-        allButtons[0].style.backgroundColor = 'transparent';
-        allButtons[0].style.color = 'white';
+        this.buttonStyleReset();
+        this.componentStyleReset();
+        this.setState({
+            calculatorAdvancedStyle: {
+                height: '100%',
+                backgroundColor: 'transparent'
+            },
+            holderCalculatorAdvancedStyle: {
+                display: 'flex',
+            },
+        })
 
-        let allAdvancedElements = document.querySelectorAll('.calculator-advanced, .yearly-income-table-holder, .gibs, .table-advanced-holder');
-        for (let i = 0; i < allAdvancedElements.length; i++) {
-            allAdvancedElements[i].style.display = 'none'
-        }
-        allAdvancedElements[0].style.display = 'flex'
     };
     handleTwo = () => {
-        let allButtons = document.querySelectorAll('.advanced-button-holder>button');
-        for (let i = 0; i < allButtons.length; i++) {
-            allButtons[i].style.height = '70%';
-            allButtons[i].style.backgroundColor = 'grey'
-        }
-        allButtons[1].style.height = '100%';
-        allButtons[1].style.backgroundColor = 'transparent';
-        allButtons[1].style.color = 'white';
+        this.buttonStyleReset();
+        this.componentStyleReset();
+        this.setState({
+            yearlyTableStyle: {
+                height: '100%',
+                backgroundColor: 'transparent'
+            },
+            holderYearlyTableStyle: {
+                display: 'block',
+            },
+        })
 
-        let allAdvancedElements = document.querySelectorAll('.calculator-advanced, .yearly-income-table-holder, .gibs, .table-advanced-holder');
-        for (let i = 0; i < allAdvancedElements.length; i++) {
-            allAdvancedElements[i].style.display = 'none'
-        }
-        allAdvancedElements[1].style.display = 'block'
     };
     handleThree = () => {
-        let allButtons = document.querySelectorAll('.advanced-button-holder>button');
-        for (let i = 0; i < allButtons.length; i++) {
-            allButtons[i].style.height = '70%';
-            allButtons[i].style.backgroundColor = 'grey'
-        }
-        allButtons[2].style.height = '100%';
-        allButtons[2].style.backgroundColor = 'transparent';
-        allButtons[2].style.color = 'white';
-
-        let allAdvancedElements = document.querySelectorAll('.calculator-advanced, .yearly-income-table-holder, .gibs, .table-advanced-holder');
-        for (let i = 0; i < allAdvancedElements.length; i++) {
-            allAdvancedElements[i].style.display = 'none'
-        }
-        allAdvancedElements[2].style.display = 'block'
+        this.buttonStyleReset();
+        this.componentStyleReset();
+        this.setState({
+            gibsStyle: {
+                height: '100%',
+                backgroundColor: 'transparent'
+            },
+            holderGibsStyle: {
+                display: 'block',
+            },
+        })
     };
     handleFour = () => {
-        let allButtons = document.querySelectorAll('.advanced-button-holder>button');
-        for (let i = 0; i < allButtons.length; i++) {
-            allButtons[i].style.height = '70%';
-            allButtons[i].style.backgroundColor = 'grey'
-        }
-        allButtons[3].style.height = '100%';
-        allButtons[3].style.backgroundColor = 'transparent';
-        allButtons[3].style.color = 'white';
-
-        let allAdvancedElements = document.querySelectorAll('.calculator-advanced, .yearly-income-table-holder, .gibs, .table-advanced-holder');
-        for (let i = 0; i < allAdvancedElements.length; i++) {
-            allAdvancedElements[i].style.display = 'none'
-        }
-        allAdvancedElements[3].style.display = 'block'
+        this.buttonStyleReset();
+        this.componentStyleReset();
+        this.setState({
+            tableAdvancedStyle: {
+                height: '100%',
+                backgroundColor: 'transparent'
+            },
+            holderTableAdvancedStyle: {
+                display: 'block',
+            }
+        })
     };
 
     render() {
@@ -81,19 +143,19 @@ class AdvancedValuesHolder extends React.Component {
 
                     <nav className={'advanced-button-holder'}>
 
-                        <button onClick={this.handleOne}>Kalkulator - zaawansowany</button>
-                        <button onClick={this.handleTwo}>Roczna tabela dochodow</button>
-                        <button onClick={this.handleThree}>Zasilek chorobowy - szczegoly</button>
-                        <button onClick={this.handleFour}>Skladka wypadkowa - tabela</button>
+                        <button onClick={this.handleOne} style={this.state.calculatorAdvancedStyle}>Kalkulator - zaawansowany</button>
+                        <button onClick={this.handleTwo} style={this.state.yearlyTableStyle}>Roczna tabela dochodow</button>
+                        <button onClick={this.handleThree} style={this.state.gibsStyle}>Zasilek chorobowy - szczegoly</button>
+                        <button onClick={this.handleFour} style={this.state.tableAdvancedStyle}>Skladka wypadkowa - tabela</button>
 
                     </nav>
 
                     <Provider store={store}>
                     <div className={'result-holder'}>
-                        <CalculatorAdvanced/>
-                        <YearlyIncomeTable/>
-                        <Gibs/>
-                        <TableAdvanced/>
+                        <CalculatorAdvanced elStyle={this.state.holderCalculatorAdvancedStyle}/>
+                        <YearlyIncomeTable elStyle={this.state.holderYearlyTableStyle}/>
+                        <Gibs elStyle={this.state.holderGibsStyle}/>
+                        <TableAdvanced elStyle={this.state.holderTableAdvancedStyle}/>
                     </div>
                     </Provider>
                 </div>

@@ -7,13 +7,17 @@ import { Provider } from "react-redux";
 
 
 class App extends React.Component {
-  render() {
-    return (
 
+    handleUpdate = () => {
+        this.render()
+    };
+
+    render() {
+        return (
         <div>
         <Provider store={store}>
           <MainCalc/>
-          <AdvancedValuesHolder/>
+          <AdvancedValuesHolder handleUpdate={this.handleUpdate}/>
         </Provider>
 
         </div>

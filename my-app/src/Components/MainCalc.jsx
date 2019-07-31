@@ -1,24 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from "../store";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 
 
 class MainCalc extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            infoBarFirst: {
+                display: 'none',
+                color: 'yellow'
+            },
+        }
+    }
+
 
     handleTest = () => {
-        console.log('test');
-        let infoBard = document.querySelector('.info-pop');
-        infoBard.style.display = 'block'
+        this.setState({
+            infoBarFirst: {
+                display: 'block'
+            }
+        })
     };
 
     handleTestExit = () => {
-        let infoBard = document.querySelector('.info-pop');
-        infoBard.style.display = 'none'
+        this.setState({
+            infoBarFirst: {
+                display: 'none'
+            }
+        })
     };
 
     render() {
         return (
-
             <div className={'first-main-holder'}>
 
                 <form>
@@ -42,14 +58,14 @@ class MainCalc extends React.Component {
                             </div>
 
                             <div className={'birth-place-holder'}>
-                                <p className={'fancy-text'} onMouseEnter={this.handleTest} onMouseLeave={this.handleTestExit}>Czy miejsce zamieszkania jest w tym samym miejscu co miejsce pracy</p>
+                                <p className={'fancy-text'}>Czy miejsce zamieszkania jest w tym samym miejscu co miejsce pracy <FontAwesomeIcon id={'info-icon'} icon={faInfoCircle}  onMouseEnter={this.handleTest} onMouseLeave={this.handleTestExit}/></p>
                                 <select className={'fancy-select'} onChange={this.props.handleSamePlace}>
                                     <option value={111.25}>Tak</option>
                                     <option value={139.06}>Nie</option>
                                 </select>
                             </div>
 
-                            <p className={'fancy-text info-pop'}>Koszty uzyskania przychodu uzyskane z tytulu jednej umowy wynosza 111,25
+                            <p className={'fancy-text info-pop'} style={this.state.infoBarFirst}>Koszty uzyskania przychodu uzyskane z tytulu jednej umowy wynosza 111,25
                                 albo 139,06 przy zamieszkaniu w miesjscowosci poza zakladem pracy</p>
 
                         </div>
@@ -66,9 +82,9 @@ class MainCalc extends React.Component {
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Wybierz % podatku [%]</p>
                                 <select className={'fancy-select b2b-select'} onChange={this.props.handlePercentageTax}>
-                                    <option>18</option>
-                                    <option>19</option>
-                                    <option>32</option>
+                                    <option value={18}>18</option>
+                                    <option value={19}>19</option>
+                                    <option value={32}>32</option>
                                 </select>
                             </label>
 
@@ -150,46 +166,45 @@ export const mapStateToProps = (state) => {
         finalCar: state.finalCar,
         previousFuel: state.previousFuel,
         finalFuel: state.finalFuel
-
     }
 };
 
 export const mapDispatchToProps = (dispatch) => {
     return {
         handleUopSalary: (e) => {
-            const action = { type: 'CHANGEDRESULTSALARY', previousUopSalary: e.target.value};
+            const action = { type: 'CHANGED_RESULT_SALARY', previousUopSalary: e.target.value};
             dispatch(action);
         },
         handleSalaryType: (e) => {
-            const action = {type: 'CHANGEDRESULTTYPESALARY', previousTypeSalary: e.target.value};
+            const action = {type: 'CHANGED_RESULT_TYPE_SALARY', previousTypeSalary: e.target.value};
             dispatch(action)
         },
         handleSamePlace: (e) => {
-            const action = {type: 'CHANGEDRESULTSAMEPLACE', previousSamePlace: e.target.value};
+            const action = {type: 'CHANGED_RESULT_SAME_PLACE', previousSamePlace: e.target.value};
             dispatch(action)
         },
         handlePercentageTax: (e) => {
-            const action = {type: 'CHANGEDRESULPERCENTAGETAX', previousTaxPercentage: e.target.value};
+            const action = {type: 'CHANGED_RESULT_PERCENTAGE_TAX', previousTaxPercentage: e.target.value};
             dispatch(action)
         },
         handleZusType: (e) => {
-            const action = {type: 'CHANGEDRESULTZUSTYPE', previousZusType: e.target.value};
+            const action = {type: 'CHANGED_RESULT_ZUSTYPE', previousZusType: e.target.value};
             dispatch(action)
         },
         handleComputer: (e) => {
-            const action = {type: 'CHANGEDRESULTCOMPUTER', previousComputer: e.target.value};
+            const action = {type: 'CHANGED_RESULT_COMPUTER', previousComputer: e.target.value};
             dispatch(action)
         },
         handlePhone: (e) => {
-            const action = {type: 'CHANGEDRESULTPHONE', previousPhone: e.target.value};
+            const action = {type: 'CHANGED_RESULT_PHONE', previousPhone: e.target.value};
             dispatch(action)
         },
         handleCar: (e) => {
-            const action = {type: 'CHANGEDRESULTCAR', previousCar: e.target.value};
+            const action = {type: 'CHANGED_RESULT_CAR', previousCar: e.target.value};
             dispatch(action)
         },
         handleFuel: (e) => {
-            const action = {type: 'CHANGEDRESULTFUEL', previousFuel: e.target.value};
+            const action = {type: 'CHANGED_RESULT_FUEL', previousFuel: e.target.value};
             dispatch(action)
         }
         ,
@@ -206,11 +221,11 @@ export const mapDispatchToProps = (dispatch) => {
             let finalFuel = shop.previousFuel;
 
             e.preventDefault();
-            const action = { type: 'CHANGEDRESULTSUBMIT', finalUopSalary: finalSalary, finalTypeSalary: finalTypeSalary, finalSamePlace: finalSamePlace,
+            const action = { type: 'CHANGED_RESULT_SUBMIT', finalUopSalary: finalSalary, finalTypeSalary: finalTypeSalary, finalSamePlace: finalSamePlace,
             finalTaxPercentage: finalTaxPercentage, finalZusType: finalZusType, finalComputer: finalComputer, finalPhone: finalPhone,
             finalCar: finalCar, finalFuel: finalFuel};
             dispatch(action);
-            console.log(shop)
+            console.log(shop);
         }
     }
 };

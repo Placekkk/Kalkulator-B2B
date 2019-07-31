@@ -3,7 +3,7 @@ import React from 'react';
 class Gibs extends React.Component {
     render() {
         return (
-            <div className={'gibs'}>
+            <div className={'gibs'} style={this.props.elStyle}>
 
                 <h3>Porownanie zasilku chorobowego przy wlasnej dzialalnosci i umowie o prace</h3>
 

@@ -19,7 +19,7 @@ class RowAdvanced extends React.Component {
 class TableAdvanced extends React.Component {
     render() {
         return (
-            <div className={'table-advanced-holder'}>
+            <div className={'table-advanced-holder'} style={this.props.elStyle}>
 
                 <h3>Skladka wypadkowa - tabela</h3>
 

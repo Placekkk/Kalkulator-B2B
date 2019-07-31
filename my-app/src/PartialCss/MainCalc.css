@@ -186,3 +186,9 @@ default fancy text background: rgba(20, 20, 20, .2)
 .info-pop {
     display: none;
 }
+
+#info-icon {
+
+    color: white;
+    font-size: 1.2em;
+}

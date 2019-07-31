@@ -23,36 +23,36 @@ const initialState = {
 
 const reducer  = (state = initialState, action) => {
     switch (action.type) {
-        case 'CHANGEDRESULTSALARY': {
+        case 'CHANGED_RESULT_SALARY': {
             return Object.assign({}, state, {previousUopSalary: action.previousUopSalary});
         }
-        case 'CHANGEDRESULTTYPESALARY': {
+        case 'CHANGED_RESULT_TYPE_SALARY': {
             return Object.assign({}, state, {previousTypeSalary: action.previousTypeSalary});
 
         }
-        case 'CHANGEDRESULTSAMEPLACE': {
+        case 'CHANGED)RESULT_SAME_PLACE': {
             return Object.assign({}, state, {previousSamePlace: action.previousSamePlace});
 
         }
-        case 'CHANGEDRESULPERCENTAGETAX': {
+        case 'CHANGED_RESULT_PERCENTAGE_TAX': {
             return Object.assign({}, state, {previousTaxPercentage: action.previousTaxPercentage});
         }
-        case 'CHANGEDRESULTZUSTYPE': {
+        case 'CHANGED_RESULT_ZUSTYPE': {
             return Object.assign({}, state, {previousZusType: action.previousZusType});
         }
-        case 'CHANGEDRESULTCOMPUTER': {
+        case 'CHANGED_RESULT_COMPUTER': {
             return Object.assign({}, state, {previousComputer: action.previousComputer});
         }
-        case 'CHANGEDRESULTPHONE': {
+        case 'CHANGED_RESULT_PHONE': {
             return Object.assign({}, state, {previousPhone: action.previousPhone});
         }
-        case 'CHANGEDRESULTCAR': {
+        case 'CHANGED_RESULT_CAR': {
             return Object.assign({}, state, {previousCar: action.previousCar});
         }
-        case 'CHANGEDRESULTFUEL': {
+        case 'CHANGED_RESULT_FUEL': {
             return Object.assign({}, state, {previousFuel: action.previousFuel});
         }
-        case 'CHANGEDRESULTSUBMIT': {
+        case 'CHANGED_RESULT_SUBMIT': {
             return Object.assign({}, state, {finalUopSalary: action.finalUopSalary, finalTypeSalary: action.finalTypeSalary,
                 finalSamePlace: action.finalSamePlace, finalTaxPercentage: action.finalTaxPercentage, finalZusType: action.finalZusType,
             finalComputer: action.finalComputer, finalPhone: action.finalPhone, finalCar: action.finalCar, finalFuel: action.finalFuel,

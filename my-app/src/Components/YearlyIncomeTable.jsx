@@ -37,7 +37,7 @@ class YearlyIncomeTable extends React.Component {
         return (
 
 
-            <div className={'yearly-income-table-holder'}>
+            <div className={'yearly-income-table-holder'} style={this.props.elStyle}>
 
                 <h3>Roczna tabela dochodow</h3>
 
