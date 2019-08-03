@@ -16,7 +16,6 @@ class MainCalc extends React.Component {
         }
     }
 
-
     handleTest = () => {
         this.setState({
             infoBarFirst: {
@@ -24,7 +23,6 @@ class MainCalc extends React.Component {
             }
         })
     };
-
     handleTestExit = () => {
         this.setState({
             infoBarFirst: {
@@ -34,6 +32,38 @@ class MainCalc extends React.Component {
     };
 
     render() {
+        console.log('renderMainCalc');
+        let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracodawcy = Math.round((this.props.finalUopSalary * 0.0650 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((this.props.finalUopSalary * 0.0167 + 0.00001) * 100) / 100;
+        let funduszPracy = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
+        let fgsp = Math.round((this.props.finalUopSalary * 0.0010 + 0.00001) * 100) / 100;
+        let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracownika = Math.round((this.props.finalUopSalary * 0.0150 + 0.00001) * 100) / 100;
+        let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
+        let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) /100;
+        let skladkaZdrowotna = Math.round((podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100;
+        let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
+        let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalZusType;
+        let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (this.props.finalTaxPercentage / 100)) - 46.33) * 100) /100;
+        let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
+        let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa -
+            skladkaZdrowotna - zaliczkaNaPodatekDochodowy) * 100) / 100;
+        let lacznyKosztPracodawcy = +this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
+        let skladkaRentowaPrzesiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy =this.props.finalZusType === 111.25 ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.finalZusType === 111.25 ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
+        let skladkaZdrowotnaPrzesiebiorcy2 = Math.round((3803.56 * 0.0775) * 100) /100;
+        let razemDoZusPrzedsiebiorcy = Math.round((skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
+            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy) * 100) / 100;
+        let podstawaOpodatkowaniaPrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - ((this.props.finalCar * 0.2) + this.props.finalPhone + this.props.finalComputer
+            + (this.props.finalFuel / 2))) * 100) / 100;
+        let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
+        let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
         return (
             <div className={'first-main-holder'}>
 
@@ -76,7 +106,7 @@ class MainCalc extends React.Component {
 
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Ekwiwalent na fakturze "na reke" (bez vat23%)</p>
-                                <input className={'fancy-input b2b-input extra-style'}/>
+                                <p className={' b2b-display-par'}>{this.props.finalUopSalary !== 0 ? zarobekLaczniePrzedsiebiorcy : 0}zl</p>
                             </label>
 
                             <label className={'b2b-label'}>
@@ -128,14 +158,14 @@ class MainCalc extends React.Component {
                         <button className={'fancy-button'} onClick={this.props.clickHandler}>Oblicz</button>
                         <p className={'fancy-text'}>Tyle zyskasz wiecej na reke w przypadku b2b</p>
                         <div className={'calculate-input-holder'}>
-                            <label>
-                                Na miesiac
-                                <input className={'fancy-input'}/>
-                            </label>
-                            <label>
-                                W ciagu roku
-                                <input className={'fancy-input'}/>
-                            </label>
+                            <div className={'sum-display'}>
+                                <p>Na miesiac</p>
+                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((zarobekLaczniePrzedsiebiorcy - zarobekLacznieNettoPracownika) * 100) / 100 : 0}zl</p>
+                            </div>
+                            <div className={'sum-display'}>
+                                <p>W ciagu roku</p>
+                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((zarobekLaczniePrzedsiebiorcy - zarobekLacznieNettoPracownika) * 100) / 100 * 12 : 0}zl</p>
+                            </div>
                         </div>
                     </div>
 

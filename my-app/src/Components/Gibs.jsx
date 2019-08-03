@@ -27,7 +27,7 @@ class Gibs extends React.Component {
                         <div className={'basic-holder'}>
                             <p className={'result-text'}>Podstawa</p>
                             <br/>
-                            <p className={'result-text'}><span className={'money-display'}>2250zl</span></p>
+                            <p className={'result-text'}><span className={'money-display'}>{this.props.finalUopSalary}</span></p>
                         </div>
 
 

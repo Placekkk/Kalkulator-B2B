@@ -6,7 +6,7 @@ class CalculatorAdvanced extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            brutSalary: 0,
+            brutSalary: this.props.finalUopSalary,
             zusType: 'maly ZUS',
             skladkaEmerytalnaPracodawcy: 0,
             skladkaRentowaPracodawcy: 0,
@@ -33,92 +33,52 @@ class CalculatorAdvanced extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const setBrutSalary = () => {
-            this.setState({
-                brutSalary: this.props.finalUopSalary
-            });
-            console.log('brusala')
-        };
-        const setSkladki = () => {
-            this.setState({
-                skladkaEmerytalnaPracodawcy: Math.round((this.state.brutSalary * 0.0976 + 0.00001) * 100) / 100,
-                skladkaRentowaPracodawcy: Math.round((this.state.brutSalary * 0.0650 + 0.00001) * 100) / 100,
-                skladkaWypadkowa: Math.round((this.state.brutSalary * 0.0167 + 0.00001) * 100) / 100,
-                funduszPracy: Math.round((this.state.brutSalary * 0.0245 + 0.00001) * 100) / 100,
-                fgsp: Math.round((this.state.brutSalary * 0.0010 + 0.00001) * 100) / 100,
-                skladkaEmerytalnaPracownika: Math.round((this.state.brutSalary * 0.0976 + 0.00001) * 100) / 100,
-                skladkaRentowaPracownika: Math.round((this.state.brutSalary * 0.0150 + 0.00001) * 100) / 100,
-                skladkaChorobowa: Math.round((this.state.brutSalary * 0.0245 + 0.00001) * 100) / 100,
-                podstawaChorobowego: Math.round((this.state.brutSalary * 0.8629 + 0.00001) * 100) / 100
-            });
-            console.log('secondary')
-        };
-        const setBasics = () => {
-            this.setState({
-                podstawaSkladkiZdrowotnej: this.state.brutSalary - this.state.skladkaEmerytalnaPracownika - this.state.skladkaRentowaPracownika - this.state.skladkaChorobowa,
-                podstawaChorobowego2: Math.round((this.state.podstawaChorobowego * 0.8) * 100) / 100
-            });
-            console.log('tertiary')
-        };
-        const setReductions = () => {
-            this.setState({
-                skladkaZdrowotna: Math.round((this.state.podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100,
-                skladkaZdrowotnaDoOdliczenia: Math.round((this.state.podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100,
-                podstawaDoOpodatkowania: this.state.podstawaSkladkiZdrowotnej - this.state.kosztyUzyskaniaPrzychodu,
-                dzienNieobecnosciPracownik: Math.round((this.state.podstawaChorobowego2 / 30) * 100) / 100
-            });
-            console.log('reductions')
-        };
-        const setIncomeTax = () => {
-            this.setState({
-                podatekDochodowy: Math.round((this.state.podstawaDoOpodatkowania * this.state.procentPodatkuDochodowego) * 100) / 100 - 46.33
-            });
-            console.log('incometax')
-        };
-        const setPrepaidTax = () => {
-            this.setState({
-                zaliczkaNaPodatekDochodowy: this.state.podatekDochodowy - this.state.skladkaZdrowotnaDoOdliczenia
-            })
-        };
-        const setFullEmployerCost = () => {
-            this.setState({
-                zarobekLacznieNettoPracownika: this.state.brutSalary - this.state.skladkaEmerytalnaPracownika - this.state.skladkaRentowaPracownika - this.state.skladkaChorobowa -
-                    this.state.skladkaZdrowotna - this.state.zaliczkaNaPodatekDochodowy,
-                lacznyKosztPracodawcy: this.state.brutSalary + this.state.skladkaRentowaPracodawcy + this.state.skladkaEmerytalnaPracodawcy + this.state.skladkaWypadkowa +
-                    this.state.funduszPracy + this.state.fgsp,
-            })
-        };
-        const setEkwiwalent = () => {
-            this.setState({
-                ekwiwalentNaFakturze: Math.round((this.state.lacznyKosztPracodawcy * 1.23) * 100) / 100
-            })
-        };
-        setBrutSalary();
-        setSkladki();
-        setBasics();
-        setReductions();
-        setIncomeTax();
-        setPrepaidTax();
-        setFullEmployerCost();
-        setEkwiwalent();
-    }
-
-    handleFuse = () => {
-        this.forceUpdate()
-    };
-
     render() {
-        console.log('renderrrrrrrr');
-        console.log(this.props.finalUopSalary + 'props salaryu');
-        console.log(this.state.brutSalary + 'stata salary');
+        let brutSalary = this.props.finalUopSalary;
+        let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracodawcy = Math.round((this.props.finalUopSalary * 0.0650 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((this.props.finalUopSalary * 0.0167 + 0.00001) * 100) / 100;
+        let funduszPracy = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
+        let fgsp = Math.round((this.props.finalUopSalary * 0.0010 + 0.00001) * 100) / 100;
+        let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracownika = Math.round((this.props.finalUopSalary * 0.0150 + 0.00001) * 100) / 100;
+        let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
+        let podstawaChorobowego = Math.round((this.props.finalUopSalary * 0.8629 + 0.00001) * 100) / 100;
+        let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) /100;
+        let podstawaChorobowego2 = Math.round((podstawaChorobowego * 0.8) * 100) / 100;
+        let skladkaZdrowotna = Math.round((podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100;
+        let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
+        let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalZusType;
+        let dzienNieobecnosciPracownik = Math.round((podstawaChorobowego2 / 30) * 100) / 100;
+        let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (this.props.finalTaxPercentage / 100)) - 46.33) * 100) /100;
+        let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
+        let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa -
+            skladkaZdrowotna - zaliczkaNaPodatekDochodowy) * 100) / 100;
+        let lacznyKosztPracodawcy = +this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp;
+        let ekwiwalentNaFakturze = Math.round((lacznyKosztPracodawcy * 1.23) * 100) / 100;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
+        let skladkaRentowaPrzesiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy =this.props.finalZusType === 111.25 ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.finalZusType === 111.25 ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
+        let skladkaZdrowotnaPrzesiebiorcy2 = Math.round((3803.56 * 0.0775) * 100) /100;
+        let razemDoZusPrzedsiebiorcy = Math.round((skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
+            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy) * 100) / 100;
+        let podstawaOpodatkowaniaPrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - ((this.props.finalCar * 0.2) + this.props.finalPhone + this.props.finalComputer
+            + (this.props.finalFuel / 2))) * 100) / 100;
+        let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
+        let zarobekLaczniePrzedsiebiorcy = lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy;
+        let dzienNieobecnosciPrzedsiebiorcy = Math.round(((((this.props.finalZusType === 111.25 ? 675 : 2859) * 0.8629) * 0.8) / 30 + 7.12) * 100) / 100;
+        console.log('render Advanced CALC');
+        console.log(fgsp, funduszPracy, skladkaWypadkowa, skladkaEmerytalnaPracodawcy, skladkaRentowaPracodawcy, lacznyKosztPracodawcy);
         return (
 
                 <div className={'calculator-advanced'} style={this.props.elStyle}>
 
                     <div className={'advanced-left-column'}>
 
-                        <h3 onClick={this.handleFuse}>Podstawy {this.props.finalUopSalary}</h3>
+                        <h3 onClick={this.handleFuse}>Podstawy</h3>
 
                         <div className={'advanced-upper-holder'}>
                             <table>
@@ -126,22 +86,22 @@ class CalculatorAdvanced extends React.Component {
 
                                 <tr>
                                     <td>Pensja Brutto na umowie o prace</td>
-                                    <td>{this.state.brutSalary}</td>
+                                    <td>{brutSalary}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Kwota Netto na fakturze</td>
-                                    <td>{this.state.lacznyKosztPracodawcy}</td>
+                                    <td>{lacznyKosztPracodawcy}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Podatek-dzialalnosc</td>
-                                    <td>{this.state.procentPodatkuDochodowego * 100}%</td>
+                                    <td>{this.props.finalTaxPercentage}%</td>
                                 </tr>
 
                                 <tr>
                                     <td>Podstawa wymiaru składek dla przedsiębiorcy</td>
-                                    <td>{this.state.zusType}</td>
+                                    <td>{this.props.finalZusType === 111.25 ? "maly ZUS" : "duzy ZUS"}</td>
                                 </tr>
 
                                 <tr>
@@ -149,18 +109,9 @@ class CalculatorAdvanced extends React.Component {
                                     <td>1.67%</td>
                                 </tr>
 
-                                </tbody>
-                            </table>
-
-                        </div>
-
-                        <div className={'table-second-holder'}>
-                            <table>
-                                <tbody>
-
                                 <tr>
                                     <td>Ekwiwalent na fakturze (z VAT)</td>
-                                    <td>{this.state.ekwiwalentNaFakturze}zl</td>
+                                    <td>{ekwiwalentNaFakturze}zl</td>
                                 </tr>
                                 <tr>
                                     <th colSpan={2}>Dane źródłowe na 2019</th>
@@ -171,19 +122,16 @@ class CalculatorAdvanced extends React.Component {
                                 </tr>
                                 <tr>
                                     <td>Podstawa ubez. Społeczne w 2019</td>
-                                    <td>{this.state.zusType === "maly ZUS" ? 675.00 : 2859.00}zl</td>
+                                    <td>{this.props.finalZusType === 111.25 ? 675.00 : 2859.00}zl</td>
                                 </tr>
-
                                 </tbody>
                             </table>
-                        </div>
 
+                        </div>
                     </div>
 
                     <div className={'advanced-middle-column'}>
-
                         <h3>Zatrudnienie na etacie / 1 miesiąc</h3>
-
                         <table>
                             <tbody>
                             <tr>
@@ -197,27 +145,27 @@ class CalculatorAdvanced extends React.Component {
                             <tr>
                                 <td>Składka emerytalna</td>
                                 <td>9,76%</td>
-                                <td>{this.state.skladkaEmerytalnaPracodawcy}zl</td>
+                                <td>{skladkaEmerytalnaPracodawcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka rentowa</td>
                                 <td>6.50%</td>
-                                <td>{this.state.skladkaRentowaPracodawcy}zl</td>
+                                <td>{skladkaRentowaPracodawcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka wypadkowa</td>
                                 <td>1.67%</td>
-                                <td>{this.state.skladkaWypadkowa}zl</td>
+                                <td>{skladkaWypadkowa}zl</td>
                             </tr>
                             <tr>
                                 <td>Fundusz pracy</td>
                                 <td>2.45%</td>
-                                <td>{this.state.funduszPracy}zl</td>
+                                <td>{funduszPracy}zl</td>
                             </tr>
                             <tr>
                                 <td>FGŚP</td>
                                 <td>0.10%</td>
-                                <td>{this.state.fgsp}zl</td>
+                                <td>{fgsp}zl</td>
                             </tr>
 
                             <tr>
@@ -226,17 +174,17 @@ class CalculatorAdvanced extends React.Component {
                             <tr>
                                 <td>Składka emerytalna</td>
                                 <td>9.76%</td>
-                                <td>{this.state.skladkaEmerytalnaPracownika}zl</td>
+                                <td>{skladkaEmerytalnaPracownika}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka rentowa</td>
                                 <td>1.50%</td>
-                                <td>{this.state.skladkaRentowaPracownika}zl</td>
+                                <td>{skladkaRentowaPracownika}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka chorobowa</td>
                                 <td>2.45%</td>
-                                <td>{this.state.skladkaChorobowa}zl</td>
+                                <td>{skladkaChorobowa}zl</td>
                             </tr>
 
 
@@ -245,17 +193,17 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Podstawa do skladki zdrowotnej</td>
-                                <td colSpan={2}>{this.state.podstawaSkladkiZdrowotnej}zl</td>
+                                <td colSpan={2}>{podstawaSkladkiZdrowotnej}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka zdrowotna</td>
                                 <td>9%</td>
-                                <td>{this.state.skladkaZdrowotna}zl</td>
+                                <td>{skladkaZdrowotna}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka zdrowotna do odliczenia</td>
                                 <td>7.75%</td>
-                                <td>{this.state.skladkaZdrowotnaDoOdliczenia}zl</td>
+                                <td>{skladkaZdrowotnaDoOdliczenia}zl</td>
                             </tr>
 
                             <tr>
@@ -263,44 +211,41 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Koszty uzyskania przychodu</td>
-                                <td colSpan={2}>{this.state.kosztyUzyskaniaPrzychodu}zl</td>
+                                <td colSpan={2}>{this.props.finalZusType}zl</td>
                             </tr>
                             <tr>
                                 <td>Podstawa do opodatkowania</td>
-                                <td colSpan={2}>{this.state.podstawaDoOpodatkowania}zl</td>
+                                <td colSpan={2}>{podstawaDoOpodatkowania}zl</td>
                             </tr>
                             <tr>
                                 <td>Podatek dochodowy</td>
-                                <td colSpan={2}>{this.state.podatekDochodowy}zl</td>
+                                <td colSpan={2}>{podatekDochodowy}zl</td>
                             </tr>
                             <tr>
                                 <td>Zaliczka na podatek dochodowy</td>
-                                <td colSpan={2}>{this.state.zaliczkaNaPodatekDochodowy}zl</td>
+                                <td colSpan={2}>{zaliczkaNaPodatekDochodowy}zl</td>
                             </tr>
 
                             <tr>
                                 <td>Zarobek lacznie netto pracownika</td>
-                                <td colSpan={2}>{this.state.zarobekLacznieNettoPracownika}zl</td>
+                                <td colSpan={2}>{zarobekLacznieNettoPracownika}zl</td>
                             </tr>
                             <tr>
                                 <td>Laczny koszt pracodawcy</td>
-                                <td colSpan={2}>{this.state.lacznyKosztPracodawcy}zl</td>
+                                <td colSpan={2}>{lacznyKosztPracodawcy}zl</td>
                             </tr>
 
                             <tr>
                                 <td>W przypadku choroby za każdy dzień nieobecności dostaniesz</td>
-                                <td colSpan={2}>{this.state.dzienNieobecnosciPracownik}zl</td>
+                                <td colSpan={2}>{dzienNieobecnosciPracownik}zl</td>
                             </tr>
-
                             </tbody>
                         </table>
-
                     </div>
 
+
                     <div className={'advanced-right-column'}>
-
                         <h3>Umowa B2B / 1 miesiac</h3>
-
                         <table>
                             <tbody>
                             <tr>
@@ -313,28 +258,28 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Składka emerytalna</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>19.52%</td>
+                                <td>{skladkaEmerytalnaPrzedsiebiorcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka rentowa</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>8%</td>
+                                <td>{skladkaRentowaPrzesiebiorcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Skladka chorobowa</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>2.45%</td>
+                                <td>{skladkaChorobowaPrzedsiebiorcy}zl</td>
                             </tr>
                             <tr>
-                                <td>Składka wypadkowe</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>Składka wypadkowa</td>
+                                <td>1.67%</td>
+                                <td>{skladkaWypadkowaPrzedsiebiorcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Fundusz pracy</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>{this.props.finalZusType === 111.25 ? 0 : 2.45}%</td>
+                                <td>{funduszPracyPrzedsiebiorcy}zl</td>
                             </tr>
 
                             <tr>
@@ -342,68 +287,63 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Składka zdrowotna</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>9%</td>
+                                <td>{skladkaZdrowotnaPrzedsiebiorcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Składka zdrowotna</td>
-                                <td>5%</td>
-                                <td>428zl</td>
+                                <td>7.75%</td>
+                                <td>{skladkaZdrowotnaPrzesiebiorcy2}zl</td>
                             </tr>
 
                             <tr>
                                 <th className={'title-cell'} colSpan={3}>Koszty uzyskania przychodu - opcjonalne</th>
                             </tr>
                             <tr>
-                                <td>Samochod</td>
-                                <td colSpan={2}>428zl</td>
+                                <td>Komputer</td>
+                                <td colSpan={2}>{this.props.finalComputer}zl</td>
                             </tr>
                             <tr>
                                 <td>Telefon</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{this.props.finalPhone}zl</td>
                             </tr>
                             <tr>
-                                <td>Komputer</td>
-                                <td colSpan={2}>428zl</td>
+                                <td>Samochod</td>
+                                <td colSpan={2}>{this.props.finalCar}zl</td>
                             </tr>
                             <tr>
                                 <td>Paliwo</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{this.props.finalFuel}zl</td>
                             </tr>
-
 
                             <tr>
                                 <th className={'title-cell'} colSpan={3}>Pozostale</th>
                             </tr>
                             <tr>
                                 <td>Razem do ZUS</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{razemDoZusPrzedsiebiorcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Podstawa do opodatkowania</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{podstawaOpodatkowaniaPrzedsiebiorcy}zl</td>
                             </tr>
                             <tr>
                                 <td>Podatek</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{podatekPrzedsiebiorcy}zl</td>
                             </tr>
 
                             <tr>
                                 <td>Zarobek lacznie</td>
-                                <td colSpan={2}>428zl</td>
+                                <td colSpan={2}>{zarobekLaczniePrzedsiebiorcy}zl</td>
                             </tr>
-
-
+                            <tr>
+                                <td>W przypadku choroby na jeden dzien dostaniesz</td>
+                                <td colSpan={2}>{dzienNieobecnosciPrzedsiebiorcy}zl</td>
+                            </tr>
                             </tbody>
                         </table>
-
-
                     </div>
-
-
                 </div>
-
-
         )
     }
 }

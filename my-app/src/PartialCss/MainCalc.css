@@ -188,7 +188,39 @@ default fancy text background: rgba(20, 20, 20, .2)
 }
 
 #info-icon {
-
     color: white;
     font-size: 1.2em;
+}
+
+.sum-display {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.sum-display-par {
+    width: 50%;
+    text-align: center;
+    vertical-align: center;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid rgba(10, 180, 180, 1);
+    background: rgba(20, 20, 20, .2);
+    color: white;
+    outline: none;
+    border-radius: 5px;
+}
+
+.b2b-display-par {
+    width: 30%;
+    text-align: center;
+    vertical-align: center;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid rgba(10, 180, 180, 1);
+    background: rgba(20, 20, 20, .2);
+    color: white;
+    outline: none;
+    border-radius: 5px;
 }
