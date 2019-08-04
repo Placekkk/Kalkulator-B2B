@@ -80,7 +80,7 @@ class MainCalc extends React.Component {
                             <div className={'amount-holder'}>
                                 <p className={'fancy-text'}>Wpisz kwote</p>
                                 <label>
-                                    <input className={'fancy-input extra-style'} onChange={this.props.handleUopSalary}/>
+                                    <input type={'number'} className={'fancy-input extra-style'} onChange={this.props.handleUopSalary}/>
                                 </label>
 
                                 <select className={'fancy-select'} onChange={this.props.handleSalaryType}>
@@ -204,6 +204,11 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
     return {
         handleUopSalary: (e) => {
+            if (e.target.value <= 0 || e.target.value.length === 0) {
+                const action = { type: 'CHANGED_RESULT_SALARY', previousUopSalary: 0};
+                dispatch(action);
+                return
+            }
             const action = { type: 'CHANGED_RESULT_SALARY', previousUopSalary: e.target.value};
             dispatch(action);
         },

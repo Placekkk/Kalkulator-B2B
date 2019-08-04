@@ -84,12 +84,12 @@ class CalculatorAdvanced extends React.Component {
 
                                 <tr>
                                     <td>Pensja Brutto na umowie o prace</td>
-                                    <td>{brutSalary}</td>
+                                    <td>{brutSalary}zl</td>
                                 </tr>
 
                                 <tr>
                                     <td>Kwota Netto na fakturze</td>
-                                    <td>{lacznyKosztPracodawcy}</td>
+                                    <td>{lacznyKosztPracodawcy}zl</td>
                                 </tr>
 
                                 <tr>
