@@ -44,17 +44,17 @@ class MainCalc extends React.Component {
         let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) /100;
         let skladkaZdrowotna = Math.round((podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100;
         let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
-        let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalZusType;
+        let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalSamePlace;
         let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (0.18)) - 46.33) * 100) /100;
         let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
         let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa -
             skladkaZdrowotna - zaliczkaNaPodatekDochodowy) * 100) / 100;
         let lacznyKosztPracodawcy = +this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp;
-        let skladkaEmerytalnaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
-        let skladkaRentowaPrzesiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
-        let skladkaChorobowaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
-        let skladkaWypadkowaPrzedsiebiorcy =this.props.finalZusType === 111.25 ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
-        let funduszPracyPrzedsiebiorcy = this.props.finalZusType === 111.25 ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
+        let skladkaRentowaPrzesiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy =this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
         let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
         let skladkaZdrowotnaPrzesiebiorcy2 = Math.round((3803.56 * 0.0775) * 100) /100;
         let razemDoZusPrzedsiebiorcy = Math.round((skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
@@ -63,6 +63,8 @@ class MainCalc extends React.Component {
             + (this.props.finalFuel / 2))) * 100) / 100;
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
+        console.log(this.props.finalCar, this.props.finalPhone, this.props.finalComputer, this.props.finalFuel);
 
         return (
             <div className={'first-main-holder'}>
@@ -121,8 +123,8 @@ class MainCalc extends React.Component {
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Podstawa wymiaru skladek</p>
                                 <select className={'fancy-select b2b-select'} onChange={this.props.handleZusType}>
-                                    <option value={'malyZus'}>Maly ZUS</option>
-                                    <option value={'duzyZus'}>Duzy ZUS</option>
+                                    <option value={'maly ZUS'}>Maly ZUS</option>
+                                    <option value={'duzy ZUS'}>Duzy ZUS</option>
                                 </select>
                             </label>
 
@@ -130,22 +132,22 @@ class MainCalc extends React.Component {
 
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Komputer [zl]</p>
-                                    <input className={'fancy-input b2b-input'} onChange={this.props.handleComputer}/>
+                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handleComputer}/>
                                 </label>
 
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Telefon [zl]</p>
-                                    <input className={'fancy-input b2b-input'} onChange={this.props.handlePhone}/>
+                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handlePhone}/>
                                 </label>
 
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Samochod [zl]</p>
-                                    <input className={'fancy-input b2b-input'} onChange={this.props.handleCar}/>
+                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handleCar}/>
                                 </label>
 
                                 <label className={'b2b-label last-label'}>
                                     <p className={'fancy-text b2b-text'}>Paliwo [zl]</p>
-                                    <input className={'fancy-input b2b-input'} onChange={this.props.handleFuel}/>
+                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handleFuel}/>
                                 </label>
 
                             </div>
@@ -222,19 +224,39 @@ export const mapDispatchToProps = (dispatch) => {
             dispatch(action)
         },
         handleComputer: (e) => {
-            const action = {type: 'CHANGED_RESULT_COMPUTER', previousComputer: e.target.value};
+            if (e.target.value.length === 0) {
+                const action = {type: 'CHANGED_RESULT_COMPUTERL', previousComputer: 0};
+                dispatch(action);
+                return
+            }
+            const action = {type: 'CHANGED_RESULT_COMPUTER', previousComputer: parseInt(e.target.value)};
             dispatch(action)
         },
         handlePhone: (e) => {
-            const action = {type: 'CHANGED_RESULT_PHONE', previousPhone: e.target.value};
+            if (e.target.value.length === 0) {
+                const action = {type: 'CHANGED_RESULT_PHONE', previousPhone: 0};
+                dispatch(action);
+                return
+            }
+            const action = {type: 'CHANGED_RESULT_PHONE', previousPhone: parseInt(e.target.value)};
             dispatch(action)
         },
         handleCar: (e) => {
-            const action = {type: 'CHANGED_RESULT_CAR', previousCar: e.target.value};
+            if (e.target.value.length === 0) {
+                const action = {type: 'CHANGED_RESULT_CAR', previousCar: 0};
+                dispatch(action);
+                return
+            }
+            const action = {type: 'CHANGED_RESULT_CAR', previousCar: parseInt(e.target.value)};
             dispatch(action)
         },
         handleFuel: (e) => {
-            const action = {type: 'CHANGED_RESULT_FUEL', previousFuel: e.target.value};
+            if (e.target.value.length === 0) {
+                const action = {type: 'CHANGED_RESULT_FUEL', previousFuel: 0};
+                dispatch(action);
+                return
+            }
+            const action = {type: 'CHANGED_RESULT_FUEL', previousFuel: parseInt(e.target.value)};
             dispatch(action)
         }
         ,

@@ -47,7 +47,7 @@ class CalculatorAdvanced extends React.Component {
         let podstawaChorobowego2 = Math.round((podstawaChorobowego * 0.8) * 100) / 100;
         let skladkaZdrowotna = Math.round((podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100;
         let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
-        let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalZusType;
+        let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalSamePlace;
         let dzienNieobecnosciPracownik = Math.round((podstawaChorobowego2 / 30) * 100) / 100;
         let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (0.18)) - 46.33) * 100) /100;
         let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
@@ -55,11 +55,11 @@ class CalculatorAdvanced extends React.Component {
             skladkaZdrowotna - zaliczkaNaPodatekDochodowy) * 100) / 100;
         let lacznyKosztPracodawcy = Math.round((+this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
         let ekwiwalentNaFakturze = Math.round((lacznyKosztPracodawcy * 1.23) * 100) / 100;
-        let skladkaEmerytalnaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
-        let skladkaRentowaPrzesiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
-        let skladkaChorobowaPrzedsiebiorcy = this.props.finalZusType === 111.25 ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
-        let skladkaWypadkowaPrzedsiebiorcy =this.props.finalZusType === 111.25 ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
-        let funduszPracyPrzedsiebiorcy = this.props.finalZusType === 111.25 ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
+        let skladkaRentowaPrzesiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS'? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy =this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
         let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
         let skladkaZdrowotnaPrzesiebiorcy2 = Math.round((3803.56 * 0.0775) * 100) /100;
         let razemDoZusPrzedsiebiorcy = Math.round((skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
@@ -68,11 +68,10 @@ class CalculatorAdvanced extends React.Component {
             + (this.props.finalFuel / 2))) * 100) / 100;
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100 ) / 100;
-        let dzienNieobecnosciPrzedsiebiorcy = Math.round(((((this.props.finalZusType === 111.25 ? 675 : 2859) * 0.8629) * 0.8) / 30 + 7.12) * 100) / 100;
+        let dzienNieobecnosciPrzedsiebiorcy = Math.round(((((this.props.finalSamePlace === 'maly ZUS' ? 675 : 2859) * 0.8629) * 0.8) / 30 + 7.12) * 100) / 100;
         console.log('render Advanced CALC');
-        console.log(fgsp, funduszPracy, skladkaWypadkowa, skladkaEmerytalnaPracodawcy, skladkaRentowaPracodawcy, lacznyKosztPracodawcy);
+        console.log(zarobekLacznieNettoPracownika);
         return (
-
                 <div className={'calculator-advanced'} style={this.props.elStyle}>
 
                     <div className={'advanced-left-column'}>
@@ -210,7 +209,7 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Koszty uzyskania przychodu</td>
-                                <td colSpan={2}>{this.props.finalZusType}zl</td>
+                                <td colSpan={2}>{this.props.finalSamePlace}zl</td>
                             </tr>
                             <tr>
                                 <td>Podstawa do opodatkowania</td>
