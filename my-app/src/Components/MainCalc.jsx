@@ -45,7 +45,7 @@ class MainCalc extends React.Component {
         let skladkaZdrowotna = Math.round((podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100;
         let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
         let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalZusType;
-        let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (this.props.finalTaxPercentage / 100)) - 46.33) * 100) /100;
+        let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (0.18)) - 46.33) * 100) /100;
         let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
         let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa -
             skladkaZdrowotna - zaliczkaNaPodatekDochodowy) * 100) / 100;
@@ -82,8 +82,8 @@ class MainCalc extends React.Component {
                                 </label>
 
                                 <select className={'fancy-select'} onChange={this.props.handleSalaryType}>
-                                    <option value={'net'}>Netto</option>
                                     <option value={'brut'}>Brutto</option>
+                                    <option value={'net'}>Netto</option>
                                 </select>
                             </div>
 
@@ -164,7 +164,7 @@ class MainCalc extends React.Component {
                             </div>
                             <div className={'sum-display'}>
                                 <p>W ciagu roku</p>
-                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((zarobekLaczniePrzedsiebiorcy - zarobekLacznieNettoPracownika) * 100) / 100 * 12 : 0}zl</p>
+                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((Math.round((zarobekLaczniePrzedsiebiorcy - zarobekLacznieNettoPracownika) * 100) / 100 * 12) * 100) / 100 : 0}zl</p>
                             </div>
                         </div>
                     </div>
