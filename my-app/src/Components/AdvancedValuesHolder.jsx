@@ -104,7 +104,7 @@ class AdvancedValuesHolder extends React.Component {
                 backgroundColor: 'transparent'
             },
             holderYearlyTableStyle: {
-                display: 'block',
+                display: 'flex',
             },
         })
 
