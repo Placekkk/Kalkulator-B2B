@@ -13,6 +13,7 @@ class MainCalc extends React.Component {
                 display: 'none',
                 color: 'yellow'
             },
+            b2bSalary: 0
         }
     }
 
@@ -29,6 +30,55 @@ class MainCalc extends React.Component {
                 display: 'none'
             }
         })
+    };
+    handleBlur = (e) => {
+        if (this.props.previousUopSalary === 0) {return}
+
+        this.props.handleUopSalary(e);
+
+        let salaryBrut = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
+        let skladki = salaryBrut * 1.2048;
+        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
+        let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
+            + (this.props.previousFuel / 2));
+        let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
+        let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
+        let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
+            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
+        let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
+        this.setState({b2bSalary: zarobekLaczniePrzedsiebiorcy})
+
+    };
+    handleCalculate = (e) => {
+
+        if (this.props.previousUopSalary === 0) {return}
+
+
+        this.props.clickHandler(e);
+
+        let salaryBrut = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
+        let skladki = salaryBrut * 1.2048;
+        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
+        let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
+            + (this.props.previousFuel / 2));
+        let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
+        let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
+        let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
+            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
+        let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
+        this.setState({b2bSalary: zarobekLaczniePrzedsiebiorcy})
     };
 
     render() {
@@ -66,6 +116,8 @@ class MainCalc extends React.Component {
 
         console.log(this.props.finalCar, this.props.finalPhone, this.props.finalComputer, this.props.finalFuel);
 
+
+
         return (
             <div className={'first-main-holder'}>
 
@@ -80,7 +132,7 @@ class MainCalc extends React.Component {
                             <div className={'amount-holder'}>
                                 <p className={'fancy-text'}>Wpisz kwote</p>
                                 <label>
-                                    <input type={'number'} className={'fancy-input extra-style'} onChange={this.props.handleUopSalary}/>
+                                    <input type={'number'} className={'fancy-input extra-style'} onChange={this.props.handleUopSalary} onBlur={this.handleBlur}/>
                                 </label>
 
                                 <select className={'fancy-select'} onChange={this.props.handleSalaryType}>
@@ -108,7 +160,7 @@ class MainCalc extends React.Component {
 
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Ekwiwalent na fakturze "na reke" (bez vat23%)</p>
-                                <p className={' b2b-display-par'}>{this.props.finalUopSalary !== 0 ? zarobekLaczniePrzedsiebiorcy : 0}zl</p>
+                                <p className={' b2b-display-par'}>{this.state.b2bSalary}zl</p>
                             </label>
 
                             <label className={'b2b-label'}>
@@ -157,7 +209,7 @@ class MainCalc extends React.Component {
                     </div>
 
                     <div className={'calculate-holder'}>
-                        <button className={'fancy-button'} onClick={this.props.clickHandler}>Oblicz</button>
+                        <button className={'fancy-button'} onClick={this.handleCalculate}>Oblicz</button>
                         <p className={'fancy-text'}>Tyle zyskasz wiecej na reke w przypadku b2b</p>
                         <div className={'calculate-input-holder'}>
                             <div className={'sum-display'}>
@@ -202,6 +254,7 @@ export const mapStateToProps = (state) => {
 };
 
 export const mapDispatchToProps = (dispatch) => {
+
     return {
         handleUopSalary: (e) => {
             if (e.target.value <= 0 || e.target.value.length === 0) {
@@ -267,15 +320,16 @@ export const mapDispatchToProps = (dispatch) => {
         ,
         clickHandler: (e) => {
             let shop = store.getState();
-            let finalSalary = shop.previousUopSalary;
             let finalTypeSalary = shop.previousTypeSalary;
             let finalSamePlace = shop.previousSamePlace;
+            let finalSalary = finalTypeSalary === 'brut' ? shop.previousUopSalary : (shop.previousUopSalary - (shop.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)) + 0.01;
             let finalTaxPercentage = shop.previousTaxPercentage;
             let finalZusType = shop.previousZusType;
             let finalComputer = shop.previousComputer;
             let finalPhone = shop.previousPhone;
             let finalCar = shop.previousCar;
             let finalFuel = shop.previousFuel;
+
 
             e.preventDefault();
             const action = { type: 'CHANGED_RESULT_SUBMIT', finalUopSalary: finalSalary, finalTypeSalary: finalTypeSalary, finalSamePlace: finalSamePlace,

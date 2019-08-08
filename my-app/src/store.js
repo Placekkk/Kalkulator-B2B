@@ -3,7 +3,7 @@ import { createStore } from "redux";
 const initialState = {
     previousUopSalary: 0,
     finalUopSalary: 0,
-    previousTypeSalary: 'net',
+    previousTypeSalary: 'brut',
     finalTypeSalary: '',
     previousSamePlace: 111.25,
     finalSamePlace: 0,
@@ -30,7 +30,7 @@ const reducer  = (state = initialState, action) => {
             return Object.assign({}, state, {previousTypeSalary: action.previousTypeSalary});
 
         }
-        case 'CHANGED)RESULT_SAME_PLACE': {
+        case 'CHANGED_RESULT_SAME_PLACE': {
             return Object.assign({}, state, {previousSamePlace: action.previousSamePlace});
 
         }

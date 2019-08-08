@@ -223,4 +223,5 @@ default fancy text background: rgba(20, 20, 20, .2)
     color: white;
     outline: none;
     border-radius: 5px;
+    font-size: 0.8em;
 }

@@ -10,7 +10,7 @@ class Gibs extends React.Component {
         let dzienNieobecnosciPrzedsiebiorcy = Math.round(((((this.props.finalZusType === 111.25 ? 675 : 2859) * 0.8629) * 0.8) / 30 + 7.12) * 100) / 100;
         let podstawaUop1 = Math.round((this.props.finalUopSalary * 0.8629) *100) /100;
         let podstawaUop2 = Math.round((this.props.finalUopSalary * 0.8629) * 0.800 * 100) / 100;
-        let podstawaB2B0 = this.props.finalZusType === 111.25 ? 675.00 : 2859.00;
+        let podstawaB2B0 = this.props.finalZusType === 'maly ZUS' ? 675.00 : 2859.00;
         let podstawaB2B1 = Math.round(((this.props.finalZusType === 111.25 ? 675.00 : 2859.00) * 0.8629) *100) /100;
         let podstawaB2B2 = Math.round(((this.props.finalZusType === 111.25 ? 675.00 : 2859.00) * 0.8629 * 0.800) *100) /100;
         return (
@@ -39,7 +39,7 @@ class Gibs extends React.Component {
                         <div className={'basic-holder'}>
                             <p className={'result-text'}>Podstawa</p>
                             <br/>
-                            <p className={'result-text'}><span className={'money-display'}>{this.props.finalUopSalary}zl</span></p>
+                            <p className={'result-text'}><span className={'money-display'}>{Math.round((this.props.finalUopSalary) *100) /100}zl</span></p>
                         </div>
 
 

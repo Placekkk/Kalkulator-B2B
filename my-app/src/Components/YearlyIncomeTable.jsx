@@ -50,8 +50,7 @@ class YearlyIncomeTable extends React.Component {
                         <TableRowBasic month={'Wrzesien'} brutSum={this.props.finalUopSalary *9} taxBaseSum={podstawaDoOpodatkowania *9}/>
                         <TableRowBasic month={'Pazdziernik'} brutSum={this.props.finalUopSalary *10} taxBaseSum={podstawaDoOpodatkowania *10}/>
                         <TableRowBasic month={'Listopad'} brutSum={this.props.finalUopSalary *11} taxBaseSum={podstawaDoOpodatkowania * 11}/>
-                        <TableRowBasic month={'Grudzien'} brutSum={this.props.finalUopSalary *12} taxBaseSum={podstawaDoOpodatkowania *12}/>
-
+                        <TableRowBasic month={'Grudzien'} brutSum={this.props.finalUopSalary *12} taxBaseSum={podstawaDoOpodatkowania * 12}/>
                         </tbody>
                     </table>
 

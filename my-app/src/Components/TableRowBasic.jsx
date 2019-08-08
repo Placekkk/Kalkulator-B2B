@@ -35,8 +35,8 @@ class TableRowBasic extends React.Component{
                 <td>{zaliczkaNaPodatekDochodowy}zl</td>
                 <td>{this.props.finalUopSalary}zl</td>
                 <td>{zarobekLacznieNettoPracownika}zl</td>
-                <td>{this.props.brutSum}zl</td>
-                <td>{this.props.taxBaseSum}zl</td>
+                <td>{Math.round((this.props.brutSum) *100) /100}zl</td>
+                <td>{Math.round((this.props.taxBaseSum) *100) /100}zl</td>
             </tr>
         );
     }
