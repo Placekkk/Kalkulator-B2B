@@ -31,55 +31,58 @@ class MainCalc extends React.Component {
             }
         })
     };
+
+    stateFix = () => {
+        let salaryBrut = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
+        let skladki = salaryBrut * 1.2048;
+        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
+        let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
+            + (this.props.previousFuel / 2));
+        let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
+        let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
+        let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
+            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
+        //let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+        this.setState({b2bSalary: Math.round((skladki) *100) /100});
+    };
+
     handleBlur = (e) => {
         if (this.props.previousUopSalary === 0) {return}
-
         this.props.handleUopSalary(e);
-
-        let salaryBrut = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
-        let skladki = salaryBrut * 1.2048;
-        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
-        let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
-        let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
-        let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
-        let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
-        let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
-        let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
-            + (this.props.previousFuel / 2));
-        let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
-        let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
-        let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
-            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
-        let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
-
-        this.setState({b2bSalary: zarobekLaczniePrzedsiebiorcy})
-
+        this.stateFix()
     };
     handleCalculate = (e) => {
-
         if (this.props.previousUopSalary === 0) {return}
-
-
         this.props.clickHandler(e);
-
-        let salaryBrut = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
-        let skladki = salaryBrut * 1.2048;
-        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
-        let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
-        let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
-        let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
-        let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
-        let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
-        let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
-            + (this.props.previousFuel / 2));
-        let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
-        let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
-        let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
-            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
-        let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
-
-        this.setState({b2bSalary: zarobekLaczniePrzedsiebiorcy})
+        this.stateFix()
     };
+    handleBrutNet = (e) => {
+        this.props.handleSalaryType(e);
+        if (this.props.previousUopSalary !== 0) {
+            let salaryBrut = this.props.previousTypeSalary === 'net' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
+            let skladki = salaryBrut * 1.2048;
+            let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
+            let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
+            let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+            let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+            let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+            let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+            let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
+                + (this.props.previousFuel / 2));
+            let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
+            let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
+            let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
+                skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
+            //let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+            this.setState({b2bSalary: Math.round((skladki) *100) /100});
+        }
+    };
+
 
     render() {
         console.log('renderMainCalc');
@@ -135,7 +138,7 @@ class MainCalc extends React.Component {
                                     <input type={'number'} className={'fancy-input extra-style'} onChange={this.props.handleUopSalary} onBlur={this.handleBlur}/>
                                 </label>
 
-                                <select className={'fancy-select'} onChange={this.props.handleSalaryType}>
+                                <select className={'fancy-select'} onChange={this.handleBrutNet}>
                                     <option value={'brut'}>Brutto</option>
                                     <option value={'net'}>Netto</option>
                                 </select>
@@ -267,7 +270,7 @@ export const mapDispatchToProps = (dispatch) => {
         },
         handleSalaryType: (e) => {
             const action = {type: 'CHANGED_RESULT_TYPE_SALARY', previousTypeSalary: e.target.value};
-            dispatch(action)
+            dispatch(action);
         },
         handleSamePlace: (e) => {
             const action = {type: 'CHANGED_RESULT_SAME_PLACE', previousSamePlace: e.target.value};
