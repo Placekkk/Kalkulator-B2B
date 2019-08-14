@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import store from "../store";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 
 
 class MainCalc extends React.Component {
@@ -13,7 +13,14 @@ class MainCalc extends React.Component {
                 display: 'none',
                 color: 'yellow'
             },
-            b2bSalary: 0
+            b2bSalary: 0,
+            calculateButtonStyle: {
+                border: '3px solid rgba(10, 180, 180, 1)'
+            },
+            computerValue: 0,
+            phoneValue: 0,
+            carValue: 0,
+            fuelValue: 0,
         }
     }
 
@@ -31,85 +38,270 @@ class MainCalc extends React.Component {
             }
         })
     };
-
-    stateFix = () => {
-        let salaryBrut = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
-        let skladki = salaryBrut * 1.2048;
-        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
-        let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
-        let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
-        let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
-        let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
-        let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
-        let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
-            + (this.props.previousFuel / 2));
-        let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
-        let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
-        let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
-            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
-        //let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
-        this.setState({b2bSalary: Math.round((skladki) *100) /100});
+    borderAnimate = () => {
+        if (this.state.calculateButtonStyle.border === '3px solid rgba(10, 180, 180, 1)') {
+            this.setState({
+                calculateButtonStyle: {
+                    border: '3px solid red',
+                }
+            })
+        }
     };
-
+    stateFix = () => {
+        let brutSalary = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : Math.round((this.props.previousUopSalary - (111.25 * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
+        let skladkaEmerytalnaPracodawcy = Math.round((brutSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracodawcy = Math.round((brutSalary * 0.0650 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((brutSalary * 0.0167 + 0.00001) * 100) / 100;
+        let funduszPracy = Math.round((brutSalary * 0.0245 + 0.00001) * 100) / 100;
+        let fgsp = Math.round((brutSalary * 0.0010 + 0.00001) * 100) / 100;
+        let lacznyKosztPracodawcy = Math.round((+brutSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
+        this.setState({
+            b2bSalary: lacznyKosztPracodawcy
+        })
+    };
     handleBlur = (e) => {
-        if (this.props.previousUopSalary === 0) {return}
+        if (this.props.previousUopSalary === 0) {
+            return
+        }
         this.props.handleUopSalary(e);
-        this.stateFix()
+        this.stateFix();
+        this.borderAnimate();
     };
     handleCalculate = (e) => {
-        if (this.props.previousUopSalary === 0) {return}
+        e.preventDefault();
+        if (this.props.previousUopSalary === 0) {
+            return
+        }
+        this.handleOverDiscount();
         this.props.clickHandler(e);
-        this.stateFix()
+        this.stateFix();
+        this.setState({
+            calculateButtonStyle: {
+                border: '3px solid rgba(10, 180, 180, 1)'
+            }
+        })
     };
     handleBrutNet = (e) => {
         this.props.handleSalaryType(e);
         if (this.props.previousUopSalary !== 0) {
-            let salaryBrut = this.props.previousTypeSalary === 'net' ? this.props.previousUopSalary : (this.props.previousUopSalary - (this.props.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
-            let skladki = salaryBrut * 1.2048;
-            let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
-            let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 675 * 0.1952 : 2859 * 0.1952;
-            let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
-            let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
-            let skladkaWypadkowaPrzedsiebiorcy =this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
-            let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
-            let podstawaOpodatkowaniaPrzedsiebiorcy = skladki - ((this.props.previousCar * 0.2) + this.props.previousPhone + this.props.previousComputer
-                + (this.props.previousFuel / 2));
-            let skladkaZdrowotnaPrzesiebiorcy2 = 3803.56 * 0.0775;
-            let podatekPrzedsiebiorcy = (podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100)) - skladkaZdrowotnaPrzesiebiorcy2;
-            let razemDoZusPrzedsiebiorcy = skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
-                skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy;
-            //let zarobekLaczniePrzedsiebiorcy = Math.round((skladki - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
-            this.setState({b2bSalary: Math.round((skladki) *100) /100});
+            let brutSalary = this.props.previousTypeSalary === 'net' ? this.props.previousUopSalary : Math.round((this.props.previousUopSalary - (111.25 * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
+            let skladkaEmerytalnaPracodawcy = Math.round((brutSalary * 0.0976 + 0.00001) * 100) / 100;
+            let skladkaRentowaPracodawcy = Math.round((brutSalary * 0.0650 + 0.00001) * 100) / 100;
+            let skladkaWypadkowa = Math.round((brutSalary * 0.0167 + 0.00001) * 100) / 100;
+            let funduszPracy = Math.round((brutSalary * 0.0245 + 0.00001) * 100) / 100;
+            let fgsp = Math.round((brutSalary * 0.0010 + 0.00001) * 100) / 100;
+            let lacznyKosztPracodawcy = Math.round((+brutSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
+            this.setState({
+                b2bSalary: lacznyKosztPracodawcy
+            })
+        }
+    };
+    handleSamePlace = (e) => {
+        this.props.handleSamePlace(e);
+        this.stateFix();
+        this.borderAnimate();
+    };
+    handlePercentageTax = (e) => {
+        this.props.handlePercentageTax(e);
+        this.borderAnimate();
+    };
+    handleZusType = (e) => {
+        this.props.handleZusType(e);
+        this.borderAnimate();
+    };
+    handleComputer = (e) => {
+        this.setState({computerValue: e.target.value});
+        this.props.handleComputer(e)
+    };
+    handlePhone = (e) => {
+        this.setState({phoneValue: e.target.value});
+        this.props.handlePhone(e)
+    };
+    handleCar = (e) => {
+        this.setState({carValue: e.target.value});
+        this.props.handleCar(e)
+    };
+    handleFuel = (e) => {
+        this.setState({fuelValue: e.target.value});
+        this.props.handleFuel(e)
+    };
+    handleOverDiscount = () => {
+        if (Number(this.state.computerValue) + Number(this.state.phoneValue) + Number(this.state.carValue) + Number(this.state.fuelValue) > Number(this.state.b2bSalary)) {
+            alert('Testowa informacja o zbyt duzych odliczeniach');
+            let computerValue = Number(this.state.computerValue);
+            let phoneValue = Number(this.state.phoneValue);
+            let carValue = Number(this.state.carValue);
+            let fuelValue = Number(this.state.fuelValue);
+            let allValues = [Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue)];
+            let allValuesSum = allValues.reduce((a, b) => a + b);
+            let diffirenceBetweenValues = allValuesSum - Number(this.state.b2bSalary);
+
+            if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue === 0) {
+                this.setState({computerValue: this.state.b2bSalary})
+            } else if (computerValue === 0 && phoneValue !== 0 && carValue === 0 && fuelValue === 0) {
+                this.setState({phoneValue: this.state.b2bSalary})
+            } else if (computerValue === 0 && phoneValue === 0 && carValue !== 0 && fuelValue === 0) {
+                this.setState({carValue: this.state.b2bSalary})
+            } else if (computerValue === 0 && phoneValue === 0 && carValue === 0 && fuelValue !== 0) {
+                this.setState({fuelValue: this.state.b2bSalary})
+            }
+
+
+            if (computerValue !== 0 && phoneValue !== 0 && carValue === 0 && fuelValue === 0) {
+                if (computerValue > phoneValue) {
+                    this.setState({computerValue: this.state.b2bSalary - this.state.phoneValue})
+                } else {
+                    this.setState({phoneValue: this.state.b2bSalary - this.state.computerValue})
+                }
+            } else if (computerValue !== 0 && phoneValue === 0 && carValue !== 0 && fuelValue === 0) {
+                if (computerValue > carValue) {
+                    this.setState({computerValue: this.state.b2bSalary - this.state.carValue})
+                } else {
+                    this.setState({carValue: this.state.b2bSalary - this.state.computerValue})
+                }
+            } else if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue !== 0) {
+                if (computerValue > fuelValue) {
+                    this.setState({computerValue: this.state.b2bSalary - this.state.fuelValue})
+                } else {
+                    this.setState({fuelValue: this.state.b2bSalary - this.state.computerValue})
+                }
+            } else if (computerValue === 0 && phoneValue !== 0 && carValue !== 0 && fuelValue === 0) {
+                if (phoneValue > carValue) {
+                    this.setState({phoneValue: this.state.b2bSalary - this.state.carValue})
+                } else {
+                    this.setState({carValue: this.state.b2bSalary - this.state.phoneValue})
+                }
+            } else if (computerValue === 0 && phoneValue !== 0 && carValue === 0 && fuelValue !== 0) {
+                if (phoneValue > fuelValue) {
+                    this.setState({phoneValue: this.state.b2bSalary - this.state.fuelValue})
+                } else {
+                    this.setState({fuelValue: this.state.b2bSalary - this.state.phoneValue})
+                }
+            } else if (computerValue === 0 && phoneValue === 0 && carValue !== 0 && fuelValue !== 0) {
+                if (carValue > fuelValue) {
+                    this.setState({carValue: this.state.b2bSalary - this.state.fuelValue})
+                } else {
+                    this.setState({fuelValue: this.state.b2bSalary - this.state.carValue})
+                }
+            }
+
+
+            if (computerValue !== 0 && phoneValue !== 0 && carValue !== 0 && fuelValue === 0) {
+                if (computerValue > phoneValue && computerValue > carValue) {
+                    if (this.state.b2bSalary - this.state.phoneValue - this.state.carValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            phoneValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            carValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100)
+                        })
+                    } else {
+                        this.setState({computerValue: this.state.b2bSalary - this.state.phoneValue - this.state.carValue})
+                    }
+                } else if (phoneValue > computerValue && phoneValue > carValue) {
+                    if (this.state.b2bSalary - this.state.computerValue - this.state.carValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            phoneValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            carValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100)
+                        })
+                    } else {
+                        this.setState({phoneValue: this.state.b2bSalary - this.state.computerValue - this.state.carValue})
+                    }
+                } else if (carValue > computerValue && carValue > phoneValue) {
+                    if (this.state.b2bSalary - this.state.computerValue - this.state.phoneValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            phoneValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            carValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100)
+                        })
+                    } else {
+                        this.setState({carValue: this.state.b2bSalary - this.state.computerValue - this.state.phoneValue})
+                    }
+                }
+            }
+
+
+            //// tutaj koniec
+
+
+            else if (computerValue !== 0 && phoneValue !== 0 && carValue === 0 && fuelValue !== 0) {
+                if (computerValue > phoneValue && computerValue > fuelValue) {
+                    if (this.state.b2bSalary - this.state.phoneValue - this.state.fuelValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            phoneValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            fuelValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100)
+                        })
+                    } else {this.setState({computerValue: this.state.b2bSalary - this.state.phoneValue - this.state.fuelValue})}
+                }
+            }
+
+
+            else if (computerValue !== 0 && phoneValue === 0 && carValue !== 0 && fuelValue !== 0) {
+                if (computerValue > carValue && computerValue > fuelValue) {
+                    if (this.state.b2bSalary - this.state.carValue - this.state.fuelValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            carValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                            fuelValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100)
+                        })
+                    } else {this.setState({computerValue: this.state.b2bSalary - this.state.carValue - this.state.fuelValue})}
+                }
+            }
+
+
+            else if (computerValue === 0 && phoneValue !== 0 && carValue !== 0 && fuelValue !== 0) {
+                this.setState({
+                    phoneValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                    carValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100),
+                    fuelValue: Math.round(((this.state.b2bSalary / 3) * 100) / 100)
+                })
+            }
+
+
+            if (computerValue !== 0 && phoneValue !== 0 && carValue !== 0 && fuelValue !== 0) {
+                this.setState({
+                    computerValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                    phoneValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                    carValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                    fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
+                })
+            }
+
+            this.props.handleDiscounts(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue))
         }
     };
 
 
+
     render() {
-        console.log('renderMainCalc');
         let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracodawcy = Math.round((this.props.finalUopSalary * 0.0650 + 0.00001) * 100) / 100;
         let skladkaWypadkowa = Math.round((this.props.finalUopSalary * 0.0167 + 0.00001) * 100) / 100;
         let funduszPracy = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
         let fgsp = Math.round((this.props.finalUopSalary * 0.0010 + 0.00001) * 100) / 100;
         let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaEmerytalnaPracownika2 = this.props.finalUopSalary * 0.0976 + 0.00001;
         let skladkaRentowaPracownika = Math.round((this.props.finalUopSalary * 0.0150 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracownika2 = this.props.finalUopSalary * 0.0150 + 0.00001;
         let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
-        let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) /100;
-        let skladkaZdrowotna = Math.round((podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100;
+        let skladkaChorobowa2 = this.props.finalUopSalary * 0.0245 + 0.00001;
+        let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) / 100;
+        let skladkaZdrowotna2 = podstawaSkladkiZdrowotnej * 0.0900 + 0.00001;
         let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
         let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalSamePlace;
-        let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (0.18)) - 46.33) * 100) /100;
-        let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
-        let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa -
-            skladkaZdrowotna - zaliczkaNaPodatekDochodowy) * 100) / 100;
-        let lacznyKosztPracodawcy = +this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp;
+        let podatekDochodowy2 = podstawaDoOpodatkowania * (0.18) - 46.33;
+        let zaliczkaNaPodatekDochodowy2 = podatekDochodowy2 - skladkaZdrowotnaDoOdliczenia;
+        let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika2 - skladkaRentowaPracownika2 - skladkaChorobowa2 -
+            skladkaZdrowotna2 - zaliczkaNaPodatekDochodowy2) * 100) / 100;
+        let lacznyKosztPracodawcy = Math.round((+this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
         let skladkaEmerytalnaPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
         let skladkaRentowaPrzesiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
         let skladkaChorobowaPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
-        let skladkaWypadkowaPrzedsiebiorcy =this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
         let funduszPracyPrzedsiebiorcy = this.props.finalZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
-        let skladkaZdrowotnaPrzedsiebiorcy =Math.round((3803.56 * 0.09) * 100) /100;
-        let skladkaZdrowotnaPrzesiebiorcy2 = Math.round((3803.56 * 0.0775) * 100) /100;
+        let skladkaZdrowotnaPrzedsiebiorcy = Math.round((3803.56 * 0.09) * 100) / 100;
+        let skladkaZdrowotnaPrzesiebiorcy2 = Math.round((3803.56 * 0.0775) * 100) / 100;
         let razemDoZusPrzedsiebiorcy = Math.round((skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
             skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy) * 100) / 100;
         let podstawaOpodatkowaniaPrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - ((this.props.finalCar * 0.2) + this.props.finalPhone + this.props.finalComputer
@@ -117,8 +309,7 @@ class MainCalc extends React.Component {
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
 
-        console.log(this.props.finalCar, this.props.finalPhone, this.props.finalComputer, this.props.finalFuel);
-
+        console.log(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue));
 
 
         return (
@@ -135,7 +326,8 @@ class MainCalc extends React.Component {
                             <div className={'amount-holder'}>
                                 <p className={'fancy-text'}>Wpisz kwote</p>
                                 <label>
-                                    <input type={'number'} className={'fancy-input extra-style'} onChange={this.props.handleUopSalary} onBlur={this.handleBlur}/>
+                                    <input type={'number'} className={'fancy-input extra-style'}
+                                           onChange={this.props.handleUopSalary} onBlur={this.handleBlur}/>
                                 </label>
 
                                 <select className={'fancy-select'} onChange={this.handleBrutNet}>
@@ -145,14 +337,18 @@ class MainCalc extends React.Component {
                             </div>
 
                             <div className={'birth-place-holder'}>
-                                <p className={'fancy-text'}>Czy miejsce zamieszkania jest w tym samym miejscu co miejsce pracy <FontAwesomeIcon id={'info-icon'} icon={faInfoCircle}  onMouseEnter={this.handleTest} onMouseLeave={this.handleTestExit}/></p>
-                                <select className={'fancy-select'} onChange={this.props.handleSamePlace}>
+                                <p className={'fancy-text'}>Czy miejsce zamieszkania jest w tym samym miejscu co miejsce
+                                    pracy <FontAwesomeIcon id={'info-icon'} icon={faInfoCircle}
+                                                           onMouseEnter={this.handleTest}
+                                                           onMouseLeave={this.handleTestExit}/></p>
+                                <select className={'fancy-select'} onChange={this.handleSamePlace}>
                                     <option value={111.25}>Tak</option>
                                     <option value={139.06}>Nie</option>
                                 </select>
                             </div>
 
-                            <p className={'fancy-text info-pop'} style={this.state.infoBarFirst}>Koszty uzyskania przychodu uzyskane z tytulu jednej umowy wynosza 111,25
+                            <p className={'fancy-text info-pop'} style={this.state.infoBarFirst}>Koszty uzyskania
+                                przychodu uzyskane z tytulu jednej umowy wynosza 111,25
                                 albo 139,06 przy zamieszkaniu w miesjscowosci poza zakladem pracy</p>
 
                         </div>
@@ -168,7 +364,7 @@ class MainCalc extends React.Component {
 
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Wybierz % podatku [%]</p>
-                                <select className={'fancy-select b2b-select'} onChange={this.props.handlePercentageTax}>
+                                <select className={'fancy-select b2b-select'} onChange={this.handlePercentageTax}>
                                     <option value={18}>18</option>
                                     <option value={19}>19</option>
                                     <option value={32}>32</option>
@@ -177,7 +373,7 @@ class MainCalc extends React.Component {
 
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Podstawa wymiaru skladek</p>
-                                <select className={'fancy-select b2b-select'} onChange={this.props.handleZusType}>
+                                <select className={'fancy-select b2b-select'} onChange={this.handleZusType}>
                                     <option value={'maly ZUS'}>Maly ZUS</option>
                                     <option value={'duzy ZUS'}>Duzy ZUS</option>
                                 </select>
@@ -187,32 +383,36 @@ class MainCalc extends React.Component {
 
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Komputer [zl]</p>
-                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handleComputer}/>
+                                    <input type='number' className={'fancy-input b2b-input'}
+                                           onChange={this.handleComputer} value={this.state.computerValue}/>
                                 </label>
 
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Telefon [zl]</p>
-                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handlePhone}/>
+                                    <input type='number' className={'fancy-input b2b-input'}
+                                           onChange={this.handlePhone} value={this.state.phoneValue}/>
                                 </label>
 
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Samochod [zl]</p>
-                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handleCar}/>
+                                    <input type='number' className={'fancy-input b2b-input'}
+                                           onChange={this.handleCar} value={this.state.carValue}/>
                                 </label>
 
                                 <label className={'b2b-label last-label'}>
                                     <p className={'fancy-text b2b-text'}>Paliwo [zl]</p>
-                                    <input defaultValue={0} type='number' className={'fancy-input b2b-input'} onChange={this.props.handleFuel}/>
+                                    <input type='number' className={'fancy-input b2b-input'}
+                                           onChange={this.handleFuel} value={this.state.fuelValue}/>
                                 </label>
 
                             </div>
-
                         </div>
-
                     </div>
 
                     <div className={'calculate-holder'}>
-                        <button className={'fancy-button'} onClick={this.handleCalculate}>Oblicz</button>
+                        <button className={'fancy-button'} onClick={this.handleCalculate}
+                                style={this.state.calculateButtonStyle}>Oblicz
+                        </button>
                         <p className={'fancy-text'}>Tyle zyskasz wiecej na reke w przypadku b2b</p>
                         <div className={'calculate-input-holder'}>
                             <div className={'sum-display'}>
@@ -259,13 +459,17 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
 
     return {
+        handleDiscounts: (computer, phone, car, fuel) => {
+            const action = {type: 'FIX_DISCOUNTS', previousComputer: computer, previousPhone: phone, previousCar: car, previousFuel: fuel};
+            dispatch(action)
+        },
         handleUopSalary: (e) => {
             if (e.target.value <= 0 || e.target.value.length === 0) {
-                const action = { type: 'CHANGED_RESULT_SALARY', previousUopSalary: 0};
+                const action = {type: 'CHANGED_RESULT_SALARY', previousUopSalary: 0};
                 dispatch(action);
                 return
             }
-            const action = { type: 'CHANGED_RESULT_SALARY', previousUopSalary: e.target.value};
+            const action = {type: 'CHANGED_RESULT_SALARY', previousUopSalary: e.target.value};
             dispatch(action);
         },
         handleSalaryType: (e) => {
@@ -325,25 +529,31 @@ export const mapDispatchToProps = (dispatch) => {
             let shop = store.getState();
             let finalTypeSalary = shop.previousTypeSalary;
             let finalSamePlace = shop.previousSamePlace;
-            let finalSalary = finalTypeSalary === 'brut' ? shop.previousUopSalary : (shop.previousUopSalary - (shop.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)) + 0.01;
+            let finalSalary = finalTypeSalary === 'brut' ? shop.previousUopSalary : Math.round((shop.previousUopSalary - (shop.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
             let finalTaxPercentage = shop.previousTaxPercentage;
             let finalZusType = shop.previousZusType;
             let finalComputer = shop.previousComputer;
             let finalPhone = shop.previousPhone;
             let finalCar = shop.previousCar;
             let finalFuel = shop.previousFuel;
-
-
             e.preventDefault();
-            const action = { type: 'CHANGED_RESULT_SUBMIT', finalUopSalary: finalSalary, finalTypeSalary: finalTypeSalary, finalSamePlace: finalSamePlace,
-            finalTaxPercentage: finalTaxPercentage, finalZusType: finalZusType, finalComputer: finalComputer, finalPhone: finalPhone,
-            finalCar: finalCar, finalFuel: finalFuel};
+            const action = {
+                type: 'CHANGED_RESULT_SUBMIT',
+                finalUopSalary: finalSalary,
+                finalTypeSalary: finalTypeSalary,
+                finalSamePlace: finalSamePlace,
+                finalTaxPercentage: finalTaxPercentage,
+                finalZusType: finalZusType,
+                finalComputer: finalComputer,
+                finalPhone: finalPhone,
+                finalCar: finalCar,
+                finalFuel: finalFuel
+            };
             dispatch(action);
             console.log(shop);
         }
     }
 };
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainCalc);

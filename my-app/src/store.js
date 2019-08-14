@@ -58,6 +58,10 @@ const reducer  = (state = initialState, action) => {
             finalComputer: action.finalComputer, finalPhone: action.finalPhone, finalCar: action.finalCar, finalFuel: action.finalFuel,
             });
         }
+        case 'FIX_DISCOUNTS': {
+            return Object.assign({}, state, {previousComputer: action.previousComputer, previousPhone: action.previousPhone,
+                previousCar: action.previousCar, previousFuel: action.previousFuel});
+        }
         default: return state
     }
 };

@@ -75,6 +75,8 @@ class CalculatorAdvanced extends React.Component {
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100 ) / 100;
         let dzienNieobecnosciPrzedsiebiorcy = Math.round(((((this.props.finalSamePlace === 'maly ZUS' ? 675 : 2859) * 0.8629) * 0.8) / 30 + 7.12) * 100) / 100;
+
+
         return (
                 <div className={'calculator-advanced'} style={this.props.elStyle}>
 
@@ -88,7 +90,7 @@ class CalculatorAdvanced extends React.Component {
 
                                 <tr>
                                     <td>Pensja Brutto na umowie o prace</td>
-                                    <td>{Math.round((brutSalary) *100) /100}zl</td>
+                                    <td>{Math.round(brutSalary)}zl</td>
                                 </tr>
 
                                 <tr>
@@ -230,7 +232,7 @@ class CalculatorAdvanced extends React.Component {
 
                             <tr>
                                 <td>Zarobek lacznie netto pracownika</td>
-                                <td colSpan={2}>{zarobekLacznieNettoPracownika}zl</td>
+                                <td colSpan={2}>{Math.round(zarobekLacznieNettoPracownika)}zl</td>
                             </tr>
                             <tr>
                                 <td>Laczny koszt pracodawcy</td>

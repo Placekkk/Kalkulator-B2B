@@ -20,6 +20,10 @@ class App extends React.Component {
           <AdvancedValuesHolder handleUpdate={this.handleUpdate}/>
         </Provider>
 
+            <div className="rainbow">
+                Rainbow border
+            </div>
+
         </div>
 
     );
