@@ -129,7 +129,6 @@ class MainCalc extends React.Component {
     handleOverDiscount = () => {
 
         if (Number(this.state.computerValue) + Number(this.state.phoneValue) + Number(this.state.carValue) + Number(this.state.fuelValue) > Number(this.state.b2bSalary)) {
-            alert('Testowa informacja o zbyt duzych odliczeniach');
             let computerValue = Number(this.state.computerValue);
             let phoneValue = Number(this.state.phoneValue);
             let carValue = Number(this.state.carValue);
@@ -139,6 +138,8 @@ class MainCalc extends React.Component {
             let diffirenceBetweenValues = allValuesSum - Number(this.state.b2bSalary);
             let finalPropsSet = this.props.handleDiscounts(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue));
             let maxValue = Math.max(...allValues);
+
+            alert(`kwota do odliczenia na nastepny miesiac to ${diffirenceBetweenValues} zl`);
 
 
             if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue === 0) {
