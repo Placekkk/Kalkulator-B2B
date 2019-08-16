@@ -7,16 +7,23 @@ import { Provider } from "react-redux";
 
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            shouldRender: true
+        }
+    }
 
-    handleUpdate = () => {
-        this.render()
+    tryRefresh = () => {
+        this.setState({shouldRender: false}, () => this.setState({shouldRender: true}))
     };
 
     render() {
         return (
         <div>
         <Provider store={store}>
-          <MainCalc/>
+
+            {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh}/> : null}
           <AdvancedValuesHolder handleUpdate={this.handleUpdate}/>
         </Provider>
 
