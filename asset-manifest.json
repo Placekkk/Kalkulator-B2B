@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Kalkulator-B2B/static/css/main.f9ddbdfc.chunk.css",
-    "main.js": "/Kalkulator-B2B/static/js/main.4f9ae1d5.chunk.js",
-    "main.js.map": "/Kalkulator-B2B/static/js/main.4f9ae1d5.chunk.js.map",
+    "main.js": "/Kalkulator-B2B/static/js/main.1b1088a5.chunk.js",
+    "main.js.map": "/Kalkulator-B2B/static/js/main.1b1088a5.chunk.js.map",
     "runtime~main.js": "/Kalkulator-B2B/static/js/runtime~main.cafe6a4e.js",
     "runtime~main.js.map": "/Kalkulator-B2B/static/js/runtime~main.cafe6a4e.js.map",
     "static/js/2.d0f54f20.chunk.js": "/Kalkulator-B2B/static/js/2.d0f54f20.chunk.js",
     "static/js/2.d0f54f20.chunk.js.map": "/Kalkulator-B2B/static/js/2.d0f54f20.chunk.js.map",
     "index.html": "/Kalkulator-B2B/index.html",
-    "precache-manifest.e1f04a14e2f9eeb20d4a185434217da1.js": "/Kalkulator-B2B/precache-manifest.e1f04a14e2f9eeb20d4a185434217da1.js",
+    "precache-manifest.6aa907203ff6f9cd9e5812c26abc2e7d.js": "/Kalkulator-B2B/precache-manifest.6aa907203ff6f9cd9e5812c26abc2e7d.js",
     "service-worker.js": "/Kalkulator-B2B/service-worker.js",
     "static/css/main.f9ddbdfc.chunk.css.map": "/Kalkulator-B2B/static/css/main.f9ddbdfc.chunk.css.map"
   }
