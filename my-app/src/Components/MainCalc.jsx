@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import store from "../store";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons/faInfoCircle";
-
+import {faSyncAlt} from "@fortawesome/free-solid-svg-icons/faSyncAlt";
 
 class MainCalc extends React.Component {
     constructor(props) {
@@ -21,6 +21,10 @@ class MainCalc extends React.Component {
             phoneValue: 0,
             carValue: 0,
             fuelValue: 0,
+            refreshStyle: {
+                padding: '10px 10px',
+                fontSize: '14px'
+            }
         }
     }
 
@@ -68,6 +72,41 @@ class MainCalc extends React.Component {
         this.borderAnimate();
     };
     handleCalculate = (e) => {
+
+        let skladkaEmerytalnaPracodawcy = Math.round((this.props.previousUopSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracodawcy = Math.round((this.props.previousUopSalary * 0.0650 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((this.props.previousUopSalary * 0.0167 + 0.00001) * 100) / 100;
+        let funduszPracy = Math.round((this.props.previousUopSalary * 0.0245 + 0.00001) * 100) / 100;
+        let fgsp = Math.round((this.props.previousUopSalary * 0.0010 + 0.00001) * 100) / 100;
+        let skladkaEmerytalnaPracownika = Math.round((this.props.previousUopSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaEmerytalnaPracownika2 = this.props.previousUopSalary * 0.0976 + 0.00001;
+        let skladkaRentowaPracownika = Math.round((this.props.previousUopSalary * 0.0150 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracownika2 = this.props.previousUopSalary * 0.0150 + 0.00001;
+        let skladkaChorobowa = Math.round((this.props.previousUopSalary * 0.0245 + 0.00001) * 100) / 100;
+        let skladkaChorobowa2 = this.props.previousUopSalary * 0.0245 + 0.00001;
+        let podstawaSkladkiZdrowotnej = Math.round((this.props.previousUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) / 100;
+        let skladkaZdrowotna2 = podstawaSkladkiZdrowotnej * 0.0900 + 0.00001;
+        let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
+        let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.previousSamePlace;
+        let podatekDochodowy2 = podstawaDoOpodatkowania * (0.18) - 46.33;
+        let zaliczkaNaPodatekDochodowy2 = podatekDochodowy2 - skladkaZdrowotnaDoOdliczenia;
+        let zarobekLacznieNettoPracownika = Math.round((this.props.previousUopSalary - skladkaEmerytalnaPracownika2 - skladkaRentowaPracownika2 - skladkaChorobowa2 -
+            skladkaZdrowotna2 - zaliczkaNaPodatekDochodowy2) * 100) / 100;
+        let lacznyKosztPracodawcy = Math.round((+this.props.previousUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
+        let skladkaEmerytalnaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.1952) * 100) / 100 : Math.round((2859 * 0.1952) * 100) / 100;
+        let skladkaRentowaPrzesiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.08) * 100) / 100 : Math.round((2859 * 0.08) * 100) / 100;
+        let skladkaChorobowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0245) * 100) / 100 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaWypadkowaPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? Math.round((675 * 0.0167) * 100) / 100 : Math.round((2859 * 0.0167) * 100) / 100;
+        let funduszPracyPrzedsiebiorcy = this.props.previousZusType === 'maly ZUS' ? 0 : Math.round((2859 * 0.0245) * 100) / 100;
+        let skladkaZdrowotnaPrzedsiebiorcy = Math.round((3803.56 * 0.09) * 100) / 100;
+        let skladkaZdrowotnaPrzesiebiorcy2 = Math.round((3803.56 * 0.0775) * 100) / 100;
+        let razemDoZusPrzedsiebiorcy = Math.round((skladkaZdrowotnaPrzedsiebiorcy + skladkaEmerytalnaPrzedsiebiorcy + skladkaRentowaPrzesiebiorcy +
+            skladkaChorobowaPrzedsiebiorcy + skladkaWypadkowaPrzedsiebiorcy + funduszPracyPrzedsiebiorcy) * 100) / 100;
+        let podstawaOpodatkowaniaPrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - ((Number(this.state.carValue) * 0.2) + Number(this.state.phoneValue) + Number(this.state.computerValue)
+            + (Number(this.state.fuelValue) / 2))) * 100) / 100;
+        let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.previousTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
+        let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
         e.preventDefault();
         if (this.props.previousUopSalary === 0) {
             return
@@ -80,7 +119,19 @@ class MainCalc extends React.Component {
             calculateButtonStyle: {
                 border: '3px solid rgba(10, 180, 180, 1)'
             }
-        })
+        });
+        if (podstawaDoOpodatkowania * 12 > 85528) {
+            var months = ['test', 'styczen', 'luty', 'marzec', 'kwiecen', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
+            var drogiProg = 85528;
+            var entryMonth = Math.ceil(drogiProg/podstawaDoOpodatkowania);
+            var startMiesiacPodatkowy = podstawaDoOpodatkowania >= 85528 ? months[1] : months[entryMonth];
+            console.log(entryMonth, startMiesiacPodatkowy, podstawaDoOpodatkowania);
+
+
+
+            alert('testowy alert dla progu 32%' +
+                'mesiac przekroczenia:'+ startMiesiacPodatkowy )
+        }
     };
     handleBrutNet = (e) => {
         this.props.handleSalaryType(e);
@@ -135,11 +186,11 @@ class MainCalc extends React.Component {
             let fuelValue = Number(this.state.fuelValue);
             let allValues = [Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue)];
             let allValuesSum = allValues.reduce((a, b) => a + b);
-            let diffirenceBetweenValues = allValuesSum - Number(this.state.b2bSalary);
+            let diffirenceBetweenValues = Math.round((Number(this.state.b2bSalary - allValuesSum) * 100) / 100);
             let finalPropsSet = this.props.handleDiscounts(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue));
             let maxValue = Math.max(...allValues);
 
-            alert(`kwota do odliczenia na nastepny miesiac to ${diffirenceBetweenValues} zl`);
+            alert(`kwota do odliczenia na nastepny miesiac to ${Math.abs(diffirenceBetweenValues)} zl`);
 
 
             if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue === 0) {
@@ -155,39 +206,136 @@ class MainCalc extends React.Component {
 
             if (computerValue !== 0 && phoneValue !== 0 && carValue === 0 && fuelValue === 0) {
                 if (computerValue > phoneValue) {
-                    this.setState({computerValue: this.state.b2bSalary - this.state.phoneValue})
-                } else {
-                    this.setState({phoneValue: this.state.b2bSalary - this.state.computerValue})
+                    if (this.state.b2bSalary - this.state.phoneValue < 0) {
+                        this.setState({
+                            phoneValue: this.state.b2bSalary/2,
+                            computerValue: this.state.b2bSalary/2
+                        })
+                    } else {
+                        this.setState({
+                            computerValue: this.state.b2bSalary - this.state.phoneValue
+                        })
+                    }
+                } else if (phoneValue > computerValue) {
+                    if (this.state.b2bSalary - this.state.computerValue < 0) {
+                        this.setState({
+                            phoneValue: this.state.b2bSalary/2,
+                            computerValue: this.state.b2bSalary/2
+                        })
+                    } else {
+                        this.setState({
+                            phoneValue: this.state.b2bSalary - this.state.computerValue
+                        })
+                    }
                 }
-            } else if (computerValue !== 0 && phoneValue === 0 && carValue !== 0 && fuelValue === 0) {
+
+            }
+
+            else if (computerValue !== 0 && phoneValue === 0 && carValue !== 0 && fuelValue === 0) {
                 if (computerValue > carValue) {
-                    this.setState({computerValue: this.state.b2bSalary - this.state.carValue})
-                } else {
-                    this.setState({carValue: this.state.b2bSalary - this.state.computerValue})
+                    if (this.state.b2bSalary - this.state.carValue < 0) {
+                        this.setState({
+                            carValue: this.state.b2bSalary/2,
+                            computerValue: this.state.b2bSalary/2
+                        })
+                    } else {
+                        this.setState({
+                            computerValue: this.state.b2bSalary - this.state.carValue
+                        })
+                    }
+                } else if (carValue > computerValue) {
+                    if (this.state.b2bSalary - this.state.computerValue < 0) {
+                        this.setState({
+                            carValue: this.state.b2bSalary/2,
+                            computerValue: this.state.b2bSalary/2
+                        })
+                    } else {
+                        this.setState({
+                            carValue: this.state.b2bSalary - this.state.computerValue
+                        })
+                    }
                 }
-            } else if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue !== 0) {
+            }
+
+            else if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue !== 0) {
                 if (computerValue > fuelValue) {
-                    this.setState({computerValue: this.state.b2bSalary - this.state.fuelValue})
-                } else {
-                    this.setState({fuelValue: this.state.b2bSalary - this.state.computerValue})
+                    if (this.state.b2bSalary - this.state.fuelValue < 0) {
+                        this.setState({
+                            computerValue: this.state.b2bSalary/2,
+                            fuelValue: this.state.b2bSalary/2,
+                        })
+                    } else {
+                        this.setState({computerValue: this.state.b2bSalary - this.state.fuelValue})
+                    }
+                } else if (fuelValue > computerValue) {
+                    if (this.state.b2bSalary - this.state.computerValue < 0) {
+                        this.setState({
+                            computerValue: this.state.b2bSalary/2,
+                            fuelValue: this.state.b2bSalary/2,
+                        })
+                    } else {
+                        this.setState({fuelValue: this.state.b2bSalary - this.state.computerValue})
+                    }
                 }
-            } else if (computerValue === 0 && phoneValue !== 0 && carValue !== 0 && fuelValue === 0) {
+            }
+
+            else if (computerValue === 0 && phoneValue !== 0 && carValue !== 0 && fuelValue === 0) {
                 if (phoneValue > carValue) {
-                    this.setState({phoneValue: this.state.b2bSalary - this.state.carValue})
-                } else {
-                    this.setState({carValue: this.state.b2bSalary - this.state.phoneValue})
+                    if (this.state.b2bSalary - this.state.carValue < 0) {
+                        this.setState({
+                            phoneValue: this.state.b2bSalary/2,
+                            carValue: this.state.b2bSalary/2,
+                        })
+                    } else {
+                        this.setState({phoneValue: this.state.b2bSalary - this.state.carValue})
+                    }
+                } else if (carValue > phoneValue) {
+                    if (this.state.b2bSalary - this.state.phoneValue < 0) {
+                        this.setState({
+                            phoneValue: this.state.b2bSalary/2,
+                            carValue: this.state.b2bSalary/2,
+                        })
+                    } else {
+                        this.setState({carValue: this.state.b2bSalary - this.state.carValue})
+                    }
                 }
             } else if (computerValue === 0 && phoneValue !== 0 && carValue === 0 && fuelValue !== 0) {
                 if (phoneValue > fuelValue) {
-                    this.setState({phoneValue: this.state.b2bSalary - this.state.fuelValue})
-                } else {
-                    this.setState({fuelValue: this.state.b2bSalary - this.state.phoneValue})
+                    if (this.state.b2bSalary - this.state.fuelValue < 0) {
+                        this.setState({
+                            phoneValue: this.state.b2bSalary / 2,
+                            fuelValue: this.state.b2bSalary / 2,
+                        })
+                    } else {
+                        this.setState({phoneValue: this.state.b2bSalary - this.state.fuelValue})
+                    }
+                } else if (fuelValue > phoneValue) {
+                    if (this.state.b2bSalary - this.state.phoneValue < 0) {
+                        this.setState({
+                            phoneValue: this.state.b2bSalary / 2,
+                            fuelValue: this.state.b2bSalary / 2,
+                        })
+                    } else {
+                        this.setState({fuelValue: this.state.b2bSalary - this.state.phoneValue})
+                    }
                 }
+
+
             } else if (computerValue === 0 && phoneValue === 0 && carValue !== 0 && fuelValue !== 0) {
                 if (carValue > fuelValue) {
-                    this.setState({carValue: this.state.b2bSalary - this.state.fuelValue})
-                } else {
-                    this.setState({fuelValue: this.state.b2bSalary - this.state.carValue})
+                    if (this.state.b2bSalary - this.state.fuelValue < 0) {
+                        this.setState({
+                            carValue: this.state.b2bSalary / 2,
+                            fuelValue: this.state.b2bSalary / 2,
+                        })
+                    } else {this.setState({carValue: this.state.b2bSalary - this.state.fuelValue})}
+                } else if (fuelValue > carValue) {
+                    if (this.state.b2bSalary - this.state.carValue < 0) {
+                        this.setState({
+                            carValue: this.state.b2bSalary / 2,
+                            fuelValue: this.state.b2bSalary / 2,
+                        })
+                    } else {this.setState({fuelValue: this.state.b2bSalary - this.state.carValue})}
                 }
             }
 
@@ -290,7 +438,6 @@ class MainCalc extends React.Component {
                 }
             }
 
-            //// tutaj koniec
 
             else if (computerValue === 0 && phoneValue !== 0 && carValue !== 0 && fuelValue !== 0) {
                 if (phoneValue > carValue && phoneValue > fuelValue) {
@@ -331,41 +478,43 @@ class MainCalc extends React.Component {
                             fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
                         })
                     } else {this.setState({computerValue: this.state.b2bSalary - this.state.phoneValue - this.state.carValue - this.state.fuelValue})}
+                } else if (phoneValue === maxValue) {
+                    if (this.state.b2bSalary - this.state.computerValue - this.state.carValue - this.state.fuelValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            phoneValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            carValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
+                        })
+                    } else {this.setState({phoneValue: this.state.b2bSalary - this.state.computerValue - this.state.carValue - this.state.fuelValue})}
+                } else if (carValue === maxValue) {
+                    if (this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.fuelValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            phoneValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            carValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
+                        })
+                    } else {this.setState({carValue: this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.fuelValue})}
+                } else if (fuelValue === maxValue) {
+                    if (this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.carValue < 0) {
+                        this.setState({
+                            computerValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            phoneValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            carValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
+                            fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
+                        })
+                    } else {this.setState({fuelValue: this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.carValue})}
                 }
-            } else if (phoneValue === maxValue) {
-                if (this.state.b2bSalary - this.state.computerValue - this.state.carValue - this.state.fuelValue < 0) {
-                    this.setState({
-                        computerValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        phoneValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        carValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
-                    })
-                } else {this.setState({phoneValue: this.state.b2bSalary - this.state.computerValue - this.state.carValue - this.state.fuelValue})}
-            } else if (carValue === maxValue) {
-                if (this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.fuelValue < 0) {
-                    this.setState({
-                        computerValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        phoneValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        carValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
-                    })
-                } else {this.setState({carValue: this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.fuelValue})}
-            } else if (fuelValue === maxValue) {
-                if (this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.carValue < 0) {
-                    this.setState({
-                        computerValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        phoneValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        carValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100),
-                        fuelValue: Math.round(((this.state.b2bSalary / 4) * 100) / 100)
-                    })
-                } else {this.setState({fuelValue: this.state.b2bSalary - this.state.computerValue - this.state.phoneValue - this.state.carValue})}
             }
 
         }
     };
 
     refreshButton = (e) => {
-        this.props.handleUopSalary(e);
+        e.stopPropagation();
+        e.preventDefault();
+        // this.props.handleUopSalary(e);
         this.props.testFunction()
     };
 
@@ -403,6 +552,10 @@ class MainCalc extends React.Component {
             + (Number(this.state.fuelValue) / 2))) * 100) / 100;
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
+
+
+
 
         console.log(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue));
 
@@ -504,11 +657,13 @@ class MainCalc extends React.Component {
                         </div>
                     </div>
 
+                    {/*<FontAwesomeIcon value={0} icon={faSyncAlt}/>*/}
+
                     <div className={'calculate-holder'}>
                         <button className={'fancy-button'} onClick={this.handleCalculate}
                                 style={this.state.calculateButtonStyle}>Oblicz
                         </button>
-                        <button onClick={this.refreshButton} value={0}>refresh</button>
+                        <button onClick={this.refreshButton} style={this.state.refreshStyle} className={'fancy-button'} value={0}>Wyczysc </button>
                         <p className={'fancy-text'}>Tyle zyskasz wiecej na reke w przypadku b2b</p>
                         <div className={'calculate-input-holder'}>
                             <div className={'sum-display'}>

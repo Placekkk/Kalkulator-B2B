@@ -5,7 +5,6 @@ import { mapStateToProps } from "./MainCalc";
 class TableRowBasic extends React.Component{
     render() {
 
-
         let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracownika = Math.round((this.props.finalUopSalary * 0.0150 + 0.00001) * 100) / 100;
         let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
@@ -17,8 +16,6 @@ class TableRowBasic extends React.Component{
         let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
         let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa -
             skladkaZdrowotna - zaliczkaNaPodatekDochodowy) * 100) / 100;
-
-
 
         return (
             <tr>

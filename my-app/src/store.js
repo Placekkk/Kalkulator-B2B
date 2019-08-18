@@ -10,7 +10,7 @@ const initialState = {
     previousTaxPercentage: 18,
     finalTaxPercentage: 18,
     previousZusType: 'maly ZUS',
-    finalZusType: 'duzy ZUS',
+    finalZusType: 'maly ZUS',
     previousComputer: 0,
     finalComputer: 0,
     previousPhone: 0,

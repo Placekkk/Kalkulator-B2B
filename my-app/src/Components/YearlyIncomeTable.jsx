@@ -12,6 +12,48 @@ class YearlyIncomeTable extends React.Component {
         let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
         let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) /100;
         let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalSamePlace;
+
+        let months = {
+            'styczen': {
+                salarySum: this.props.finalUopSalary,
+            },
+            'luty' : {
+                salarySum: this.props.finalUopSalary * 2,
+            },
+            'marczec' : {
+                salarySum: this.props.finalUopSalary * 3,
+            },
+            'kwiecien' : {
+                salarySum: this.props.finalUopSalary * 4,
+            },
+            'maj' : {
+                salarySum: this.props.finalUopSalary * 5,
+            },
+            'czerwiec' : {
+                salarySum: this.props.finalUopSalary * 6,
+            },
+            'lipiec' : {
+                salarySum: this.props.finalUopSalary * 7,
+            },
+            'sierpien' : {
+                salarySum: this.props.finalUopSalary * 8,
+            },
+            'wrzesien' : {
+                salarySum: this.props.finalUopSalary * 9,
+            },
+            'pazdziernik' : {
+                salarySum: this.props.finalUopSalary * 10,
+            },
+            'listopad' : {
+                salarySum: this.props.finalUopSalary * 11,
+            },
+            'grudzien' : {
+                salarySum: this.props.finalUopSalary * 12,
+            },
+        };
+
+        console.log(months);
+
         return (
             <div className={'yearly-income-table-holder'} style={this.props.elStyle}>
 

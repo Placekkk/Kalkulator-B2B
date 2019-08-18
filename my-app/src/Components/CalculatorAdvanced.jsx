@@ -105,7 +105,7 @@ class CalculatorAdvanced extends React.Component {
 
                                 <tr>
                                     <td>Podstawa wymiaru składek dla przedsiębiorcy</td>
-                                    <td>{this.props.finalZusType === 111.25 ? "maly ZUS" : "duzy ZUS"}</td>
+                                    <td>{this.props.finalZusType === 'maly ZUS' ? "maly ZUS" : "duzy ZUS"}</td>
                                 </tr>
 
                                 <tr>
