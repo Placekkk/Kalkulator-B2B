@@ -120,18 +120,17 @@ class MainCalc extends React.Component {
                 border: '3px solid rgba(10, 180, 180, 1)'
             }
         });
-        if (podstawaDoOpodatkowania * 12 > 85528) {
-            var months = ['test', 'styczen', 'luty', 'marzec', 'kwiecen', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
-            var drogiProg = 85528;
-            var entryMonth = Math.ceil(drogiProg/podstawaDoOpodatkowania);
-            var startMiesiacPodatkowy = podstawaDoOpodatkowania >= 85528 ? months[1] : months[entryMonth];
-            console.log(entryMonth, startMiesiacPodatkowy, podstawaDoOpodatkowania);
-
-
-
-            alert('testowy alert dla progu 32%' +
-                'mesiac przekroczenia:'+ startMiesiacPodatkowy )
-        }
+        // if (podstawaDoOpodatkowania * 12 > 85528) {
+        //     var months = ['test', 'styczen', 'luty', 'marzec', 'kwiecen', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
+        //     var drogiProg = 85528;
+        //     var entryMonth = Math.ceil(drogiProg/podstawaDoOpodatkowania);
+        //     var startMiesiacPodatkowy = podstawaDoOpodatkowania >= 85528 ? months[1] : months[entryMonth];
+        //     console.log(entryMonth, startMiesiacPodatkowy, podstawaDoOpodatkowania);
+        //
+        //
+        //     alert('testowy alert dla progu 32%' +
+        //         'mesiac przekroczenia:'+ startMiesiacPodatkowy )
+        // }
     };
     handleBrutNet = (e) => {
         this.props.handleSalaryType(e);
@@ -720,7 +719,7 @@ export const mapDispatchToProps = (dispatch) => {
                 dispatch(action);
                 return
             }
-            const action = {type: 'CHANGED_RESULT_SALARY', previousUopSalary: e.target.value};
+            const action = {type: 'CHANGED_RESULT_SALARY', previousUopSalary: parseInt(e.target.value)};
             dispatch(action);
         },
         handleSalaryType: (e) => {
