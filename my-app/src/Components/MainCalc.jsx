@@ -513,7 +513,6 @@ class MainCalc extends React.Component {
     refreshButton = (e) => {
         e.stopPropagation();
         e.preventDefault();
-        // this.props.handleUopSalary(e);
         this.props.testFunction()
     };
 
@@ -551,8 +550,6 @@ class MainCalc extends React.Component {
             + (Number(this.state.fuelValue) / 2))) * 100) / 100;
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
-
-
 
 
 
@@ -667,11 +664,11 @@ class MainCalc extends React.Component {
                         <div className={'calculate-input-holder'}>
                             <div className={'sum-display'}>
                                 <p>Na miesiac</p>
-                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((zarobekLaczniePrzedsiebiorcy - zarobekLacznieNettoPracownika) * 100) / 100 : 0}zl</p>
+                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((zarobekLaczniePrzedsiebiorcy - this.props.averageNetSalary/12) * 100) / 100 : 0}zl</p>
                             </div>
                             <div className={'sum-display'}>
                                 <p>W ciagu roku</p>
-                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((Math.round((zarobekLaczniePrzedsiebiorcy - zarobekLacznieNettoPracownika) * 100) / 100 * 12) * 100) / 100 : 0}zl</p>
+                                <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((Math.round((zarobekLaczniePrzedsiebiorcy - this.props.averageNetSalary/12) * 100) / 100 * 12) * 100) / 100 : 0}zl</p>
                             </div>
                         </div>
                     </div>
@@ -702,7 +699,8 @@ export const mapStateToProps = (state) => {
         previousCar: state.previousCar,
         finalCar: state.finalCar,
         previousFuel: state.previousFuel,
-        finalFuel: state.finalFuel
+        finalFuel: state.finalFuel,
+        averageNetSalary: state.averageNetSalary
     }
 };
 
@@ -772,6 +770,10 @@ export const mapDispatchToProps = (dispatch) => {
                 return
             }
             const action = {type: 'CHANGED_RESULT_FUEL', previousFuel: parseInt(e.target.value)};
+            dispatch(action)
+        },
+        handleAverageNetSalary: (result) => {
+            const action = {type: 'SET_AVERAGE_SALARY', averageNetSalary: parseInt(result)};
             dispatch(action)
         }
         ,

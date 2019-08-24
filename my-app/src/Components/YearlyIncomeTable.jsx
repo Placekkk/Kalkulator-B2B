@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { mapStateToProps } from "./MainCalc";
-import TableRowBasic from "./TableRowBasic";
+import {mapDispatchToProps, mapStateToProps} from "./MainCalc";
 
 
 
 class YearlyIncomeTable extends React.Component {
+
+
     render() {
         let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracownika = Math.round((this.props.finalUopSalary * 0.0150 + 0.00001) * 100) / 100;
         let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
         let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) /100;
         let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalSamePlace;
-
 
         let months = [{
             name: 'styczen',
@@ -208,7 +208,11 @@ class YearlyIncomeTable extends React.Component {
             key: 12377
         }];
 
+
+
         for (let i = 0; i < months.length; i++) {
+
+            var sumaPensjiNetto = 0;
 
             if (parseInt(months[i].salarySum) > 142950) {
                 let sumaSkladkiRentowej = 0;
@@ -254,8 +258,14 @@ class YearlyIncomeTable extends React.Component {
                 months[i].kwotaNetto = Math.round((this.props.finalUopSalary - months[i].skladkaEmerytalna - months[i].skladkaRentowa - months[i].skladkaChorobowa - months[i].skladkaZdrowotna - months[i].zaliczkaNaPodatekDochodowy) *100) /100;
             }
 
+            for (let i = 0; i < months.length; i++) {
+                sumaPensjiNetto += months[i].kwotaNetto
+            }
         }
 
+        this.props.handleAverageNetSalary(sumaPensjiNetto);
+        console.log(this.props.averageNetSalary);
+        console.log(sumaPensjiNetto);
 
         let fixedTable = months.map( months => {
             return (
@@ -278,10 +288,6 @@ class YearlyIncomeTable extends React.Component {
                 </tr>
             )
         });
-
-
-
-        console.log(months);
 
         return (
             <div className={'yearly-income-table-holder'} style={this.props.elStyle}>
@@ -306,8 +312,8 @@ class YearlyIncomeTable extends React.Component {
                             <th>Zaliczka na podatek dochodowy</th>
                             <th>Kwota Brutto</th>
                             <th>Kwota Netto</th>
-                            <th>Kwota Brutto sum</th>
-                            <th>Podstawa do opodatkowania sum</th>
+                            <th>Kwota Brutto suma</th>
+                            <th>Podstawa do opodatkowania suma</th>
                         </tr>
 
 
@@ -338,4 +344,6 @@ class YearlyIncomeTable extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(YearlyIncomeTable);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(YearlyIncomeTable);

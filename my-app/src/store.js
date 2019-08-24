@@ -19,6 +19,7 @@ const initialState = {
     finalCar: 0,
     previousFuel: 0,
     finalFuel: 0,
+    averageNetSalary: 0,
 };
 
 const reducer  = (state = initialState, action) => {
@@ -61,6 +62,9 @@ const reducer  = (state = initialState, action) => {
         case 'FIX_DISCOUNTS': {
             return Object.assign({}, state, {previousComputer: action.previousComputer, previousPhone: action.previousPhone,
                 previousCar: action.previousCar, previousFuel: action.previousFuel});
+        }
+        case 'SET_AVERAGE_SALARY': {
+            return Object.assign({}, state, {averageNetSalary: action.averageNetSalary});
         }
         default: return state
     }
