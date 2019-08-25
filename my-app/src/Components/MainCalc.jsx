@@ -24,6 +24,10 @@ class MainCalc extends React.Component {
             refreshStyle: {
                 padding: '10px 10px',
                 fontSize: '14px'
+            },
+            testState: '',
+            alertStyle: {
+                display: 'none'
             }
         }
     }
@@ -35,6 +39,7 @@ class MainCalc extends React.Component {
             }
         })
     };
+
     handleTestExit = () => {
         this.setState({
             infoBarFirst: {
@@ -42,6 +47,7 @@ class MainCalc extends React.Component {
             }
         })
     };
+
     borderAnimate = () => {
         if (this.state.calculateButtonStyle.border === '3px solid rgba(10, 180, 180, 1)') {
             this.setState({
@@ -51,6 +57,7 @@ class MainCalc extends React.Component {
             })
         }
     };
+
     stateFix = () => {
         let brutSalary = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : Math.round((this.props.previousUopSalary - (111.25 * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
         let skladkaEmerytalnaPracodawcy = Math.round((brutSalary * 0.0976 + 0.00001) * 100) / 100;
@@ -63,6 +70,7 @@ class MainCalc extends React.Component {
             b2bSalary: lacznyKosztPracodawcy
         })
     };
+
     handleBlur = (e) => {
         if (this.props.previousUopSalary === 0) {
             return
@@ -71,8 +79,8 @@ class MainCalc extends React.Component {
         this.stateFix();
         this.borderAnimate();
     };
-    handleCalculate = (e) => {
 
+    handleCalculate = (e) => {
         let skladkaEmerytalnaPracodawcy = Math.round((this.props.previousUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracodawcy = Math.round((this.props.previousUopSalary * 0.0650 + 0.00001) * 100) / 100;
         let skladkaWypadkowa = Math.round((this.props.previousUopSalary * 0.0167 + 0.00001) * 100) / 100;
@@ -120,18 +128,20 @@ class MainCalc extends React.Component {
                 border: '3px solid rgba(10, 180, 180, 1)'
             }
         });
-        // if (podstawaDoOpodatkowania * 12 > 85528) {
-        //     var months = ['test', 'styczen', 'luty', 'marzec', 'kwiecen', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
-        //     var drogiProg = 85528;
-        //     var entryMonth = Math.ceil(drogiProg/podstawaDoOpodatkowania);
-        //     var startMiesiacPodatkowy = podstawaDoOpodatkowania >= 85528 ? months[1] : months[entryMonth];
-        //     console.log(entryMonth, startMiesiacPodatkowy, podstawaDoOpodatkowania);
-        //
-        //
-        //     alert('testowy alert dla progu 32%' +
-        //         'mesiac przekroczenia:'+ startMiesiacPodatkowy )
-        // }
+        if (podstawaDoOpodatkowania * 13 > 85528) {           // pokazywanie miesiace przekroczenia
+            // this.testBigTax()
+            let months = ['styczen', 'luty', 'marzec', 'kwiecien', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
+            let result = Math.ceil(85528/podstawaDoOpodatkowania);
+            console.log(months[result]);
+            this.setState({testState: months[result], alertStyle: {display: 'flex'}})
+        }
     };
+
+    testBigTax = () => {
+        console.log(this.props.taxThreshold + 'test');
+        this.setState({testState: this.props.taxThreshold})
+    };
+
     handleBrutNet = (e) => {
         this.props.handleSalaryType(e);
         if (this.props.previousUopSalary !== 0) {
@@ -227,7 +237,6 @@ class MainCalc extends React.Component {
                         })
                     }
                 }
-
             }
 
             else if (computerValue !== 0 && phoneValue === 0 && carValue !== 0 && fuelValue === 0) {
@@ -516,6 +525,11 @@ class MainCalc extends React.Component {
         this.props.testFunction()
     };
 
+    handleAlertAccept = (e) => {
+        e.preventDefault();
+        this.setState({alertStyle: {display: 'none'}})
+    };
+
     render() {
         let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracodawcy = Math.round((this.props.finalUopSalary * 0.0650 + 0.00001) * 100) / 100;
@@ -552,10 +566,6 @@ class MainCalc extends React.Component {
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
 
 
-
-        console.log(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue));
-
-
         return (
             <div className={'first-main-holder'}>
 
@@ -578,6 +588,13 @@ class MainCalc extends React.Component {
                                     <option value={'brut'}>Brutto</option>
                                     <option value={'net'}>Netto</option>
                                 </select>
+                            </div>
+
+                            <div className={'alert-box'} style={this.state.alertStyle}>
+                                <h4>Uwaga</h4>
+                                <p>W miesiacu {this.state.testState} wejdziesz w II prog podatkowy. Kalkulator automatycznie
+                                zaciagnie srednia z zakladki "Roczna tabela dochodow" i porowna wyniki</p>
+                                <button onClick={this.handleAlertAccept} className={'fancy-button'}>OK</button>
                             </div>
 
                             <div className={'birth-place-holder'}>
@@ -700,7 +717,8 @@ export const mapStateToProps = (state) => {
         finalCar: state.finalCar,
         previousFuel: state.previousFuel,
         finalFuel: state.finalFuel,
-        averageNetSalary: state.averageNetSalary
+        averageNetSalary: state.averageNetSalary,
+        taxThreshold: state.taxThreshold
     }
 };
 
@@ -710,6 +728,10 @@ export const mapDispatchToProps = (dispatch) => {
         handleDiscounts: (computer, phone, car, fuel) => {
             const action = {type: 'FIX_DISCOUNTS', previousComputer: computer, previousPhone: phone, previousCar: car, previousFuel: fuel};
             dispatch(action)
+        },
+        handleTaxThreshold: (result) => {
+            const action = {type: 'TAX_THRESHOLD_DISPLAY', taxThreshold: result};
+            dispatch(action);
         },
         handleUopSalary: (e) => {
             if (e.target.value <= 0 || e.target.value.length === 0) {

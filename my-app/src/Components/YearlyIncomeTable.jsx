@@ -213,6 +213,7 @@ class YearlyIncomeTable extends React.Component {
         for (let i = 0; i < months.length; i++) {
 
             var sumaPensjiNetto = 0;
+            var taxMonthNumber = '';
 
             if (parseInt(months[i].salarySum) > 142950) {
                 let sumaSkladkiRentowej = 0;
@@ -245,6 +246,8 @@ class YearlyIncomeTable extends React.Component {
             for (let i = 1; i < months.length; i++) {       // podatek dochodowy
                 if (months[i-1].podstawaDoOpodatkowaniaSuma > 85528) {
                     months[i].podatekDochodowy = Math.round(((months[i].podstawaDoOpodatkowania) * 0.32) *100) /100;
+                    taxMonthNumber = months[i].name;
+
                 } else {months[i].podatekDochodowy = Math.round(((months[i].podstawaDoOpodatkowania) * 0.18 - 46.33) *100) /100}
             }
             months[0].podatekDochodowy = Math.round(((months[0].podstawaDoOpodatkowania) * 0.18 -46.33) *100) /100;
@@ -258,14 +261,23 @@ class YearlyIncomeTable extends React.Component {
                 months[i].kwotaNetto = Math.round((this.props.finalUopSalary - months[i].skladkaEmerytalna - months[i].skladkaRentowa - months[i].skladkaChorobowa - months[i].skladkaZdrowotna - months[i].zaliczkaNaPodatekDochodowy) *100) /100;
             }
 
-            for (let i = 0; i < months.length; i++) {
-                sumaPensjiNetto += months[i].kwotaNetto
+            for (let i = 0; i < months.length; i++) {          // suma pensji netto
+                sumaPensjiNetto += months[i].kwotaNetto;
+            }
+            for (let i = 0; i < months.length -1; i++) {
+                if (months[i].podstawaDoOpodatkowaniaSuma > 85528) {
+                    taxMonthNumber = months[i+1].name;
+                    break
+                }
             }
         }
 
+        this.props.handleTaxThreshold(taxMonthNumber);
         this.props.handleAverageNetSalary(sumaPensjiNetto);
-        console.log(this.props.averageNetSalary);
-        console.log(sumaPensjiNetto);
+        // console.log(this.props.averageNetSalary);
+        // console.log(sumaPensjiNetto);
+        // console.log(taxMonthNumber);
+        // console.log(this.props.taxThreshold);
 
         let fixedTable = months.map( months => {
             return (

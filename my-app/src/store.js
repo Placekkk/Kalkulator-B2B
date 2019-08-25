@@ -20,6 +20,7 @@ const initialState = {
     previousFuel: 0,
     finalFuel: 0,
     averageNetSalary: 0,
+    taxThreshold: 0,
 };
 
 const reducer  = (state = initialState, action) => {
@@ -27,9 +28,11 @@ const reducer  = (state = initialState, action) => {
         case 'CHANGED_RESULT_SALARY': {
             return Object.assign({}, state, {previousUopSalary: action.previousUopSalary});
         }
+        case 'TAX_THRESHOLD_DISPLAY': {
+            return Object.assign({}, state, {taxThreshold: action.taxThreshold});
+        }
         case 'CHANGED_RESULT_TYPE_SALARY': {
             return Object.assign({}, state, {previousTypeSalary: action.previousTypeSalary});
-
         }
         case 'CHANGED_RESULT_SAME_PLACE': {
             return Object.assign({}, state, {previousSamePlace: action.previousSamePlace});
