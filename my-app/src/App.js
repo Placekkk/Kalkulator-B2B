@@ -10,7 +10,11 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            shouldRender: true
+            shouldRender: true,
+            advancedCalcStyle: {
+                display: 'none'
+            },
+            foldText: 'Rozwiń'
         }
     }
 
@@ -18,18 +22,33 @@ class App extends React.Component {
         this.setState({shouldRender: false}, () => this.setState({shouldRender: true}))
     };
 
+    handleShowHide = () => {
+        if (this.state.foldText === 'Zwiń') {
+            this.setState({
+                advancedCalcStyle: {
+                    display: 'none'
+                },
+                foldText: 'Rozwiń'
+            })
+        } else {
+            this.setState({
+                advancedCalcStyle: {
+                    display: 'block'
+                },
+                foldText: 'Zwiń'
+            })
+        }
+
+    };
+
     render() {
         return (
         <div>
         <Provider store={store}>
-
-            {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh}/> : null}
-          <AdvancedValuesHolder handleUpdate={this.handleUpdate}/>
+            {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh} showHideButton={this.handleShowHide}/> : null}
+            <h2 className={'hide-advanced-calc'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Rozwiń' ? "▼" : "▲"}</h2>
+          <AdvancedValuesHolder handleUpdate={this.handleUpdate} advancedCalcShowHideStyle={this.state.advancedCalcStyle}/>
         </Provider>
-
-            <div className="rainbow">
-                Rainbow border
-            </div>
 
         </div>
 

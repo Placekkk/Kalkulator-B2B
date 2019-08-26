@@ -5,3 +5,13 @@
 @import "PartialCss/TableAdvanced.css";
 @import "PartialCss/CalculatorAdvanced.css";
 
+.hide-advanced-calc {
+    color: rgba(10, 180, 180, 1);
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.hide-advanced-calc:hover {
+    cursor: pointer;
+}

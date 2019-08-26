@@ -138,7 +138,7 @@ class AdvancedValuesHolder extends React.Component {
 
     render() {
         return (
-            <div className={'helper-holder'}>
+            <div className={'helper-holder'} style={this.props.advancedCalcShowHideStyle}>
                 <div className={'advanced-values-holder'}>
 
                     <nav className={'advanced-button-holder'}>

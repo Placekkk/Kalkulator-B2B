@@ -135,6 +135,7 @@ class MainCalc extends React.Component {
             console.log(months[result]);
             this.setState({testState: months[result], alertStyle: {display: 'flex'}})
         }
+        this.props.showHideButton()
     };
 
     testBigTax = () => {
@@ -592,8 +593,8 @@ class MainCalc extends React.Component {
 
                             <div className={'alert-box'} style={this.state.alertStyle}>
                                 <h4>Uwaga</h4>
-                                <p>W miesiacu {this.state.testState} wejdziesz w II prog podatkowy. Kalkulator automatycznie
-                                zaciagnie srednia z zakladki "Roczna tabela dochodow" i porowna wyniki</p>
+                                <p>W miesiącu {this.state.testState} wejdziesz w II próg podatkowy. Kalkulator automatycznie
+                                zaciągnie średnią z zakładki "Roczna tabela dochodów" i porówna wyniki</p>
                                 <button onClick={this.handleAlertAccept} className={'fancy-button'}>OK</button>
                             </div>
 
