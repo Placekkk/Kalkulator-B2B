@@ -18,6 +18,10 @@ form {
     flex-direction: column;
 }
 
+option {
+    background-color: rgba(20, 20, 20, .7);
+}
+
 .both-holder {
     display: flex;
     justify-content: space-between;

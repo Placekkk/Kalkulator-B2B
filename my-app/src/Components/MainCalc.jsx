@@ -49,7 +49,7 @@ class MainCalc extends React.Component {
     };
 
     borderAnimate = () => {
-        if (this.state.calculateButtonStyle.border === '3px solid rgba(10, 180, 180, 1)') {
+        if (this.props.previousUopSalary !== 0) {
             this.setState({
                 calculateButtonStyle: {
                     border: '3px solid red',
@@ -135,12 +135,7 @@ class MainCalc extends React.Component {
             console.log(months[result]);
             this.setState({testState: months[result], alertStyle: {display: 'flex'}})
         }
-        this.props.showHideButton()
-    };
-
-    testBigTax = () => {
-        console.log(this.props.taxThreshold + 'test');
-        this.setState({testState: this.props.taxThreshold})
+        this.props.showButtonDisplay()
     };
 
     handleBrutNet = (e) => {
@@ -157,6 +152,7 @@ class MainCalc extends React.Component {
                 b2bSalary: lacznyKosztPracodawcy
             })
         }
+        this.borderAnimate();
     };
     handleSamePlace = (e) => {
         this.props.handleSamePlace(e);

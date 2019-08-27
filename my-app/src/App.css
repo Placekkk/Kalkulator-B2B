@@ -6,7 +6,7 @@
 @import "PartialCss/CalculatorAdvanced.css";
 
 .hide-advanced-calc {
-    color: rgba(10, 180, 180, 1);
+    color: rgba(25, 106, 128, .9);
     width: 1200px;
     margin: 0 auto;
     margin-top: 40px;

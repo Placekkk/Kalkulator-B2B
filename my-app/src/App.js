@@ -14,7 +14,10 @@ class App extends React.Component {
             advancedCalcStyle: {
                 display: 'none'
             },
-            foldText: 'Rozwiń'
+            foldText: 'Pokaż szczegółowe wyliczenia',
+            showButtonStyle: {
+                display: 'none'
+            }
         }
     }
 
@@ -23,30 +26,37 @@ class App extends React.Component {
     };
 
     handleShowHide = () => {
-        if (this.state.foldText === 'Zwiń') {
+        if (this.state.foldText === 'Schowaj szczegółowe wyliczenia') {
             this.setState({
                 advancedCalcStyle: {
                     display: 'none'
                 },
-                foldText: 'Rozwiń'
+                foldText: 'Pokaż szczegółowe wyliczenia'
             })
         } else {
             this.setState({
                 advancedCalcStyle: {
                     display: 'block'
                 },
-                foldText: 'Zwiń'
+                foldText: 'Schowaj szczegółowe wyliczenia'
             })
         }
+    };
 
+    handleShowButtonDisplay = () => {
+        this.setState({
+            showButtonStyle: {
+                display: 'block'
+            }
+        })
     };
 
     render() {
         return (
         <div>
         <Provider store={store}>
-            {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh} showHideButton={this.handleShowHide}/> : null}
-            <h2 className={'hide-advanced-calc'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Rozwiń' ? "▼" : "▲"}</h2>
+            {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh} showButtonDisplay={this.handleShowButtonDisplay}/> : null}
+            <h2 style={this.state.showButtonStyle} className={'hide-advanced-calc'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Pokaż szczegółowe wyliczenia' ? "▼" : "▲"}</h2>
           <AdvancedValuesHolder handleUpdate={this.handleUpdate} advancedCalcShowHideStyle={this.state.advancedCalcStyle}/>
         </Provider>
 
