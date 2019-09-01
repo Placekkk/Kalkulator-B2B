@@ -26,19 +26,21 @@ class TableAdvanced extends React.Component {
                 <table className={'table-topper'}>
                     <tbody>
 
-                    <tr>
-                        <th>Grupy dzialalnosci</th>
-                        <th>KOD PKD</th>
-                        <th>Kategorie Ryzyka</th>
-                        <th>Stopy procentowe skladki</th>
-                        <th>Wynik</th>
-                    </tr>
+
                     </tbody>
                 </table>
 
                 <table className={'table-advanced'}>
 
                     <tbody>
+
+                    <tr className={'table-topper'}>
+                        <th className={'sticky-row'}>Grupy dzialalnosci</th>
+                        <th className={'sticky-row'}>KOD PKD</th>
+                        <th className={'sticky-row'}>Kategorie Ryzyka</th>
+                        <th className={'sticky-row'}>Stopy procentowe skladki</th>
+                        <th className={'sticky-row'}>Wynik</th>
+                    </tr>
 
                     <RowAdvanced text={'Działalność finansowa i ubezpieczeniowa'} code={'K'} category={2} percent={0.67} sum={0.0067}/>
                     <RowAdvanced text={'Działalność związana z obsługą rynku nieruchomości'} code={'L'} category={2} percent={0.67} sum={0.0067}/>

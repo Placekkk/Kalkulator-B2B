@@ -17,7 +17,7 @@ class App extends React.Component {
             foldText: 'Pokaż szczegółowe wyliczenia',
             showButtonStyle: {
                 display: 'none'
-            }
+            },
         }
     }
 
@@ -51,9 +51,14 @@ class App extends React.Component {
         })
     };
 
+
+
     render() {
+
+
         return (
         <div>
+            <h1 className={'test-head'}></h1>
         <Provider store={store}>
             {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh} showButtonDisplay={this.handleShowButtonDisplay}/> : null}
             <h2 style={this.state.showButtonStyle} className={'hide-advanced-calc'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Pokaż szczegółowe wyliczenia' ? "▼" : "▲"}</h2>

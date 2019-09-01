@@ -35,7 +35,6 @@ option {
     padding: 20px;
     margin-top: 100px;
     color: white;
-
 }
 
 .fancy-input {
@@ -46,6 +45,7 @@ option {
     color: white;
     outline: none;
     height: 3em;
+    width: 90%;
     border-radius: 5px;
 }
 
@@ -56,6 +56,7 @@ option {
     height: 3em;
     width: 15%;
     text-align: center;
+    text-align-last: center;
 }
 
 .fancy-text {
@@ -211,7 +212,6 @@ default fancy text background: rgba(20, 20, 20, .2)
 }
 
 .sum-display-par {
-    width: 50%;
     text-align: center;
     vertical-align: center;
     padding: 10px;
@@ -254,3 +254,112 @@ default fancy text background: rgba(20, 20, 20, .2)
 
 .alert-box>h4 {
 }
+
+@media (min-width:641px) and (max-width: 1023px) {
+    .first-main-holder {
+        width: calc(100vw - (100vw - 100%));
+    }
+    .fancy-input {
+        width: 80%;
+    }
+    .fancy-select {
+        width: 100%;
+    }
+    .amount-holder>label {
+        margin-left: 5%;
+    }
+    .birth-place-holder>p {
+        margin-right: 10px;
+    }
+    .birth-place-holder>.fancy-select {
+        width: 60%;
+    }
+    .uop-holder, .b2b-holder {
+        width: 49%;
+    }
+    .b2b-select {
+        margin-left: 10px;
+    }
+    .b2b-input {
+        width: 30%;
+        margin-left: 10px;
+    }
+    .b2b-display-par {
+        text-align: center;
+        width: 40%;
+        vertical-align: center;
+        padding: 10px;
+        height: 100%;
+        font-size: 1em;
+        margin-left: 10px;
+    }
+    .fancy-button {
+        padding: 15px;
+        margin-right: 10px;
+    }
+    .calculate-holder>.fancy-text {
+        width: 20%;
+    }
+}
+
+@media (min-width:320px) and (max-width: 640px) {
+    .first-main-holder {
+        width: calc(100vw - (100vw - 100%));
+        font-size: 0.8em;
+        padding: 20px;
+    }
+    .both-holder {
+        flex-direction: column;
+    }
+    .uop-holder, .b2b-holder {
+        width: 100%;
+        border: 1px solid rgba(10, 180, 180, 1);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .uop-holder {
+        margin-bottom: 10px;
+    }
+
+    .fancy-select {
+        width: 100%;
+    }
+    .amount-holder>label {
+        margin-left: 5%;
+    }
+    .birth-place-holder>p {
+        margin-right: 10px;
+    }
+    .birth-place-holder>.fancy-select {
+        width: 60%;
+    }
+    .b2b-select {
+        margin-left: 10px;
+    }
+    .b2b-input {
+        width: 30%;
+        margin-left: 10px;
+    }
+    .b2b-display-par {
+        text-align: center;
+        width: 40%;
+        vertical-align: center;
+        padding: 1px;
+        height: 100%;
+        font-size: 1em;
+        margin-left: 10px;
+    }
+    .fancy-button {
+        font-size: 1em;
+        padding: 10px;
+        margin-right: 5px;
+    }
+    .calculate-holder>.fancy-text {
+        width: 30%;
+    }
+}
+
+

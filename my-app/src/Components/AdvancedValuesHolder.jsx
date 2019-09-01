@@ -131,7 +131,7 @@ class AdvancedValuesHolder extends React.Component {
                 backgroundColor: 'transparent'
             },
             holderTableAdvancedStyle: {
-                display: 'block',
+                display: 'flex',
             }
         })
     };

@@ -15,3 +15,34 @@
 .hide-advanced-calc:hover {
     cursor: pointer;
 }
+
+#root {
+    overflow: hidden;
+}
+
+.test-head {
+    color: red;
+}
+
+.test-head:after {
+    content: 'pc'
+}
+
+@media (min-width: 320px) and (max-width: 1023px) {
+    .hide-advanced-calc {
+        width: calc(100vw - (100vw - 100%));
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    .test-head:after {
+        content: 'tablet'
+    }
+}
+
+@media (min-width: 320px) and (max-width: 640px) {
+    .test-head:after {
+        content: 'smartfon'
+    }
+}
+

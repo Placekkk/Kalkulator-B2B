@@ -84,54 +84,52 @@ class CalculatorAdvanced extends React.Component {
 
                         <h3 onClick={this.handleFuse}>Podstawy</h3>
 
-                        <div className={'advanced-upper-holder'}>
-                            <table>
-                                <tbody>
+                        <table>
+                            <tbody>
 
-                                <tr>
-                                    <td>Pensja Brutto na umowie o prace</td>
-                                    <td>{Math.round(brutSalary)}zl</td>
-                                </tr>
+                            <tr>
+                                <td>Pensja Brutto na umowie o prace</td>
+                                <td>{Math.round(brutSalary)}zl</td>
+                            </tr>
 
-                                <tr>
-                                    <td>Kwota Netto na fakturze</td>
-                                    <td>{lacznyKosztPracodawcy}zl</td>
-                                </tr>
+                            <tr>
+                                <td>Kwota Netto na fakturze</td>
+                                <td>{lacznyKosztPracodawcy}zl</td>
+                            </tr>
 
-                                <tr>
-                                    <td>Podatek-dzialalnosc</td>
-                                    <td>{this.props.finalTaxPercentage}%</td>
-                                </tr>
+                            <tr>
+                                <td>Podatek-dzialalnosc</td>
+                                <td>{this.props.finalTaxPercentage}%</td>
+                            </tr>
 
-                                <tr>
-                                    <td>Podstawa wymiaru składek dla przedsiębiorcy</td>
-                                    <td>{this.props.finalZusType === 'maly ZUS' ? "maly ZUS" : "duzy ZUS"}</td>
-                                </tr>
+                            <tr>
+                                <td>Podstawa wymiaru składek dla przedsiębiorcy</td>
+                                <td>{this.props.finalZusType === 'maly ZUS' ? "maly ZUS" : "duzy ZUS"}</td>
+                            </tr>
 
-                                <tr>
-                                    <td>Składka wypadkowa do umowy o pracę</td>
-                                    <td>1.67%</td>
-                                </tr>
+                            <tr>
+                                <td>Składka wypadkowa do umowy o pracę</td>
+                                <td>1.67%</td>
+                            </tr>
 
-                                <tr>
-                                    <td>Ekwiwalent na fakturze (z VAT)</td>
-                                    <td>{ekwiwalentNaFakturze}zl</td>
-                                </tr>
-                                <tr>
-                                    <th colSpan={2}>Dane źródłowe na 2019</th>
-                                </tr>
-                                <tr>
-                                    <td>Podstawa ubez. Zdrowotne w 2019</td>
-                                    <td>{3803.56}zl</td>
-                                </tr>
-                                <tr>
-                                    <td>Podstawa ubez. Społeczne w 2019</td>
-                                    <td>{this.props.finalZusType === 111.25 ? 675.00 : 2859.00}zl</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <tr>
+                                <td>Ekwiwalent na fakturze (z VAT)</td>
+                                <td>{ekwiwalentNaFakturze}zl</td>
+                            </tr>
+                            <tr>
+                                <th colSpan={2}>Dane źródłowe na 2019</th>
+                            </tr>
+                            <tr>
+                                <td>Podstawa ubez. Zdrowotne w 2019</td>
+                                <td>{3803.56}zl</td>
+                            </tr>
+                            <tr>
+                                <td>Podstawa ubez. Społeczne w 2019</td>
+                                <td>{this.props.finalZusType === 111.25 ? 675.00 : 2859.00}zl</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-                        </div>
                     </div>
 
                     <div className={'advanced-middle-column'}>

@@ -527,6 +527,7 @@ class MainCalc extends React.Component {
         this.setState({alertStyle: {display: 'none'}})
     };
 
+
     render() {
         let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracodawcy = Math.round((this.props.finalUopSalary * 0.0650 + 0.00001) * 100) / 100;
@@ -561,6 +562,8 @@ class MainCalc extends React.Component {
             + (Number(this.state.fuelValue) / 2))) * 100) / 100;
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
+
 
 
         return (
@@ -673,9 +676,11 @@ class MainCalc extends React.Component {
                         <button className={'fancy-button'} onClick={this.handleCalculate}
                                 style={this.state.calculateButtonStyle}>Oblicz
                         </button>
-                        <button onClick={this.refreshButton} style={this.state.refreshStyle} className={'fancy-button'} value={0}>Wyczysc </button>
+                        {/*<button onClick={this.refreshButton} style={this.state.refreshStyle} className={'fancy-button'} value={0}>Wyczysc </button>*/}
                         <p className={'fancy-text'}>Tyle zyskasz wiecej na reke w przypadku b2b</p>
+
                         <div className={'calculate-input-holder'}>
+
                             <div className={'sum-display'}>
                                 <p>Na miesiac</p>
                                 <p className={'sum-display-par'}>{this.props.finalUopSalary !== 0 ? Math.round((zarobekLaczniePrzedsiebiorcy - this.props.averageNetSalary/12) * 100) / 100 : 0}zl</p>

@@ -27,7 +27,7 @@
 }
 
 .advanced-button-holder>button {
-    width: 300px;
+    width: 25%;
     height: 100%;
     text-align: center;
     background-color: grey;
@@ -42,7 +42,7 @@
 
 .advanced-button-holder>button:before {
     content: '';
-    widtH: 301px;
+    widtH: calc(100% + 1px);
     height: 50px;
     background-color: white;
     position: absolute;
@@ -74,7 +74,7 @@
 
 .result-holder {
     width: 100%;
-    height: 80%;
+    height: 90%;
     border: 1px solid rgba(10, 180, 180, 1);
     border-bottom: none;
     border-top: none;
@@ -88,7 +88,20 @@
     margin: 0 auto;
     margin-bottom: 100px;
     display: block;
+}
 
 
+@media (min-width:641px) and (max-width: 1201px) {
+    .helper-holder {
+        width: calc(100vw - (100vw - 100%));
+        font-size: 0.8em;
+    }
+}
+
+@media (min-width:320px) and (max-width: 640px) {
+    .helper-holder {
+        width: calc(100vw - (100vw - 100%));
+        font-size: 0.8em;
+    }
 }
 
