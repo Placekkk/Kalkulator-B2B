@@ -23,22 +23,17 @@ class TableAdvanced extends React.Component {
 
                 <h3>Skladka wypadkowa - tabela</h3>
 
-                <table className={'table-topper'}>
-                    <tbody>
 
-
-                    </tbody>
-                </table>
 
                 <table className={'table-advanced'}>
 
                     <tbody>
 
                     <tr className={'table-topper'}>
-                        <th className={'sticky-row'}>Grupy dzialalnosci</th>
+                        <th className={'sticky-row'}>Grupy dzialalności</th>
                         <th className={'sticky-row'}>KOD PKD</th>
                         <th className={'sticky-row'}>Kategorie Ryzyka</th>
-                        <th className={'sticky-row'}>Stopy procentowe skladki</th>
+                        <th className={'sticky-row'}>Stopy procentowe składki</th>
                         <th className={'sticky-row'}>Wynik</th>
                     </tr>
 

@@ -13,8 +13,7 @@
     height: 100%;
     width: 100%;
     margin: 0 auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 50px;
 }
 
 .advanced-button-holder {
@@ -42,7 +41,7 @@
 
 .advanced-button-holder>button:before {
     content: '';
-    widtH: calc(100% + 1px);
+    widtH: calc(100% + 2px);
     height: 50px;
     background-color: white;
     position: absolute;
@@ -101,6 +100,21 @@
 @media (min-width:320px) and (max-width: 640px) {
     .helper-holder {
         width: calc(100vw - (100vw - 100%));
+        font-size: 0.8em;
+    }
+    .advanced-values-holder {
+        height: auto;
+    }
+    .helper-holder {
+        height: auto;
+    }
+    .result-holder {
+        padding: 9px;
+    }
+    .advanced-button-holder {
+        height: 80px;
+    }
+    .advanced-button-holder>button {
         font-size: 0.8em;
     }
 }

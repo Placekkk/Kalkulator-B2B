@@ -1,5 +1,4 @@
 
-
 .calculator-advanced {
     widtH: 100%;
     height: 100%;
@@ -9,7 +8,6 @@
     color: white;
 }
 
-
 .advanced-left-column, .advanced-middle-column, .advanced-right-column {
     display: flex;
     flex-direction: column;
@@ -18,23 +16,11 @@
     overflow-y: auto;
 }
 
-/*.advanced-upper-holder {*/
-/*    height: 100%;*/
-/*}*/
-
-/*.advanced-left-column>table {*/
-/*    height: 100%;*/
-/*}*/
-/*.advanced-upper-holder>table>tbody {*/
-/*    height: 100%;*/
-/*}*/
-
 .advanced-left-column>table {
     display: table;
     table-layout: auto;
     border-collapse: collapse;
     width: 100%;
-    height: 100%;
 }
 
 .advanced-left-column>table>tbody>tr>td {
@@ -57,10 +43,7 @@
     height: 46%;
 }
 
-
-
-
-.advanced-middle-column>table, .advanced-right-column>table, .advanced-left-column>table {
+.advanced-middle-column>table, .advanced-right-column>table {
     display: table;
     flex-direction: column;
     border-collapse: collapse;
@@ -71,6 +54,7 @@
 
 .advanced-middle-column>table>tbody, .advanced-right-column>table>tbody {
     width: 100%;
+    height: 100%;
 }
 
 .advanced-middle-column>table>tbody>tr, .advanced-right-column>table>tbody>tr, .advanced-left-column>table>tbody>tr {
@@ -90,6 +74,10 @@
     background-color: rgba(20, 20, 20, .2);
 }
 
+.advanced-left-column>table>tbody>tr>td {
+    border: 1px solid black;
+}
+
 .title-cell {
     border: 1px solid black;
     text-align: center;
@@ -101,21 +89,23 @@
 
 
 @media (min-width:641px) and (max-width: 1201px) {
-
-    /*.advanced-left-column, .advanced-middle-column, .advanced-right-column {*/
-    /*    margin-right: 5px;*/
-    /*    max-height: 100%;*/
-    /*}*/
-    /*.advanced-left-column {*/
-    /*    height: 100%;*/
-    /*}*/
-    /*.advanced-left-column>div>table {*/
-    /*    max-height: 100%;*/
-    /*}*/
     .advanced-middle-column>table>tbody>tr>td, .advanced-right-column>table>tbody>tr>td, .advanced-left-column>table>tbody>tr>td {
         padding: 2px;
     }
     .calculator-advanced {
         flex-wrap: wrap;
     }
+}
+
+@media (min-width: 320px) and (max-width: 640px) {
+    .calculator-advanced {
+        flex-direction: column;
+    }
+    .advanced-left-column, .advanced-middle-column, .advanced-right-column {
+        width: 100%;
+    }
+    .calculator-advanced>div>h3 {
+        margin-top: 20px
+    }
+
 }

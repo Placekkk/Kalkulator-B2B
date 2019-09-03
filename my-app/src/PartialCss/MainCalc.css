@@ -33,7 +33,6 @@ option {
     box-shadow: 3px 10px 20px 5px rgba(0, 0, 0, .5);
     background: linear-gradient(to right, rgba(25, 106, 128, .9), rgba(26, 108, 132, .7));
     padding: 20px;
-    margin-top: 100px;
     color: white;
 }
 
@@ -306,7 +305,7 @@ default fancy text background: rgba(20, 20, 20, .2)
     .first-main-holder {
         width: calc(100vw - (100vw - 100%));
         font-size: 0.8em;
-        padding: 20px;
+        padding: 5px;
     }
     .both-holder {
         flex-direction: column;
@@ -347,7 +346,7 @@ default fancy text background: rgba(20, 20, 20, .2)
         text-align: center;
         width: 40%;
         vertical-align: center;
-        padding: 1px;
+        padding: 10px;
         height: 100%;
         font-size: 1em;
         margin-left: 10px;
@@ -359,6 +358,13 @@ default fancy text background: rgba(20, 20, 20, .2)
     }
     .calculate-holder>.fancy-text {
         width: 30%;
+    }
+    .calculate-input-holder {
+        margin-right: 5px;
+        width: 43%;
+    }
+    .sum-display-par {
+        padding: 10px 5px 10px 5px;
     }
 }
 

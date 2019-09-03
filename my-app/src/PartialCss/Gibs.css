@@ -24,8 +24,7 @@ h3 {
 
 .compare-holder-uop, .compare-holder-b2b {
     width: 45%;
-    height: 300px;
-
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -37,7 +36,7 @@ h3 {
     font-size: 1em;
     color: white;
     font-weight: 500;
-    padding: 10px;
+    padding: 5px;
 }
 
 .result-text-fit {
@@ -53,6 +52,7 @@ h3 {
     justify-content: space-between;
     border-bottom: 1px solid rgba(10, 180, 180, 1);
     background-color: rgba(20, 20, 20, .2);
+    padding: 10px;
 }
 
 .basic-holder-line {
@@ -90,5 +90,32 @@ h3 {
 
 .money-display {
     color: orange;
-    font-size: 1.2em;
+    font-size: 1.1em;
+}
+
+.info-text-gibs {
+    cursor: pointer;
+}
+
+.basic-value-display {
+    text-align: right;
+}
+
+@media (min-width: 320px) and (max-width: 640px) {
+    .gibs {
+        font-size: 0.9em;
+    }
+
+    .compare-holder {
+        height: 100%;
+    }
+
+    .compare-holder-uop, .compare-holder-b2b {
+        height: 100%;
+        justify-content: flex-start;
+    }
+    .compare-holder-uop>h3, .compare-holder-b2b>h3 {
+        display: block;
+        height: 30%;
+    }
 }

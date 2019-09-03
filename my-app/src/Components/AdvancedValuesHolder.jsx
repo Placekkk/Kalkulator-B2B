@@ -144,9 +144,9 @@ class AdvancedValuesHolder extends React.Component {
                     <nav className={'advanced-button-holder'}>
 
                         <button onClick={this.handleOne} style={this.state.calculatorAdvancedStyle}>Kalkulator - zaawansowany</button>
-                        <button onClick={this.handleTwo} style={this.state.yearlyTableStyle}>Roczna tabela dochodow</button>
-                        <button onClick={this.handleThree} style={this.state.gibsStyle}>Zasilek chorobowy - szczegoly</button>
-                        <button onClick={this.handleFour} style={this.state.tableAdvancedStyle}>Skladka wypadkowa - tabela</button>
+                        <button onClick={this.handleTwo} style={this.state.yearlyTableStyle}>Roczna tabela dochodów</button>
+                        <button onClick={this.handleThree} style={this.state.gibsStyle}>Zasiłek chorobowy - szczegóły</button>
+                        <button onClick={this.handleFour} style={this.state.tableAdvancedStyle}>Składka wypadkowa - tabela</button>
 
                     </nav>
 

@@ -33,7 +33,7 @@
 
 }
 
-.yearly-table>tbody>tr>th, .yearly-table>tbody>tr>td {
+.yearly-table>tbody>tr>td {
     border: 1px solid black;
     padding: 0 5px 0 5px;
     font-weight: 500;
@@ -41,12 +41,36 @@
     background-color: rgba(20, 20, 20, .2);
 }
 
+.yearly-table>tbody>tr>th {
+    border: 1px solid black;
+    padding: 0 5px 0 5px;
+    font-weight: 500;
+    text-align: center;
+    background-color: rgb(45, 72, 81);
+}
 
+.yearly-income-table-sticky-column {
+    position: sticky;
+    left: -1px;
+    top: auto;
+    background-color: rgb(45, 72, 81);
+    border-left: 5px solid black;
+}
 
 .table-mini-holder {
     overflow-x: scroll;
     overflow-y: hidden;
     width: 100%;
     height: 100%;
+}
+
+
+@media (min-width: 320px) and (max-width: 640px) {
+    .yearly-table>tbody>tr>th, .yearly-table>tbody>tr>td {
+        padding: 5px;
+    }
+    .yearly-income-table-holder {
+        height: 70vh;
+    }
 }
 
