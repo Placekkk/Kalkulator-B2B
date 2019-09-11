@@ -23,12 +23,8 @@ class TableAdvanced extends React.Component {
 
                 <h3>Skladka wypadkowa - tabela</h3>
 
-
-
                 <table className={'table-advanced'}>
-
                     <tbody>
-
                     <tr className={'table-topper'}>
                         <th className={'sticky-row'}>Grupy dzialalności</th>
                         <th className={'sticky-row'}>KOD PKD</th>
@@ -114,9 +110,7 @@ class TableAdvanced extends React.Component {
 
                     <RowAdvanced text={'Wydobywanie węgla kamiennego i węgla brunatnego (lignitu)'} code={'B-05'} category={12} percent={3.33} sum={0.0333}/>
                     <RowAdvanced text={'Domyślny'} code={''} category={''} percent={1.67} sum={0.0167}/>
-
                     </tbody>
-
                 </table>
             </div>
         );

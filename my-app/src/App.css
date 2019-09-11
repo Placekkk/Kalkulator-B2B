@@ -5,14 +5,14 @@
 @import "PartialCss/TableAdvanced.css";
 @import "PartialCss/CalculatorAdvanced.css";
 
-.hide-advanced-calc {
+.show-advanced-calc-trigger {
     color: rgba(25, 106, 128, .9);
     width: 1200px;
     margin: 0 auto;
     margin-top: 40px;
 }
 
-.hide-advanced-calc:hover {
+.show-advanced-calc-trigger:hover {
     cursor: pointer;
 }
 
@@ -29,7 +29,7 @@
 }
 
 @media (min-width: 320px) and (max-width: 1023px) {
-    .hide-advanced-calc {
+    .show-advanced-calc-trigger {
         width: calc(100vw - (100vw - 100%));
     }
 }

@@ -55,12 +55,11 @@ class App extends React.Component {
 
     render() {
 
-
         return (
         <div>
         <Provider store={store}>
             {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh} showButtonDisplay={this.handleShowButtonDisplay}/> : null}
-            <h2 style={this.state.showButtonStyle} className={'hide-advanced-calc'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Pokaż szczegółowe wyliczenia' ? "▼" : "▲"}</h2>
+            <h2 style={this.state.showButtonStyle} className={'show-advanced-calc-trigger'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Pokaż szczegółowe wyliczenia' ? "▼" : "▲"}</h2>
           <AdvancedValuesHolder handleUpdate={this.handleUpdate} advancedCalcShowHideStyle={this.state.advancedCalcStyle}/>
         </Provider>
 

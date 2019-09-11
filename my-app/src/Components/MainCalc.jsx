@@ -30,7 +30,6 @@ class MainCalc extends React.Component {
             }
         }
     }
-
     handleTest = () => {
         this.setState({
             infoBarFirst: {
@@ -38,7 +37,6 @@ class MainCalc extends React.Component {
             }
         })
     };
-
     handleTestExit = () => {
         this.setState({
             infoBarFirst: {
@@ -46,7 +44,6 @@ class MainCalc extends React.Component {
             }
         })
     };
-
     borderAnimate = () => {
         if (this.props.previousUopSalary !== 0) {
             this.setState({
@@ -56,7 +53,6 @@ class MainCalc extends React.Component {
             })
         }
     };
-
     stateFix = () => {
         let brutSalary = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : Math.round((this.props.previousUopSalary - (111.25 * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
         let skladkaEmerytalnaPracodawcy = Math.round((brutSalary * 0.0976 + 0.00001) * 100) / 100;
@@ -69,7 +65,6 @@ class MainCalc extends React.Component {
             b2bSalary: lacznyKosztPracodawcy
         })
     };
-
     handleBlur = (e) => {
         if (this.props.previousUopSalary === 0) {
             return
@@ -78,15 +73,13 @@ class MainCalc extends React.Component {
         this.stateFix();
         this.borderAnimate();
     };
-
     handleCalculate = (e) => {
-
         let skladkaEmerytalnaPracownika = Math.round((this.props.previousUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracownika = Math.round((this.props.previousUopSalary * 0.0150 + 0.00001) * 100) / 100;
         let skladkaChorobowa = Math.round((this.props.previousUopSalary * 0.0245 + 0.00001) * 100) / 100;
         let podstawaSkladkiZdrowotnej = Math.round((this.props.previousUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) / 100;
         let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.previousSamePlace;
-
+        let drugiProgKwota = 85525;
         e.preventDefault();
         if (this.props.previousUopSalary === 0) {
             return
@@ -100,15 +93,14 @@ class MainCalc extends React.Component {
                 border: '3px solid rgba(10, 180, 180, 1)'
             }
         });
-        if (podstawaDoOpodatkowania * 13 > 85528) {           // pokazywanie miesiace przekroczenia
+        if (podstawaDoOpodatkowania * 13 > drugiProgKwota) {           // pokazywanie miesiace przekroczenia
             let months = ['styczen', 'luty', 'marzec', 'kwiecien', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
-            let result = Math.ceil(85528/podstawaDoOpodatkowania);
+            let result = Math.ceil(drugiProgKwota/podstawaDoOpodatkowania);
             console.log(months[result]);
             this.setState({testState: months[result], alertStyle: {display: 'flex'}})
         }
         this.props.showButtonDisplay()
     };
-
     handleBrutNet = (e) => {
         this.props.handleSalaryType(e);
         if (this.props.previousUopSalary !== 0) {
@@ -155,7 +147,6 @@ class MainCalc extends React.Component {
         this.props.handleFuel(e)
     };
     handleOverDiscount = () => {
-
         if (Number(this.state.computerValue) + Number(this.state.phoneValue) + Number(this.state.carValue) + Number(this.state.fuelValue) > Number(this.state.b2bSalary)) {
             let computerValue = Number(this.state.computerValue);
             let phoneValue = Number(this.state.phoneValue);
@@ -169,7 +160,6 @@ class MainCalc extends React.Component {
 
             alert(`kwota do odliczenia na nastepny miesiac to ${Math.abs(diffirenceBetweenValues)} zl`);
 
-
             if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue === 0) {
                 this.setState({computerValue: this.state.b2bSalary}, () => finalPropsSet)
             } else if (computerValue === 0 && phoneValue !== 0 && carValue === 0 && fuelValue === 0) {
@@ -179,7 +169,6 @@ class MainCalc extends React.Component {
             } else if (computerValue === 0 && phoneValue === 0 && carValue === 0 && fuelValue !== 0) {
                 this.setState({fuelValue: this.state.b2bSalary})
             }
-
 
             if (computerValue !== 0 && phoneValue !== 0 && carValue === 0 && fuelValue === 0) {
                 if (computerValue > phoneValue) {
@@ -296,7 +285,6 @@ class MainCalc extends React.Component {
                     }
                 }
 
-
             } else if (computerValue === 0 && phoneValue === 0 && carValue !== 0 && fuelValue !== 0) {
                 if (carValue > fuelValue) {
                     if (this.state.b2bSalary - this.state.fuelValue < 0) {
@@ -314,7 +302,6 @@ class MainCalc extends React.Component {
                     } else {this.setState({fuelValue: this.state.b2bSalary - this.state.carValue})}
                 }
             }
-
 
             if (computerValue !== 0 && phoneValue !== 0 && carValue !== 0 && fuelValue === 0) {
                 if (computerValue > phoneValue && computerValue > carValue) {
@@ -350,7 +337,6 @@ class MainCalc extends React.Component {
                 }
             }
 
-
             else if (computerValue !== 0 && phoneValue !== 0 && carValue === 0 && fuelValue !== 0) {
                 if (computerValue > phoneValue && computerValue > fuelValue) {
                     if (this.state.b2bSalary - this.state.phoneValue - this.state.fuelValue < 0) {
@@ -385,7 +371,6 @@ class MainCalc extends React.Component {
                 }
             }
 
-
             else if (computerValue !== 0 && phoneValue === 0 && carValue !== 0 && fuelValue !== 0) {
                 if (computerValue > carValue && computerValue > fuelValue) {
                     if (this.state.b2bSalary - this.state.carValue - this.state.fuelValue < 0) {
@@ -414,7 +399,6 @@ class MainCalc extends React.Component {
                 }
             }
 
-
             else if (computerValue === 0 && phoneValue !== 0 && carValue !== 0 && fuelValue !== 0) {
                 if (phoneValue > carValue && phoneValue > fuelValue) {
                     if (this.state.b2bSalary - this.state.carValue - this.state.fuelValue < 0) {
@@ -442,7 +426,6 @@ class MainCalc extends React.Component {
                     } else {this.setState({fuelValue: this.state.b2bSalary - this.state.phoneValue - this.state.carValue})}
                 }
             }
-
 
             if (computerValue !== 0 && phoneValue !== 0 && carValue !== 0 && fuelValue !== 0) {
                 if (computerValue === maxValue) {
@@ -486,13 +469,10 @@ class MainCalc extends React.Component {
 
         }
     };
-
-
     handleAlertAccept = (e) => {
         e.preventDefault();
         this.setState({alertStyle: {display: 'none'}})
     };
-
 
     render() {
         let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
@@ -515,18 +495,12 @@ class MainCalc extends React.Component {
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
 
-
         return (
             <div className={'first-main-holder'}>
-
                 <form>
-
                     <div className={'both-holder'}>
-
                         <div className={'uop-holder'}>
-
                             <h3>Umowa o pracę</h3>
-
                             <div className={'amount-holder'}>
                                 <p className={'fancy-text'}>Wpisz kwotę</p>
                                 <label>
@@ -565,9 +539,7 @@ class MainCalc extends React.Component {
                         </div>
 
                         <div className={'b2b-holder'}>
-
                             <h3>Umowa B2B</h3>
-
                             <label className={'b2b-label'}>
                                 <p className={'fancy-text b2b-text'}>Ekwiwalent na fakturze "na rękę" (bez vat23%)</p>
                                 <p className={' b2b-display-par'}>{this.state.b2bSalary}zł</p>
@@ -591,7 +563,6 @@ class MainCalc extends React.Component {
                             </label>
 
                             <div className={'income-cost'}>
-
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Komputer [zł]</p>
                                     <input type='number' className={'fancy-input b2b-input'}
@@ -615,11 +586,9 @@ class MainCalc extends React.Component {
                                     <input type='number' className={'fancy-input b2b-input'}
                                            onChange={this.handleFuel} value={this.state.fuelValue}/>
                                 </label>
-
                             </div>
                         </div>
                     </div>
-
 
                     <div className={'calculate-holder'}>
                         <button className={'fancy-button'} onClick={this.handleCalculate}
@@ -640,9 +609,7 @@ class MainCalc extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 </form>
-
             </div>
         );
     }
@@ -674,7 +641,6 @@ export const mapStateToProps = (state) => {
 };
 
 export const mapDispatchToProps = (dispatch) => {
-
     return {
         handleDiscounts: (computer, phone, car, fuel) => {
             const action = {type: 'FIX_DISCOUNTS', previousComputer: computer, previousPhone: phone, previousCar: car, previousFuel: fuel};
@@ -778,6 +744,4 @@ export const mapDispatchToProps = (dispatch) => {
         }
     }
 };
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(MainCalc);

@@ -6,207 +6,30 @@ import {mapDispatchToProps, mapStateToProps} from "./MainCalc";
 
 class YearlyIncomeTable extends React.Component {
 
-
     render() {
         let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
+        let monthzNames = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+        let months = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
-        let months = [{
-            name: 'styczeń',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 1231
-        },{
-            name: 'luty',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *2,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 1232
-        },{
-            name: 'marzec',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *3,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 1233
-        },{
-            name: 'kwiecień',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *4,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 1234
-        },{
-            name: 'maj',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *5,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 1235
-        },{
-            name: 'czerwiec',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *6,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 12311
-        },{
-            name: 'lipiec',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *7,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 12322
-        },{
-            name: 'sierpień',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *8,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 12333
-        },{
-            name: 'wrzesień',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *9,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 12344
-        },{
-            name: 'październik',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *10,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 12355
-        },{
-            name: 'listopad',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *11,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 12366
-        },{
-            name: 'grudzień',
-            salaryBrut: this.props.finalUopSalary,
-            skladkaChorobowa: Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100,
-            salarySum: this.props.finalUopSalary *12,
-            skladkaEmerytalna: 0,
-            skladkaRentowa: 0,
-            podstawaDoSkladkiZdrowotnej: 0,
-            skladkaZdrowotna: 0,
-            skladkaZdrowotnaDoOdliczenia: 0,
-            podstawaDoOpodatkowania: 0,
-            podatekDochodowy: 0,
-            zaliczkaNaPodatekDochodowy: 0,
-            kwotaNetto: 0,
-            podstawaDoOpodatkowaniaSuma: 0,
-            key: 12377
-        }];
+        for (let i = 0; i < 12; i++) {     // baza miesiecy
+            months[i].name = monthzNames[i];
+            months[i].salaryBrut = this.props.finalUopSalary;
+            months[i].skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
+            months[i].salarySum = this.props.finalUopSalary * (i +1);
+            months[i].skladkaEmerytalna = 0;
+            months[i].skladkaRentowa = 0;
+            months[i].podstawaDoSkladkiZdrowotnej = 0;
+            months[i].skladkaZdrowotna = 0;
+            months[i].skladkaZdrowotnaDoOdliczenia = 0;
+            months[i].podstawaDoOpodatkowania = 0;
+            months[i].podatekDochodowy = 0;
+            months[i].zaliczkaNaPodatekDochodowy = 0;
+            months[i].kwotaNetto = 0;
+            months[i].podstawaDoOpodatkowaniaSuma = 0;
+            months[i].key = 77 * i;
+        }
 
-
-
-        for (let i = 0; i < months.length; i++) {
+        for (let i = 0; i < months.length; i++) {   // ustawienie zaawansowanych wartosci miesiecy
 
             var sumaPensjiNetto = 0;
             var taxMonthNumber = '';
