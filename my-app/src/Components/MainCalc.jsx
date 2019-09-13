@@ -27,6 +27,12 @@ class MainCalc extends React.Component {
             testState: '',
             alertStyle: {
                 display: 'none'
+            },
+            incomeWarning: {
+                text: '',
+                style: {
+                    display: 'none'
+                }
             }
         }
     }
@@ -96,10 +102,9 @@ class MainCalc extends React.Component {
         if (podstawaDoOpodatkowania * 13 > drugiProgKwota) {           // pokazywanie miesiace przekroczenia
             let months = ['styczen', 'luty', 'marzec', 'kwiecien', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
             let result = Math.ceil(drugiProgKwota/podstawaDoOpodatkowania);
-            console.log(months[result]);
             this.setState({testState: months[result], alertStyle: {display: 'flex'}})
         }
-        this.props.showButtonDisplay()
+        this.props.showButtonDisplay();
     };
     handleBrutNet = (e) => {
         this.props.handleSalaryType(e);
@@ -146,6 +151,16 @@ class MainCalc extends React.Component {
         this.setState({fuelValue: e.target.value});
         this.props.handleFuel(e)
     };
+    handleIncomeWarning = (e) => {
+        e.preventDefault();
+        this.setState({
+            incomeWarning: {
+                style: {
+                    display: 'none'
+                }
+            }
+        })
+    };
     handleOverDiscount = () => {
         if (Number(this.state.computerValue) + Number(this.state.phoneValue) + Number(this.state.carValue) + Number(this.state.fuelValue) > Number(this.state.b2bSalary)) {
             let computerValue = Number(this.state.computerValue);
@@ -158,7 +173,9 @@ class MainCalc extends React.Component {
             let finalPropsSet = this.props.handleDiscounts(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue));
             let maxValue = Math.max(...allValues);
 
-            alert(`kwota do odliczenia na nastepny miesiac to ${Math.abs(diffirenceBetweenValues)} zl`);
+            // alert(`kwota do odliczenia na nastepny miesiac to ${Math.abs(diffirenceBetweenValues)} zl`);
+
+            this.setState({incomeWarning: {text: `Kwota do odliczenia na nastepny miesiąc to ${Math.abs(diffirenceBetweenValues)} zl`}});
 
             if (computerValue !== 0 && phoneValue === 0 && carValue === 0 && fuelValue === 0) {
                 this.setState({computerValue: this.state.b2bSalary}, () => finalPropsSet)
@@ -533,7 +550,7 @@ class MainCalc extends React.Component {
                             </div>
 
                             <p className={'fancy-text info-pop'} style={this.state.infoBarFirst}>Koszty uzyskania
-                                przychodu uzyskane z tytułu jednej umowy wynoszł 111,25
+                                przychodu uzyskane z tytułu jednej umowy wynoszą 111,25
                                 albo 139,06 przy zamieszkaniu w miesjscowosci poza zakładem pracy</p>
 
                         </div>
@@ -563,6 +580,14 @@ class MainCalc extends React.Component {
                             </label>
 
                             <div className={'income-cost'}>
+
+                                <div className={'income-cost-warning'} style={this.state.incomeWarning.style}>
+                                    <h4>Uwaga</h4>
+                                    <p>Kwota odliczeń przekroczyła miesięczny zarobek Brutto</p>
+                                    <p>{this.state.incomeWarning.text}</p>
+                                    <button onClick={this.handleIncomeWarning} className={'fancy-button'}>OK</button>
+                                </div>
+
                                 <label className={'b2b-label'}>
                                     <p className={'fancy-text b2b-text'}>Komputer [zł]</p>
                                     <input type='number' className={'fancy-input b2b-input'}

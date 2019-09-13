@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {mapDispatchToProps, mapStateToProps} from "./MainCalc";
 
-
-
 class YearlyIncomeTable extends React.Component {
 
     render() {
@@ -30,7 +28,6 @@ class YearlyIncomeTable extends React.Component {
         }
 
         for (let i = 0; i < months.length; i++) {   // ustawienie zaawansowanych wartosci miesiecy
-
             var sumaPensjiNetto = 0;
             var taxMonthNumber = '';
 
@@ -52,32 +49,34 @@ class YearlyIncomeTable extends React.Component {
             months[i].podstawaDoSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - months[i].skladkaRentowa - months[i].skladkaEmerytalna - skladkaChorobowa) *100) /100; // skladka zdrowotna ustalenie po petli
             months[i].skladkaZdrowotna = Math.round((months[i].podstawaDoSkladkiZdrowotnej * 0.09) *100) /100;
             months[i].skladkaZdrowotnaDoOdliczenia = Math.round((months[i].podstawaDoSkladkiZdrowotnej * 0.0775) *100) /100;
-            months[i].podstawaDoOpodatkowania = Math.round(months[i].podstawaDoSkladkiZdrowotnej - this.props.finalSamePlace);
+            months[i].podstawaDoOpodatkowania = Math.round((months[i].podstawaDoSkladkiZdrowotnej - this.props.finalSamePlace) *100) /100;
 
             for (let i = 0; i < months.length; i++) {   // suma podstaw opodatkowania
                 let sumaPodstawOpodatkowania = 0;
                 for (let i = 0; i < months.length; i++) {
                     sumaPodstawOpodatkowania += months[i].podstawaDoOpodatkowania;
-                    months[i].podstawaDoOpodatkowaniaSuma = sumaPodstawOpodatkowania;
+                    months[i].podstawaDoOpodatkowaniaSuma = Math.round((sumaPodstawOpodatkowania) *100) /100;
                 }
             }
+
 
             for (let i = 1; i < months.length; i++) {       // podatek dochodowy
                 if (months[i-1].podstawaDoOpodatkowaniaSuma > 85528) {
                     months[i].podatekDochodowy = Math.round(((months[i].podstawaDoOpodatkowania) * 0.32) *100) /100;
                     taxMonthNumber = months[i].name;
-
-                } else {months[i].podatekDochodowy = Math.round(((months[i].podstawaDoOpodatkowania) * 0.18 - 46.33) *100) /100}
+                }
+                else {months[i].podatekDochodowy = ((Math.round((months[i].podstawaDoOpodatkowania) * 0.18) - 46.33) *100) /100}
             }
-            months[0].podatekDochodowy = Math.round(((months[0].podstawaDoOpodatkowania) * 0.18 -46.33) *100) /100;
+
+            months[0].podatekDochodowy = ((Math.round((months[0].podstawaDoOpodatkowania) * 0.18) - 46.33) *100) /100;
 
 
             for (let i = 0; i < months.length; i++) {          // zaliczka na podatek
-                months[i].zaliczkaNaPodatekDochodowy = Math.round(months[i].podatekDochodowy - months[i].skladkaZdrowotnaDoOdliczenia)
+                months[i].zaliczkaNaPodatekDochodowy = Math.round(((months[i].podatekDochodowy - months[i].skladkaZdrowotnaDoOdliczenia)) *100) /100
             }
 
             for (let i = 0; i < months.length; i++) {         // kwota netto
-                months[i].kwotaNetto = Math.round((this.props.finalUopSalary - months[i].skladkaEmerytalna - months[i].skladkaRentowa - months[i].skladkaChorobowa - months[i].skladkaZdrowotna - months[i].zaliczkaNaPodatekDochodowy) *100) /100;
+                months[i].kwotaNetto = Math.round(this.props.finalUopSalary - months[i].skladkaEmerytalna - months[i].skladkaRentowa - months[i].skladkaChorobowa - months[i].skladkaZdrowotna - months[i].zaliczkaNaPodatekDochodowy);
             }
 
             for (let i = 0; i < months.length; i++) {          // suma pensji netto

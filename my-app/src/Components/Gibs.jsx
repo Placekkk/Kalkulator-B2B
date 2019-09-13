@@ -58,16 +58,16 @@ class Gibs extends React.Component {
 
 
                         <div className={'basic-holder-line'}>
-                        <p className={'result-text '}>{podstawaUop1}zł {'\x3C'} -- minus 13,71%</p>
+                            <p className={'result-text '}><span className={'money-display'}>{podstawaUop1}zł</span> {'\x3C'} -- minus <span className={'percentage-display'}>13,71%</span></p>
                         </div>
 
                         <div className={'basic-holder-line'}>
-                            <p className={'result-text'}>{podstawaUop2}zł {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu)</p>
+                            <p className={'result-text'}><span className={'money-display'}>{podstawaUop2}zł</span> {'\x3C'}-- z tego <span className={'percentage-display'}>80%</span> (<span className={'percentage-display'}>70%</span> przy pobycie w szpitalu)</p>
                         </div>
 
                         <div className={'basic-holder-line'}>
 
-                                <p className={'result-text'}>Za każdy dzień nieobecności pracownik dostanie {dzienNieobecnosciPracownik}zł</p>
+                            <p className={'result-text'}>Za każdy dzień nieobecności pracownik dostanie <span className={'money-display'}>{dzienNieobecnosciPracownik}zł</span></p>
 
                         </div>
                     </div>
@@ -81,14 +81,14 @@ class Gibs extends React.Component {
                         </div>
 
                         <div className={'basic-holder-col'}>
-                        <p className={'result-text'}>{podstawaB2B1}zł {'\x3C'}-- minus 13,71%</p>
-                        <p className={'result-text'}>{podstawaB2B2}zł {'\x3C'}-- z tego 80% (70% przy pobycie w szpitalu)</p>
+                            <p className={'result-text'}><span className={'money-display'}>{podstawaB2B1}zł</span> {'\x3C'}-- minus <span className={'percentage-display'}>13,71%</span></p>
+                            <p className={'result-text'}><span className={'money-display'}>{podstawaB2B2}zł</span> {'\x3C'}-- z tego <span className={'percentage-display'}>80%</span> (<span className={'percentage-display'}>70%</span> przy pobycie w szpitalu)</p>
                         </div>
 
                         <div className={'basic-holder-col'}>
-                            <p className={'result-text-fit'}>Za kazdy dzień nieobecności przedsiębiorca dostanie {Math.round((podstawaB2B2 / 30) *100) / 100}zl</p>
-                            <p className={'result-text-fit'}>Razem na dzień {Math.round((dzienNieobecnosciPrzedsiebiorcy) *100) /100}zl</p>
-                            <p className={'result-text-fit'}>W czasie choroby nie musi też płacić składek społecznych czyli dziennie: 7.12zl</p>
+                            <p className={'result-text-fit'}>Za kazdy dzień nieobecności przedsiębiorca dostanie <span className={'money-display'}>{Math.round((podstawaB2B2 / 30) *100) / 100}zl</span></p>
+                            <p className={'result-text-fit'}>Razem na dzień <span className={'money-display'}>{Math.round((dzienNieobecnosciPrzedsiebiorcy) *100) /100}zl</span></p>
+                            <p className={'result-text-fit'}>W czasie choroby nie musi też płacić składek społecznych czyli dziennie: <span className={'money-display'}>7.12zl</span></p>
                         </div>
 
                     </div>

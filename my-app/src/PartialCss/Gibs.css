@@ -93,6 +93,11 @@ h3 {
     font-size: 1.1em;
 }
 
+.percentage-display {
+    color: lightblue;
+    font-size: 1.1em;
+}
+
 .info-text-gibs {
     cursor: pointer;
 }

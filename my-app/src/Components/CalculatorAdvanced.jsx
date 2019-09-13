@@ -76,13 +76,12 @@ class CalculatorAdvanced extends React.Component {
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100 ) / 100;
         let dzienNieobecnosciPrzedsiebiorcy = Math.round(((((this.props.finalSamePlace === 'maly ZUS' ? 675 : 2859) * 0.8629) * 0.8) / 30 + 7.12) * 100) / 100;
 
-
         return (
                 <div className={'calculator-advanced'} style={this.props.elStyle}>
 
                     <div className={'advanced-left-column'}>
 
-                        <h3 onClick={this.handleFuse}>Podstawy</h3>
+                        <h3>Podstawy</h3>
 
                         <table>
                             <tbody>
