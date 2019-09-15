@@ -121,6 +121,7 @@ class MainCalc extends React.Component {
             })
         }
         this.borderAnimate();
+        this.props.clickHandler(e);          // 15.09-2019 dodane
     };
     handleSamePlace = (e) => {
         this.props.handleSamePlace(e);
@@ -173,7 +174,6 @@ class MainCalc extends React.Component {
             let finalPropsSet = this.props.handleDiscounts(Number(this.state.computerValue), Number(this.state.phoneValue), Number(this.state.carValue), Number(this.state.fuelValue));
             let maxValue = Math.max(...allValues);
 
-            // alert(`kwota do odliczenia na nastepny miesiac to ${Math.abs(diffirenceBetweenValues)} zl`);
 
             this.setState({incomeWarning: {text: `Kwota do odliczenia na nastepny miesiąc to ${Math.abs(diffirenceBetweenValues)} zl`}});
 
