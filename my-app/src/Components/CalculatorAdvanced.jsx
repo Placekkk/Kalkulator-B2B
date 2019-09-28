@@ -36,7 +36,7 @@ class CalculatorAdvanced extends React.Component {
         let brutSalary = this.props.finalUopSalary;
         let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracodawcy = Math.round((this.props.finalUopSalary * 0.0650 + 0.00001) * 100) / 100;
-        let skladkaWypadkowa = Math.round((this.props.finalUopSalary * 0.0167 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((this.props.finalUopSalary * this.props.accidentInsurance + 0.00001) * 100) / 100;
         let funduszPracy = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
         let fgsp = Math.round((this.props.finalUopSalary * 0.0010 + 0.00001) * 100) / 100;
         let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
@@ -108,7 +108,7 @@ class CalculatorAdvanced extends React.Component {
 
                             <tr>
                                 <td>Składka wypadkowa do umowy o pracę</td>
-                                <td style={{borderLeft: 'none'}}>1.67%</td>
+                                <td style={{borderLeft: 'none'}}>{Math.round((this.props.accidentInsurance * 100) *100) / 100}%</td>
                             </tr>
 
                             <tr>

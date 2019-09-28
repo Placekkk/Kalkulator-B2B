@@ -63,7 +63,7 @@ class MainCalc extends React.Component {
         let brutSalary = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : Math.round((this.props.previousUopSalary - (111.25 * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
         let skladkaEmerytalnaPracodawcy = Math.round((brutSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracodawcy = Math.round((brutSalary * 0.0650 + 0.00001) * 100) / 100;
-        let skladkaWypadkowa = Math.round((brutSalary * 0.0167 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((brutSalary * this.props.accidentInsurance + 0.00001) * 100) / 100;
         let funduszPracy = Math.round((brutSalary * 0.0245 + 0.00001) * 100) / 100;
         let fgsp = Math.round((brutSalary * 0.0010 + 0.00001) * 100) / 100;
         let lacznyKosztPracodawcy = Math.round((+brutSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
@@ -490,11 +490,24 @@ class MainCalc extends React.Component {
         e.preventDefault();
         this.setState({alertStyle: {display: 'none'}})
     };
+    handleaccidentInsurance = (e) => {
+        this.props.handleaccidentInsurance(e);
+        let brutSalary = this.props.previousTypeSalary === 'brut' ? this.props.previousUopSalary : Math.round((this.props.previousUopSalary - (111.25 * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
+        let skladkaEmerytalnaPracodawcy = Math.round((brutSalary * 0.0976 + 0.00001) * 100) / 100;
+        let skladkaRentowaPracodawcy = Math.round((brutSalary * 0.0650 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((brutSalary * e.target.value + 0.00001) * 100) / 100;
+        let funduszPracy = Math.round((brutSalary * 0.0245 + 0.00001) * 100) / 100;
+        let fgsp = Math.round((brutSalary * 0.0010 + 0.00001) * 100) / 100;
+        let lacznyKosztPracodawcy = Math.round((+brutSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
+        this.setState({
+            b2bSalary: lacznyKosztPracodawcy
+        })
+    };
 
     render() {
         let skladkaEmerytalnaPracodawcy = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
         let skladkaRentowaPracodawcy = Math.round((this.props.finalUopSalary * 0.0650 + 0.00001) * 100) / 100;
-        let skladkaWypadkowa = Math.round((this.props.finalUopSalary * 0.0167 + 0.00001) * 100) / 100;
+        let skladkaWypadkowa = Math.round((this.props.finalUopSalary * this.props.accidentInsurance + 0.00001) * 100) / 100;
         let funduszPracy = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
         let fgsp = Math.round((this.props.finalUopSalary * 0.0010 + 0.00001) * 100) / 100;
         let lacznyKosztPracodawcy = Math.round((+this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
@@ -555,18 +568,19 @@ class MainCalc extends React.Component {
 
                             <div className={'birth-place-holder'}>
                                 <p className={'fancy-text'}>Stopa procentowa składki na ubezpieczenie wypadkowe [%]</p>
-                                <select className={'fancy-select'}>
-                                    <option value={1}>0.67%</option>
-                                    <option value={2}>0.93%</option>
-                                    <option value={3}>1.20%</option>
-                                    <option value={4}>1.47%</option>
-                                    <option value={5}>1.73%</option>
-                                    <option value={6}>1.73%</option>
-                                    <option value={7}>2.00%</option>
-                                    <option value={7}>2.26%</option>
-                                    <option value={7}>2.53%</option>
-                                    <option value={7}>2.80%</option>
-                                    <option value={7}>3.06%</option>
+                                <select className={'fancy-select'} onChange={this.handleaccidentInsurance}>
+                                    <option value={0.0167}>1.67%</option>
+                                    <option value={0.0067}>0.67%</option>
+                                    <option value={0.0093}>0.93%</option>
+                                    <option value={0.0120}>1.20%</option>
+                                    <option value={0.0147}>1.47%</option>
+                                    <option value={0.0173}>1.73%</option>
+                                    <option value={0.0200}>2.00%</option>
+                                    <option value={0.0226}>2.26%</option>
+                                    <option value={0.0253}>2.53%</option>
+                                    <option value={0.0280}>2.80%</option>
+                                    <option value={0.0306}>3.06%</option>
+                                    <option value={0.0333}>3.33%</option>
                                 </select>
                             </div>
 
@@ -678,7 +692,8 @@ export const mapStateToProps = (state) => {
         previousFuel: state.previousFuel,
         finalFuel: state.finalFuel,
         averageNetSalary: state.averageNetSalary,
-        taxThreshold: state.taxThreshold
+        taxThreshold: state.taxThreshold,
+        accidentInsurance: state.accidentInsurance
     }
 };
 
@@ -687,6 +702,10 @@ export const mapDispatchToProps = (dispatch) => {
         handleDiscounts: (computer, phone, car, fuel) => {
             const action = {type: 'FIX_DISCOUNTS', previousComputer: computer, previousPhone: phone, previousCar: car, previousFuel: fuel};
             dispatch(action)
+        },
+        handleaccidentInsurance: (e) => {
+            const action = {type: 'ACCIDENT_INSURANCE_VALUE', accidentInsurance: e.target.value};
+            dispatch(action);
         },
         handleTaxThreshold: (result) => {
             const action = {type: 'TAX_THRESHOLD_DISPLAY', taxThreshold: result};

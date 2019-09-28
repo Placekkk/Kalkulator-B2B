@@ -21,12 +21,16 @@ const initialState = {
     finalFuel: 0,
     averageNetSalary: 0,
     taxThreshold: 0,
+    accidentInsurance: 0.0167
 };
 
 const reducer  = (state = initialState, action) => {
     switch (action.type) {
         case 'CHANGED_RESULT_SALARY': {
             return Object.assign({}, state, {previousUopSalary: action.previousUopSalary});
+        }
+        case 'ACCIDENT_INSURANCE_VALUE': {
+            return Object.assign({}, state, {accidentInsurance: action.accidentInsurance});
         }
         case 'TAX_THRESHOLD_DISPLAY': {
             return Object.assign({}, state, {taxThreshold: action.taxThreshold});
