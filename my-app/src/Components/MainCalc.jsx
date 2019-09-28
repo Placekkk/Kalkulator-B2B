@@ -553,6 +553,23 @@ class MainCalc extends React.Component {
                                 przychodu uzyskane z tytułu jednej umowy wynoszą 111,25
                                 albo 139,06 przy zamieszkaniu w miesjscowosci poza zakładem pracy</p>
 
+                            <div className={'birth-place-holder'}>
+                                <p className={'fancy-text'}>Stopa procentowa składki na ubezpieczenie wypadkowe [%]</p>
+                                <select className={'fancy-select'}>
+                                    <option value={1}>0.67%</option>
+                                    <option value={2}>0.93%</option>
+                                    <option value={3}>1.20%</option>
+                                    <option value={4}>1.47%</option>
+                                    <option value={5}>1.73%</option>
+                                    <option value={6}>1.73%</option>
+                                    <option value={7}>2.00%</option>
+                                    <option value={7}>2.26%</option>
+                                    <option value={7}>2.53%</option>
+                                    <option value={7}>2.80%</option>
+                                    <option value={7}>3.06%</option>
+                                </select>
+                            </div>
+
                         </div>
 
                         <div className={'b2b-holder'}>
