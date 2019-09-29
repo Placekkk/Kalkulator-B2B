@@ -59,7 +59,7 @@ class MainCalc extends React.Component {
                 display: 'block',
                 marginBottom: '5px'
             },
-            uopInfoBox: 'Sposób ustalenia wysokości stopy procentowej zależy od liczby osób zgłoszonych do ubezpieczenia wypadkowego. Przyjęliśmy 1.67% ponieważ tyle wynosi składka wypadkowa dla pracodawców zgłaszających nie więcej niż 9 ubezpieczonych i jest ona mniej więcej po środku tabeli składek dla różnych grup przedsiębiorców  zobacz więcej na dookolapracy.pl '
+            uopInfoBox: 'Sposób ustalenia wysokości stopy procentowej zależy od liczby osób zgłoszonych do ubezpieczenia wypadkowego. Przyjęliśmy 1.67% ponieważ tyle wynosi składka wypadkowa dla pracodawców zgłaszających nie więcej niż 9 ubezpieczonych i jest ona mniej więcej po środku tabeli składek dla różnych grup przedsiębiorców.'
         })
     };
     handleTestExit2 = () => {
@@ -544,6 +544,7 @@ class MainCalc extends React.Component {
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
 
+
         return (
             <div className={'first-main-holder'}>
                 <form>
@@ -587,12 +588,12 @@ class MainCalc extends React.Component {
                                 <p className={'fancy-text'}>Stopa procentowa składki na ubezpieczenie wypadkowe [%] <FontAwesomeIcon id={'info-icon'} icon={faInfoCircle}
                                                                                                                                      onMouseEnter={this.handleTest2}
                                                                                                                                      onMouseLeave={this.handleTestExit2}/></p>
-                                <select className={'fancy-select'} onChange={this.handleaccidentInsurance}>
+                                <select className={'fancy-select'} onChange={this.handleaccidentInsurance} defaultValue={0.0167}>
                                     <option value={0.0067}>0.67%</option>
                                     <option value={0.0093}>0.93%</option>
                                     <option value={0.0120}>1.20%</option>
                                     <option value={0.0147}>1.47%</option>
-                                    <option selected={'selected'} value={0.0167}>1.67%</option>
+                                    <option value={0.0167}>1.67%</option>
                                     <option value={0.0173}>1.73%</option>
                                     <option value={0.0200}>2.00%</option>
                                     <option value={0.0226}>2.26%</option>
@@ -794,7 +795,7 @@ export const mapDispatchToProps = (dispatch) => {
             dispatch(action)
         },
         handleAverageNetSalary: (result) => {
-            const action = {type: 'SET_AVERAGE_SALARY', averageNetSalary: parseInt(result)};
+            const action = {type: 'SET_AVERAGE_SALARY', averageNetSalary: result};
             dispatch(action)
         }
         ,

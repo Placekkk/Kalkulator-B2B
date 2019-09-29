@@ -39,24 +39,24 @@ class CalculatorAdvanced extends React.Component {
         let skladkaWypadkowa = Math.round((this.props.finalUopSalary * this.props.accidentInsurance + 0.00001) * 100) / 100;
         let funduszPracy = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
         let fgsp = Math.round((this.props.finalUopSalary * 0.0010 + 0.00001) * 100) / 100;
-        let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976 + 0.00001) * 100) / 100;
-        let skladkaEmerytalnaPracownika2 = this.props.finalUopSalary * 0.0976 + 0.00001;
-        let skladkaRentowaPracownika = Math.round((this.props.finalUopSalary * 0.0150 + 0.00001) * 100) / 100;
-        let skladkaRentowaPracownika2 = this.props.finalUopSalary * 0.0150 + 0.00001;
-        let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245 + 0.00001) * 100) / 100;
-        let skladkaChorobowa2 = this.props.finalUopSalary * 0.0245 + 0.00001;
+        let skladkaEmerytalnaPracownika = Math.round((this.props.finalUopSalary * 0.0976) * 100) / 100;
+        let skladkaEmerytalnaPracownika2 = Math.round((this.props.finalUopSalary * 0.0976) *100) / 100;
+        let skladkaRentowaPracownika = Math.round((this.props.finalUopSalary * 0.0150) * 100) / 100;
+        let skladkaRentowaPracownika2 = Math.round((this.props.finalUopSalary * 0.0150) *100) /100;
+        let skladkaChorobowa = Math.round((this.props.finalUopSalary * 0.0245) * 100) / 100;
+        let skladkaChorobowa2 = Math.round((this.props.finalUopSalary * 0.0245) *100) /100;
         let podstawaChorobowego = Math.round((this.props.finalUopSalary * 0.8629 + 0.00001) * 100) / 100;
         let podstawaSkladkiZdrowotnej = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika - skladkaRentowaPracownika - skladkaChorobowa) * 100) /100;
         let podstawaChorobowego2 = Math.round((podstawaChorobowego * 0.8) * 100) / 100;
         let skladkaZdrowotna = Math.round((podstawaSkladkiZdrowotnej * 0.0900 + 0.00001) * 100) / 100;
-        let skladkaZdrowotna2 = podstawaSkladkiZdrowotnej * 0.0900 + 0.00001;
+        let skladkaZdrowotna2 = Math.round((podstawaSkladkiZdrowotnej * 0.0900) *100) / 100;
         let skladkaZdrowotnaDoOdliczenia = Math.round((podstawaSkladkiZdrowotnej * 0.0775 + 0.00001) * 100) / 100;
         let podstawaDoOpodatkowania = podstawaSkladkiZdrowotnej - this.props.finalSamePlace;
         let dzienNieobecnosciPracownik = Math.round((podstawaChorobowego2 / 30) * 100) / 100;
         let podatekDochodowy = ((Math.round(podstawaDoOpodatkowania * (0.18)) - 46.33) * 100) /100;
         let podatekDochodowy2 = podstawaDoOpodatkowania * (0.18) - 46.33;
         let zaliczkaNaPodatekDochodowy = Math.round((podatekDochodowy - skladkaZdrowotnaDoOdliczenia) * 100) / 100;
-        let zaliczkaNaPodatekDochodowy2 = podatekDochodowy2 - skladkaZdrowotnaDoOdliczenia;
+        let zaliczkaNaPodatekDochodowy2 = Math.round(podatekDochodowy2 - skladkaZdrowotnaDoOdliczenia);
         let zarobekLacznieNettoPracownika = Math.round((this.props.finalUopSalary - skladkaEmerytalnaPracownika2 - skladkaRentowaPracownika2 - skladkaChorobowa2 -
             skladkaZdrowotna2 - zaliczkaNaPodatekDochodowy2) * 100) / 100;
         let lacznyKosztPracodawcy = Math.round((+this.props.finalUopSalary + +skladkaRentowaPracodawcy + +skladkaEmerytalnaPracodawcy + +skladkaWypadkowa + +funduszPracy + +fgsp) * 100) / 100;
@@ -155,7 +155,7 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
                             <tr>
                                 <td>Składka wypadkowa</td>
-                                <td>1.67%</td>
+                                <td>{Math.round((this.props.accidentInsurance * 100) *100) /100}%</td>
                                 <td>{skladkaWypadkowa}zł</td>
                             </tr>
                             <tr>
@@ -229,7 +229,7 @@ class CalculatorAdvanced extends React.Component {
 
                             <tr>
                                 <td>Zarobek lacznie netto pracownika</td>
-                                <td colSpan={2}>{Math.round(zarobekLacznieNettoPracownika)}zł</td>
+                                <td colSpan={2}>{Math.round((zarobekLacznieNettoPracownika) *100) /100}zł</td>
                             </tr>
                             <tr>
                                 <td>Laczny koszt pracodawcy</td>
