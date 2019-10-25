@@ -146,14 +146,18 @@ class MainCalc extends React.Component {
         this.props.handleSamePlace(e);
         this.stateFix();
         this.borderAnimate();
+        this.props.clickHandler(e);
     };
     handlePercentageTax = (e) => {
         this.props.handlePercentageTax(e);
         this.borderAnimate();
+        this.props.clickHandler(e);
+
     };
     handleZusType = (e) => {
         this.props.handleZusType(e);
         this.borderAnimate();
+        this.props.clickHandler(e);
     };
     handleComputer = (e) => {
         this.setState({computerValue: e.target.value});
@@ -543,6 +547,7 @@ class MainCalc extends React.Component {
             + (Number(this.state.fuelValue) / 2))) * 100) / 100;
         let podatekPrzedsiebiorcy = Math.round((podstawaOpodatkowaniaPrzedsiebiorcy * (this.props.finalTaxPercentage / 100) - skladkaZdrowotnaPrzesiebiorcy2) * 100) / 100;
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100) / 100;
+
 
 
         return (
