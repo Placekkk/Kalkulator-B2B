@@ -34,7 +34,8 @@ class MainCalc extends React.Component {
                 style: {
                     display: 'none'
                 }
-            }
+            },
+            shouldShowDiscountBox: false
         }
     }
     handleTest = () => {
@@ -119,9 +120,12 @@ class MainCalc extends React.Component {
             }
         });
         if (podstawaDoOpodatkowania * 13 > drugiProgKwota) {           // pokazywanie miesiace przekroczenia
-            let months = ['styczen', 'luty', 'marzec', 'kwiecien', 'maj', 'czerwiec', 'lipiec', 'sierpien', 'wrzesien', 'pazdziernik', 'listopad', 'grudzien'];
+            let months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
             let result = Math.ceil(drugiProgKwota/podstawaDoOpodatkowania);
-            this.setState({testState: months[result], alertStyle: {display: 'flex'}})
+            // this.setState({testState: months[result], alertStyle: {display: 'flex'}})
+            if (this.state.shouldShowDiscountBox === false) {
+                this.setState({testState: months[result], alertStyle: {display: 'flex'}})
+            }
         }
         this.props.showButtonDisplay();
     };
@@ -184,6 +188,14 @@ class MainCalc extends React.Component {
                 }
             }
         })
+    };
+    dontShowAnymore = (e) => {
+        if (e.target.checked === true) {
+            this.setState({
+                shouldShowDiscountBox: true
+            })
+        }
+        else {this.setState({shouldShowDiscountBox: false})}
     };
     handleOverDiscount = () => {
         if (Number(this.state.computerValue) + Number(this.state.phoneValue) + Number(this.state.carValue) + Number(this.state.fuelValue) > Number(this.state.b2bSalary)) {
@@ -571,8 +583,12 @@ class MainCalc extends React.Component {
 
                             <div className={'alert-box'} style={this.state.alertStyle}>
                                 <h4>Uwaga</h4>
-                                <p>W miesiącu {this.state.testState} wejdziesz w II próg podatkowy. Kalkulator automatycznie
+                                <p>W miesiącu <span className={'month-display'}>{this.state.testState}</span> wejdziesz w II próg podatkowy. Kalkulator automatycznie
                                 zaciągnie średnią z zakładki "Roczna tabela dochodów" i porówna wyniki</p>
+                                <label>
+                                    <input type="checkbox" onChange={this.dontShowAnymore}></input>
+                                    Nie pokazuj więcej tego komunikatu
+                                </label>
                                 <button onClick={this.handleAlertAccept} className={'fancy-button'}>OK</button>
                             </div>
 

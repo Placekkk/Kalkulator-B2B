@@ -155,6 +155,10 @@ default fancy text background: rgba(20, 20, 20, .2)
     margin-bottom: 10px;
 }
 
+.month-display {
+    font-size: 1.1em;
+    font-weight: 900;
+}
 
 /*
 ////////////////////////////////////////////////////
