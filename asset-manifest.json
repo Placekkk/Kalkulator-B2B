@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Kalkulator-B2B/static/css/main.6c3a3fc9.chunk.css",
-    "main.js": "/Kalkulator-B2B/static/js/main.4284952f.chunk.js",
-    "main.js.map": "/Kalkulator-B2B/static/js/main.4284952f.chunk.js.map",
+    "main.css": "/Kalkulator-B2B/static/css/main.cffde323.chunk.css",
+    "main.js": "/Kalkulator-B2B/static/js/main.9558e995.chunk.js",
+    "main.js.map": "/Kalkulator-B2B/static/js/main.9558e995.chunk.js.map",
     "runtime~main.js": "/Kalkulator-B2B/static/js/runtime~main.cafe6a4e.js",
     "runtime~main.js.map": "/Kalkulator-B2B/static/js/runtime~main.cafe6a4e.js.map",
     "static/js/2.74c903e3.chunk.js": "/Kalkulator-B2B/static/js/2.74c903e3.chunk.js",
     "static/js/2.74c903e3.chunk.js.map": "/Kalkulator-B2B/static/js/2.74c903e3.chunk.js.map",
     "index.html": "/Kalkulator-B2B/index.html",
-    "precache-manifest.3d6ae01d99d21607d97579947b336e75.js": "/Kalkulator-B2B/precache-manifest.3d6ae01d99d21607d97579947b336e75.js",
+    "precache-manifest.cce4e982cc1a3e74cddafb8b97b3ccd9.js": "/Kalkulator-B2B/precache-manifest.cce4e982cc1a3e74cddafb8b97b3ccd9.js",
     "service-worker.js": "/Kalkulator-B2B/service-worker.js",
-    "static/css/main.6c3a3fc9.chunk.css.map": "/Kalkulator-B2B/static/css/main.6c3a3fc9.chunk.css.map"
+    "static/css/main.cffde323.chunk.css.map": "/Kalkulator-B2B/static/css/main.cffde323.chunk.css.map"
   }
 }
