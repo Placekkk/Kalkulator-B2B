@@ -76,6 +76,7 @@ class CalculatorAdvanced extends React.Component {
         let zarobekLaczniePrzedsiebiorcy = Math.round((lacznyKosztPracodawcy - razemDoZusPrzedsiebiorcy - podatekPrzedsiebiorcy) * 100 ) / 100;
         let dzienNieobecnosciPrzedsiebiorcy = Math.round(((((this.props.finalSamePlace === 'maly ZUS' ? 675 : 2859) * 0.8629) * 0.8) / 30 + 7.12) * 100) / 100;
 
+
         return (
                 <div className={'calculator-advanced'} style={this.props.elStyle}>
 
@@ -88,7 +89,7 @@ class CalculatorAdvanced extends React.Component {
 
                             <tr>
                                 <td>Pensja Brutto na umowie o pracę</td>
-                                <td style={{borderLeft: 'none'}}>{Math.round(brutSalary)}zł</td>
+                                <td style={{borderLeft: 'none'}}>{brutSalary}zł</td>
                             </tr>
 
                             <tr>
@@ -193,7 +194,7 @@ class CalculatorAdvanced extends React.Component {
                                 <th className={'title-cell'} colSpan={3}>Składki Zdrowotne - koszt pracownika</th>
                             </tr>
                             <tr>
-                                <td>Podstawa do skladki zdrowotnej</td>
+                                <td>Podstawa do składki zdrowotnej</td>
                                 <td colSpan={2}>{podstawaSkladkiZdrowotnej}zł</td>
                             </tr>
                             <tr>
@@ -228,11 +229,11 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
 
                             <tr>
-                                <td>Zarobek lacznie netto pracownika</td>
+                                <td>Zarobek łacznie netto pracownika</td>
                                 <td colSpan={2}>{Math.round((zarobekLacznieNettoPracownika) *100) /100}zł</td>
                             </tr>
                             <tr>
-                                <td>Laczny koszt pracodawcy</td>
+                                <td>Łączny koszt pracodawcy</td>
                                 <td colSpan={2}>{lacznyKosztPracodawcy}zł</td>
                             </tr>
 
@@ -255,7 +256,7 @@ class CalculatorAdvanced extends React.Component {
                                 <td>[Zł]</td>
                             </tr>
                             <tr>
-                                <th className={'title-cell'} colSpan={3}>Składki Społeczne - koszt przedsiebiorcy</th>
+                                <th className={'title-cell'} colSpan={3}>Składki Społeczne - koszt przedsiębiorcy</th>
                             </tr>
                             <tr>
                                 <td>Składka emerytalna</td>
@@ -268,7 +269,7 @@ class CalculatorAdvanced extends React.Component {
                                 <td>{skladkaRentowaPrzesiebiorcy}zl</td>
                             </tr>
                             <tr>
-                                <td>Skladka chorobowa</td>
+                                <td>Składka chorobowa</td>
                                 <td>2.45%</td>
                                 <td>{skladkaChorobowaPrzedsiebiorcy}zl</td>
                             </tr>
@@ -309,7 +310,7 @@ class CalculatorAdvanced extends React.Component {
                                 <td colSpan={2}>{this.props.finalPhone}zl</td>
                             </tr>
                             <tr>
-                                <td>Samochod</td>
+                                <td>Samochód</td>
                                 <td colSpan={2}>{this.props.finalCar}zl</td>
                             </tr>
                             <tr>
@@ -334,11 +335,11 @@ class CalculatorAdvanced extends React.Component {
                             </tr>
 
                             <tr>
-                                <td>Zarobek lacznie</td>
+                                <td>Zarobek łącznie</td>
                                 <td colSpan={2}>{zarobekLaczniePrzedsiebiorcy}zl</td>
                             </tr>
                             <tr>
-                                <td>W przypadku choroby na jeden dzien dostaniesz</td>
+                                <td>W przypadku choroby na jeden dzień dostaniesz</td>
                                 <td colSpan={2}>{dzienNieobecnosciPrzedsiebiorcy}zl</td>
                             </tr>
                             </tbody>

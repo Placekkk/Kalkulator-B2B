@@ -62,13 +62,13 @@ class YearlyIncomeTable extends React.Component {
 
             for (let i = 1; i < months.length; i++) {       // podatek dochodowy
                 if (months[i-1].podstawaDoOpodatkowaniaSuma > 85528) {
-                    months[i].podatekDochodowy = Math.round((months[i].podstawaDoOpodatkowania) * 0.32);
+                    months[i].podatekDochodowy = Math.round(((months[i].podstawaDoOpodatkowania) * 0.32) *100) /100;
                     taxMonthNumber = months[i].name;
                 }
-                else {months[i].podatekDochodowy = (months[i].podstawaDoOpodatkowania * 0.18) - 46.33}
+                else {months[i].podatekDochodowy = Math.round(((months[i].podstawaDoOpodatkowania * 0.18) - 46.33) *100) /100}
             }
 
-            months[0].podatekDochodowy = (months[i].podstawaDoOpodatkowania * 0.18) - 46.33;
+            months[0].podatekDochodowy = Math.round(((months[i].podstawaDoOpodatkowania * 0.18) - 46.33) *100) /100;
 
 
             for (let i = 0; i < months.length; i++) {          // zaliczka na podatek
@@ -125,7 +125,7 @@ class YearlyIncomeTable extends React.Component {
                         <tbody>
 
                         <tr>
-                            <th className={'yearly-income-table-sticky-column'}>Miesiac</th>
+                            <th className={'yearly-income-table-sticky-column'}>Miesiąc</th>
                             <th>Składka Emerytalna</th>
                             <th>Składka Rentowa</th>
                             <th>Składka Chorobowa</th>

@@ -760,7 +760,7 @@ export const mapDispatchToProps = (dispatch) => {
                 dispatch(action);
                 return
             }
-            const action = {type: 'CHANGED_RESULT_SALARY', previousUopSalary: parseInt(e.target.value)};
+            const action = {type: 'CHANGED_RESULT_SALARY', previousUopSalary: e.target.value};
             dispatch(action);
         },
         handleSalaryType: (e) => {
@@ -824,7 +824,8 @@ export const mapDispatchToProps = (dispatch) => {
             let shop = store.getState();
             let finalTypeSalary = shop.previousTypeSalary;
             let finalSamePlace = shop.previousSamePlace;
-            let finalSalary = finalTypeSalary === 'brut' ? shop.previousUopSalary : Math.round((shop.previousUopSalary - (shop.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775)));
+            // let finalSalary = finalTypeSalary === 'brut' ? shop.previousUopSalary : (shop.previousUopSalary - (shop.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775));
+            let finalSalary = finalTypeSalary === 'brut' ? shop.previousUopSalary : Math.round(((shop.previousUopSalary - (shop.previousSamePlace * 0.18) - 46.33) / (0.8629 * (1 - 0.09 - 0.18 + 0.0775))));
             let finalTaxPercentage = shop.previousTaxPercentage;
             let finalZusType = shop.previousZusType;
             let finalComputer = shop.previousComputer;
