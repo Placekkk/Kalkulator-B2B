@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.testRef = React.createRef();
         this.state = {
             shouldRender: true,
             advancedCalcStyle: {
@@ -16,7 +17,7 @@ class App extends React.Component {
             },
             foldText: 'Pokaż szczegółowe wyliczenia',
             showButtonStyle: {
-                display: 'none'
+                display: 'none',
             },
         }
     }
@@ -46,17 +47,28 @@ class App extends React.Component {
     handleShowButtonDisplay = () => {
         this.setState({
             showButtonStyle: {
-                display: 'block'
+                display: 'block',
+                marginBottom: '50px'
             }
-        })
+        }, this.scrollToMyRef)
+    };
+
+    scrollToMyRef = () => {
+        this.testRef.current.scrollIntoView({
+            alignToTop: true,
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'start'
+        });
     };
 
     render() {
+
         return (
         <div>
             <Provider store={store}>
-            {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh} showButtonDisplay={this.handleShowButtonDisplay}/> : null}
-            <h2 style={this.state.showButtonStyle} className={'show-advanced-calc-trigger'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Pokaż szczegółowe wyliczenia' ? "▼" : "▲"}</h2>
+            {this.state.shouldRender? <MainCalc testFunction={this.tryRefresh} scrollToDetails={this.scrollToMyRef} showButtonDisplay={this.handleShowButtonDisplay}/> : null}
+            <h2 ref={this.testRef} style={this.state.showButtonStyle} className={'show-advanced-calc-trigger'} onClick={this.handleShowHide}>{this.state.foldText} {this.state.foldText === 'Pokaż szczegółowe wyliczenia' ? "▼" : "▲"}</h2>
           <AdvancedValuesHolder handleUpdate={this.handleUpdate} advancedCalcShowHideStyle={this.state.advancedCalcStyle}/>
         </Provider>
         </div>

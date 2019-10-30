@@ -128,6 +128,7 @@ class MainCalc extends React.Component {
             }
         }
         this.props.showButtonDisplay();
+        this.props.scrollToDetails();
     };
     handleBrutNet = (e) => {
         this.props.handleSalaryType(e);
